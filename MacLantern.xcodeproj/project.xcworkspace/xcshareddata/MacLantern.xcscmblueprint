@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "8392B8DA90FFCBDAFE1349B25C56FCCCC39AA160",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "8392B8DA90FFCBDAFE1349B25C56FCCCC39AA160" : 9223372036854775807,
+    "22C314AC25C0AB1A81EB45761205E5E7DABB965D" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "CB9FDAE6-3D21-47F2-90AE-4E0FFC2B4635",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "8392B8DA90FFCBDAFE1349B25C56FCCCC39AA160" : "MacLantern\/",
+    "22C314AC25C0AB1A81EB45761205E5E7DABB965D" : "MacLantern\/lj92\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "MacLantern",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "MacLantern.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:martinhering\/liblj92.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "22C314AC25C0AB1A81EB45761205E5E7DABB965D"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:martinhering\/MacLantern.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8392B8DA90FFCBDAFE1349B25C56FCCCC39AA160"
+    }
+  ]
+}
