@@ -27,6 +27,9 @@
     struct raw_info _rawInfo;
     void*           _rawBuffer;
     BOOL            _compressed;
+    
+    double          _verticalBandingCoeffs[8];
+    int8_t          _verticalBandingCorrectionNeeded;
 }
 
 - (instancetype) initWithInfo:(struct raw_info)rawInfo buffer:(void*)rawBuffer compressed:(BOOL)compressed
@@ -238,7 +241,7 @@ NS_INLINE int32_t GetInterpolatedPixel(struct raw_info * raw_info, void* raw_buf
     }
 }
 
-
+#pragma mark - Repair Pixels
 
 - (MLVPixelMap*) deadPixelMap {
     size_t h = (_rawInfo.height >> 1 ) << 1;
@@ -379,6 +382,193 @@ NS_INLINE int32_t GetInterpolatedPixel(struct raw_info * raw_info, void* raw_buf
                 setRawPixel(&_rawInfo, _rawBuffer, x, y, ib);
             }
         }];
+    }
+}
+
+#pragma mark - Vertical Banding
+
+- (uint32_t) calculatedWhiteLevel
+{
+    __block int32_t white = _rawInfo.white_level * 2 / 3;
+    
+    [self _enumeratePixels:^(int32_t rx, int32_t ry, int32_t g1x, int32_t g1y, int32_t g2x, int32_t g2y, int32_t bx, int32_t by) {
+        white = MAX(white, GetRawPixel(&_rawInfo, _rawBuffer, rx, ry));
+        white = MAX(white, GetRawPixel(&_rawInfo, _rawBuffer, g1x, g1y));
+        white = MAX(white, GetRawPixel(&_rawInfo, _rawBuffer, g2x, g2y));
+        white = MAX(white, GetRawPixel(&_rawInfo, _rawBuffer, bx, by));
+    }];
+    
+    return white;
+}
+
+
+- (NSData*) findVerticalBandingCoefficients {
+    int32_t range = 1 << 16;
+    double halfRange = (range>>1);
+    int32_t* histogram[8];
+    int32_t num[8];
+    
+    memset(num, 0, sizeof(num));
+    
+    for(int32_t i=0; i<8; i++) {
+        histogram[i] = (int32_t*)calloc(sizeof(int32_t), range);
+    }
+    
+    register int32_t x, y;
+    register int32_t white = _rawInfo.white_level;
+    register int32_t black = _rawInfo.black_level;
+    register int32_t cutoff_black = 1 << MAX(0, (_rawInfo.bits_per_pixel-9));
+    
+    void (^addHistogramValue)() = ^void(int32_t* histogram[8], int32_t num[8], int32_t offset, int32_t p1, int32_t p2, int32_t weight) {
+        if (MIN(p1,p2) < cutoff_black)
+            return; /* too noisy */
+        
+        if (MAX(p1,p2) > white / 1.5)
+            return; /* too bright */
+        
+        double p1f = p1 + (rand() % 1024) / 1024.0 - 0.5;
+        double p2f = p2 + (rand() % 1024) / 1024.0 - 0.5;
+        double factor = p1f / p2f;
+        double ev = log2(factor);
+        
+        int32_t histogramOffset = COERCE((int)(halfRange + ev * halfRange), 0, range-1);
+        histogram[offset][histogramOffset] += weight;
+        num[offset] += weight;
+    };
+    
+    
+    for (y=0; y<_rawInfo.height; y++) {
+        for (x=0; x<_rawInfo.width-8; x+=8) {
+            int32_t pa = GetRawPixel(&_rawInfo, _rawBuffer, x, y) - black;
+            int32_t pb = GetRawPixel(&_rawInfo, _rawBuffer, x+1, y) - black;
+            int32_t pc = GetRawPixel(&_rawInfo, _rawBuffer, x+2, y) - black;
+            int32_t pd = GetRawPixel(&_rawInfo, _rawBuffer, x+3, y) - black;
+            int32_t pe = GetRawPixel(&_rawInfo, _rawBuffer, x+4, y) - black;
+            int32_t pf = GetRawPixel(&_rawInfo, _rawBuffer, x+5, y) - black;
+            int32_t pg = GetRawPixel(&_rawInfo, _rawBuffer, x+6, y) - black;
+            int32_t ph = GetRawPixel(&_rawInfo, _rawBuffer, x+7, y) - black;
+            
+            int32_t pa2 = GetRawPixel(&_rawInfo, _rawBuffer, x+8, y) - black;
+            int32_t pb2 = GetRawPixel(&_rawInfo, _rawBuffer, x+9, y) - black;
+            
+            addHistogramValue(histogram, num, 2, pa, pc, 3);
+            addHistogramValue(histogram, num, 2, pa2, pc, 1);
+            
+            addHistogramValue(histogram, num, 3, pb, pd, 2);
+            addHistogramValue(histogram, num, 3, pb2, pd, 2);
+            
+            addHistogramValue(histogram, num, 4, pa, pe, 2);
+            addHistogramValue(histogram, num, 4, pa2, pe, 2);
+            
+            addHistogramValue(histogram, num, 5, pb, pf, 2);
+            addHistogramValue(histogram, num, 5, pb2, pf, 2);
+            
+            addHistogramValue(histogram, num, 6, pa, pg, 1);
+            addHistogramValue(histogram, num, 6, pa2, pg, 3);
+            
+            addHistogramValue(histogram, num, 7, pb, ph, 1);
+            addHistogramValue(histogram, num, 7, pb2, ph, 3);
+        }
+    }
+    
+    _verticalBandingCoeffs[0] = 1;
+    _verticalBandingCoeffs[1] = 1;
+    
+    for (int32_t j = 2; j < 8; j++)
+    {
+        if (num[j] < _rawInfo.frame_size / 128) continue;
+        int32_t t = 0;
+        for (int32_t k = 0; k < range; k++)
+        {
+            t += histogram[j][k];
+            if (t >= num[j]>>1) {
+                _verticalBandingCoeffs[j] = pow(2, (k-(halfRange))/(halfRange));
+                break;
+            }
+        }
+    }
+    
+    _verticalBandingCorrectionNeeded = 2;
+    for (int32_t j = 0; j < 8; j++)
+    {
+        double c = _verticalBandingCoeffs[j];
+        if (c < 0.998 || c > 1.002) {
+            _verticalBandingCorrectionNeeded = 1;
+            break;
+        }
+    }
+    
+    if (_verticalBandingCorrectionNeeded == 1) {
+        return [NSData dataWithBytes:_verticalBandingCoeffs length:(sizeof(double)*8)];
+    }
+    
+    return nil;
+}
+
+- (void) fixVerticalBandingWithCoefficients:(NSData*)coefficients
+{
+    if (_verticalBandingCorrectionNeeded == 0) {
+        if (coefficients) {
+            NSAssert(coefficients.length == sizeof(double)*8, @"coefficients have invalid length");
+            memcpy(_verticalBandingCoeffs, coefficients.bytes, sizeof(double)*8);
+            _verticalBandingCorrectionNeeded = 1;
+        } else {
+            [self findVerticalBandingCoefficients];
+        }
+        
+    }
+    
+    if (_verticalBandingCorrectionNeeded == 2) {
+        return;
+    }
+    
+    
+    register int32_t white = [self calculatedWhiteLevel];
+    register int32_t black = _rawInfo.black_level;
+    register int32_t cutoff_black = 1 << MAX(0, (_rawInfo.bits_per_pixel-8));
+    register int32_t x, y;
+    
+    for (y=0; y<_rawInfo.height; y++) {
+        for (x=0; x<_rawInfo.width; x+=8) {
+            //int32_t pa = GetRawPixel(&_rawInfo, _rawBuffer, x, y);
+            //int32_t pb = GetRawPixel(&_rawInfo, _rawBuffer, x+1, y);
+            int32_t pc = GetRawPixel(&_rawInfo, _rawBuffer, x+2, y);
+            int32_t pd = GetRawPixel(&_rawInfo, _rawBuffer, x+3, y);
+            int32_t pe = GetRawPixel(&_rawInfo, _rawBuffer, x+4, y);
+            int32_t pf = GetRawPixel(&_rawInfo, _rawBuffer, x+5, y);
+            int32_t pg = GetRawPixel(&_rawInfo, _rawBuffer, x+6, y);
+            int32_t ph = GetRawPixel(&_rawInfo, _rawBuffer, x+7, y);
+            
+            if (pc < white && pc > black + cutoff_black) {
+                pc = MIN((int32_t)((pc - black) * _verticalBandingCoeffs[2] + black), white);
+                setRawPixel(&_rawInfo, _rawBuffer, x+2, y, pc);
+            }
+            
+            if (pd < white && pd > black + cutoff_black) {
+                pd = MIN((int32_t)((pd - black) * _verticalBandingCoeffs[3] + black), white);
+                setRawPixel(&_rawInfo, _rawBuffer, x+3, y, pd);
+            }
+            
+            if (pe < white && pe > black + cutoff_black) {
+                pe = MIN((int32_t)((pe - black) * _verticalBandingCoeffs[4] + black), white);
+                setRawPixel(&_rawInfo, _rawBuffer, x+4, y, pe);
+            }
+            
+            if (pf < white && pf > black + cutoff_black) {
+                pf = MIN((int32_t)((pf - black) * _verticalBandingCoeffs[5] + black), white);
+                setRawPixel(&_rawInfo, _rawBuffer, x+5, y, pf);
+            }
+            
+            if (pg < white && pg > black + cutoff_black) {
+                pg = MIN((int32_t)((pg - black) * _verticalBandingCoeffs[6] + black), white);
+                setRawPixel(&_rawInfo, _rawBuffer, x+6, y, pg);
+            }
+            
+            if (ph < white && ph > black + cutoff_black) {
+                ph = MIN((int32_t)((ph - black) * _verticalBandingCoeffs[7] + black), white);
+                setRawPixel(&_rawInfo, _rawBuffer, x+7, y, ph);
+            }
+        }
     }
 }
 

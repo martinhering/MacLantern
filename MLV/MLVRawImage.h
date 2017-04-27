@@ -57,6 +57,10 @@ typedef NS_ENUM(NSInteger, MLVRawImageFocusPixelsType) {
 
 - (void) fixFocusPixelsWithType:(MLVRawImageFocusPixelsType)type withCropX:(UInt16)cropX :(UInt16)cropY;
 
+- (uint32_t) calculatedWhiteLevel;
+- (NSData*) findVerticalBandingCoefficients;
+- (void) fixVerticalBandingWithCoefficients:(nullable NSData*)coefficients;
+
 - (MLVRawImage*) rawImageByChangingBitsPerPixel:(int32_t)bitsPerPixel;
 - (MLVRawImage*) rawImageByDecompressingBuffer;
 
