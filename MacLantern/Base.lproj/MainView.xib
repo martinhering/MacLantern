@@ -8,6 +8,10 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MLVMainViewController">
             <connections>
+                <outlet property="infoHostView" destination="znm-Up-FJJ" id="THf-ys-4dA"/>
+                <outlet property="patchesHostView" destination="YbM-8o-y98" id="LAy-DG-R1B"/>
+                <outlet property="presetsHostView" destination="qB1-H4-pbG" id="uee-H4-rzK"/>
+                <outlet property="splitView" destination="eA8-7s-PrF" id="USR-cL-Ams"/>
                 <outlet property="view" destination="c22-O7-iKe" id="wEo-jU-Dfr"/>
             </connections>
         </customObject>
@@ -15,6 +19,48 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="c22-O7-iKe">
             <rect key="frame" x="0.0" y="0.0" width="804" height="444"/>
+            <subviews>
+                <splitView arrangesAllSubviews="NO" autosaveName="MainSplitView" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eA8-7s-PrF" customClass="MLVSplitView">
+                    <rect key="frame" x="0.0" y="0.0" width="804" height="443"/>
+                    <subviews>
+                        <customView fixedFrame="YES" id="qB1-H4-pbG">
+                            <rect key="frame" x="0.0" y="0.0" width="335" height="443"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </customView>
+                        <customView fixedFrame="YES" id="YbM-8o-y98">
+                            <rect key="frame" x="336" y="0.0" width="330.5" height="443"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </customView>
+                        <customView fixedFrame="YES" id="znm-Up-FJJ">
+                            <rect key="frame" x="667.5" y="0.0" width="136.5" height="443"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        </customView>
+                    </subviews>
+                    <holdingPriorities>
+                        <real value="250"/>
+                        <real value="250"/>
+                        <real value="250"/>
+                    </holdingPriorities>
+                    <connections>
+                        <outlet property="delegate" destination="-2" id="0Hl-iX-1Hd"/>
+                    </connections>
+                </splitView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="aoM-ls-qJz" customClass="MLVDividerView">
+                    <rect key="frame" x="0.0" y="443" width="804" height="1"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="XsG-UQ-1QI"/>
+                    </constraints>
+                </customView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="eA8-7s-PrF" firstAttribute="top" secondItem="aoM-ls-qJz" secondAttribute="bottom" id="2qO-OU-P2x"/>
+                <constraint firstAttribute="bottom" secondItem="eA8-7s-PrF" secondAttribute="bottom" id="DCb-H8-nNT"/>
+                <constraint firstItem="aoM-ls-qJz" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="eBB-or-mu4"/>
+                <constraint firstAttribute="trailing" secondItem="aoM-ls-qJz" secondAttribute="trailing" id="efD-z3-YCJ"/>
+                <constraint firstAttribute="trailing" secondItem="eA8-7s-PrF" secondAttribute="trailing" id="jmA-Wj-jLh"/>
+                <constraint firstItem="aoM-ls-qJz" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="k9Y-63-JOa"/>
+                <constraint firstItem="eA8-7s-PrF" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="qsT-Wt-JMC"/>
+            </constraints>
             <point key="canvasLocation" x="143" y="149"/>
         </customView>
     </objects>

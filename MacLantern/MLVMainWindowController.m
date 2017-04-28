@@ -19,6 +19,7 @@
  */
 
 #import "MLVMainWindowController.h"
+#import "NSColor+MacLantern.h"
 
 @interface MLVMainWindowController ()
 @property (weak) IBOutlet NSToolbar* toolbar;
@@ -37,7 +38,7 @@
 
     NSWindow* window = self.window;
     window.appearance = [NSAppearance appearanceNamed:NSAppearanceNameVibrantDark];
-    window.backgroundColor = [NSColor blackColor];
+    window.backgroundColor = [NSColor mlv_panelColor];
     window.titleVisibility = NSWindowTitleHidden;
     window.colorSpace = [NSColorSpace displayP3ColorSpace];
 
