@@ -28,7 +28,7 @@
     static dispatch_once_t once;
     static NSColor * mlv_windowColor;
     dispatch_once(&once, ^ {
-        mlv_windowColor = [NSColor colorWithCalibratedWhite:0.0 alpha:1.0];
+        mlv_windowColor = [NSColor colorWithCalibratedWhite:0.05 alpha:1.0];
     });
     return mlv_windowColor;
 };

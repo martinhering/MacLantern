@@ -19,12 +19,15 @@
  */
 
 #import "MLVMainViewController.h"
+#import "MLVBatchesViewController.h"
 
 @interface MLVMainViewController () <NSSplitViewDelegate>
 @property (weak) IBOutlet NSSplitView* splitView;
 @property (weak) IBOutlet NSView* presetsHostView;
-@property (weak) IBOutlet NSView* patchesHostView;
+@property (weak) IBOutlet NSView* batchesHostView;
 @property (weak) IBOutlet NSView* infoHostView;
+
+@property (nonatomic, strong) MLVBatchesViewController* batchesViewController;
 @end
 
 @implementation MLVMainViewController
@@ -36,7 +39,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // Do any additional setup after loading the view.
+    self.batchesViewController = [MLVBatchesViewController viewController];
+    [self.batchesHostView addSubview:self.batchesViewController.view];
+    [self.batchesHostView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[subview]|"
+                                                                                 options:0
+                                                                                 metrics:nil
+                                                                                   views:@{@"subview" : self.batchesViewController.view}]];
+
+    [self.batchesHostView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[subview]|"
+                                                                                 options:0
+                                                                                 metrics:nil
+                                                                                   views:@{@"subview" : self.batchesViewController.view}]];
 }
 
 
@@ -87,8 +100,8 @@
     }
 
     self.presetsHostView.frame = NSMakeRect(0, 0, leftWidth, NSHeight(splitViewRect));
-    self.patchesHostView.frame = NSMakeRect(leftWidth+1, 0, middleWidth, NSHeight(splitViewRect));
-    self.infoHostView.frame = NSMakeRect(NSMaxX(self.patchesHostView.frame)+1, 0, 250, NSHeight(splitViewRect));
+    self.batchesHostView.frame = NSMakeRect(leftWidth+1, 0, middleWidth, NSHeight(splitViewRect));
+    self.infoHostView.frame = NSMakeRect(NSMaxX(self.batchesHostView.frame)+1, 0, 250, NSHeight(splitViewRect));
 }
 
 @end

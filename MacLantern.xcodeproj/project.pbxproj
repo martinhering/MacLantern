@@ -21,6 +21,14 @@
 		1B27FAC81EB38A6C00ECF32F /* MLVSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FAC71EB38A6C00ECF32F /* MLVSplitView.m */; };
 		1B27FACB1EB38AFD00ECF32F /* NSColor+MacLantern.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FACA1EB38AFD00ECF32F /* NSColor+MacLantern.m */; };
 		1B27FACE1EB38C6400ECF32F /* MLVDividerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FACD1EB38C6400ECF32F /* MLVDividerView.m */; };
+		1B27FAD21EB38F7B00ECF32F /* MLVDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FAD11EB38F7B00ECF32F /* MLVDataManager.m */; };
+		1B27FAD51EB3904200ECF32F /* MLVBatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FAD41EB3904200ECF32F /* MLVBatch.m */; };
+		1B27FAD81EB3907E00ECF32F /* MLVJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FAD71EB3907E00ECF32F /* MLVJob.m */; };
+		1B27FADB1EB3910500ECF32F /* MLVOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FADA1EB3910500ECF32F /* MLVOutput.m */; };
+		1B27FAE11EB392DF00ECF32F /* MLVBatchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FAE01EB392DF00ECF32F /* MLVBatchesViewController.m */; };
+		1B27FAE41EB3934F00ECF32F /* BatchesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B27FAE21EB3934F00ECF32F /* BatchesView.xib */; };
+		1B27FAE71EB393DA00ECF32F /* MLVSecondaryLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FAE61EB393DA00ECF32F /* MLVSecondaryLabel.m */; };
+		1B27FAEA1EB394CB00ECF32F /* MLVContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FAE91EB394CB00ECF32F /* MLVContentView.m */; };
 		1B88F54D1EB1CA6D00BE1163 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F54C1EB1CA6D00BE1163 /* AppDelegate.m */; };
 		1B88F5501EB1CA6D00BE1163 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F54F1EB1CA6D00BE1163 /* main.m */; };
 		1B88F5531EB1CA6D00BE1163 /* MLVMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F5521EB1CA6D00BE1163 /* MLVMainViewController.m */; };
@@ -87,6 +95,21 @@
 		1B27FACA1EB38AFD00ECF32F /* NSColor+MacLantern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+MacLantern.m"; sourceTree = "<group>"; };
 		1B27FACC1EB38C6400ECF32F /* MLVDividerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVDividerView.h; sourceTree = "<group>"; };
 		1B27FACD1EB38C6400ECF32F /* MLVDividerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVDividerView.m; sourceTree = "<group>"; };
+		1B27FAD01EB38F7B00ECF32F /* MLVDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVDataManager.h; sourceTree = "<group>"; };
+		1B27FAD11EB38F7B00ECF32F /* MLVDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVDataManager.m; sourceTree = "<group>"; };
+		1B27FAD31EB3904200ECF32F /* MLVBatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVBatch.h; sourceTree = "<group>"; };
+		1B27FAD41EB3904200ECF32F /* MLVBatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVBatch.m; sourceTree = "<group>"; };
+		1B27FAD61EB3907E00ECF32F /* MLVJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVJob.h; sourceTree = "<group>"; };
+		1B27FAD71EB3907E00ECF32F /* MLVJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVJob.m; sourceTree = "<group>"; };
+		1B27FAD91EB3910500ECF32F /* MLVOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVOutput.h; sourceTree = "<group>"; };
+		1B27FADA1EB3910500ECF32F /* MLVOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVOutput.m; sourceTree = "<group>"; };
+		1B27FADF1EB392DF00ECF32F /* MLVBatchesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVBatchesViewController.h; sourceTree = "<group>"; };
+		1B27FAE01EB392DF00ECF32F /* MLVBatchesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVBatchesViewController.m; sourceTree = "<group>"; };
+		1B27FAE31EB3934F00ECF32F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/BatchesView.xib; sourceTree = "<group>"; };
+		1B27FAE51EB393DA00ECF32F /* MLVSecondaryLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVSecondaryLabel.h; sourceTree = "<group>"; };
+		1B27FAE61EB393DA00ECF32F /* MLVSecondaryLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVSecondaryLabel.m; sourceTree = "<group>"; };
+		1B27FAE81EB394CB00ECF32F /* MLVContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVContentView.h; sourceTree = "<group>"; };
+		1B27FAE91EB394CB00ECF32F /* MLVContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVContentView.m; sourceTree = "<group>"; };
 		1B88F5481EB1CA6D00BE1163 /* MacLantern.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacLantern.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B88F54B1EB1CA6D00BE1163 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1B88F54C1EB1CA6D00BE1163 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -159,8 +182,27 @@
 				1B27FACA1EB38AFD00ECF32F /* NSColor+MacLantern.m */,
 				1B27FACC1EB38C6400ECF32F /* MLVDividerView.h */,
 				1B27FACD1EB38C6400ECF32F /* MLVDividerView.m */,
+				1B27FAE51EB393DA00ECF32F /* MLVSecondaryLabel.h */,
+				1B27FAE61EB393DA00ECF32F /* MLVSecondaryLabel.m */,
+				1B27FAE81EB394CB00ECF32F /* MLVContentView.h */,
+				1B27FAE91EB394CB00ECF32F /* MLVContentView.m */,
 			);
 			name = "UI Toolbox";
+			sourceTree = "<group>";
+		};
+		1B27FACF1EB38F6300ECF32F /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				1B27FAD01EB38F7B00ECF32F /* MLVDataManager.h */,
+				1B27FAD11EB38F7B00ECF32F /* MLVDataManager.m */,
+				1B27FAD31EB3904200ECF32F /* MLVBatch.h */,
+				1B27FAD41EB3904200ECF32F /* MLVBatch.m */,
+				1B27FAD61EB3907E00ECF32F /* MLVJob.h */,
+				1B27FAD71EB3907E00ECF32F /* MLVJob.m */,
+				1B27FAD91EB3910500ECF32F /* MLVOutput.h */,
+				1B27FADA1EB3910500ECF32F /* MLVOutput.m */,
+			);
+			name = Data;
 			sourceTree = "<group>";
 		};
 		1B88F53F1EB1CA6D00BE1163 = {
@@ -190,11 +232,15 @@
 				1B27FAB01EB3852F00ECF32F /* MLVMainWindowController.m */,
 				1B88F5511EB1CA6D00BE1163 /* MLVMainViewController.h */,
 				1B88F5521EB1CA6D00BE1163 /* MLVMainViewController.m */,
+				1B27FADF1EB392DF00ECF32F /* MLVBatchesViewController.h */,
+				1B27FAE01EB392DF00ECF32F /* MLVBatchesViewController.m */,
+				1B27FACF1EB38F6300ECF32F /* Data */,
 				1B27FAC51EB38A5300ECF32F /* UI Toolbox */,
 				1B88F5541EB1CA6D00BE1163 /* Assets.xcassets */,
 				1B88F5561EB1CA6D00BE1163 /* Main.storyboard */,
 				1B27FAB21EB3855D00ECF32F /* MainWindow.xib */,
 				1B27FAAC1EB384AB00ECF32F /* MainView.xib */,
+				1B27FAE21EB3934F00ECF32F /* BatchesView.xib */,
 				1B88F5591EB1CA6D00BE1163 /* Info.plist */,
 				1B88F54E1EB1CA6D00BE1163 /* Supporting Files */,
 			);
@@ -331,6 +377,7 @@
 				1B88F57F1EB1CB9300BE1163 /* 100d-1808x728-blue.png in Resources */,
 				1B88F5871EB1CB9300BE1163 /* eosm-650d-700d-1872x1058-crop-blue.png in Resources */,
 				1B27FAB41EB3855D00ECF32F /* MainWindow.xib in Resources */,
+				1B27FAE41EB3934F00ECF32F /* BatchesView.xib in Resources */,
 				1B27FAB91EB3873300ECF32F /* com.andymatuschak.Sparkle.install-service.xpc in Resources */,
 				1B88F5811EB1CB9300BE1163 /* 100d-1872x1060-blue.png in Resources */,
 				1B88F5861EB1CB9300BE1163 /* eosm-650d-700d-1808x728-fullframe-red.png in Resources */,
@@ -382,12 +429,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B27FAEA1EB394CB00ECF32F /* MLVContentView.m in Sources */,
+				1B27FAD21EB38F7B00ECF32F /* MLVDataManager.m in Sources */,
 				1B27FACB1EB38AFD00ECF32F /* NSColor+MacLantern.m in Sources */,
 				1B88F5991EB1D3DB00BE1163 /* lj92.c in Sources */,
 				1B27FAB11EB3852F00ECF32F /* MLVMainWindowController.m in Sources */,
+				1B27FAE11EB392DF00ECF32F /* MLVBatchesViewController.m in Sources */,
 				1B88F5531EB1CA6D00BE1163 /* MLVMainViewController.m in Sources */,
 				1B88F5501EB1CA6D00BE1163 /* main.m in Sources */,
+				1B27FADB1EB3910500ECF32F /* MLVOutput.m in Sources */,
+				1B27FAD81EB3907E00ECF32F /* MLVJob.m in Sources */,
+				1B27FAD51EB3904200ECF32F /* MLVBatch.m in Sources */,
 				1B88F58D1EB1CB9300BE1163 /* MLVRawImage.m in Sources */,
+				1B27FAE71EB393DA00ECF32F /* MLVSecondaryLabel.m in Sources */,
 				1B27FAC81EB38A6C00ECF32F /* MLVSplitView.m in Sources */,
 				1B88F58C1EB1CB9300BE1163 /* MLVPixelMap.m in Sources */,
 				1B27FACE1EB38C6400ECF32F /* MLVDividerView.m in Sources */,
@@ -414,6 +468,14 @@
 				1B27FAB31EB3855D00ECF32F /* Base */,
 			);
 			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		1B27FAE21EB3934F00ECF32F /* BatchesView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B27FAE31EB3934F00ECF32F /* Base */,
+			);
+			name = BatchesView.xib;
 			sourceTree = "<group>";
 		};
 		1B88F5561EB1CA6D00BE1163 /* Main.storyboard */ = {

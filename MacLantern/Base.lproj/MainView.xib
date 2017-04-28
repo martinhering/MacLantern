@@ -8,8 +8,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MLVMainViewController">
             <connections>
+                <outlet property="batchesHostView" destination="YbM-8o-y98" id="ZIe-Rj-qPt"/>
                 <outlet property="infoHostView" destination="znm-Up-FJJ" id="THf-ys-4dA"/>
-                <outlet property="patchesHostView" destination="YbM-8o-y98" id="LAy-DG-R1B"/>
                 <outlet property="presetsHostView" destination="qB1-H4-pbG" id="uee-H4-rzK"/>
                 <outlet property="splitView" destination="eA8-7s-PrF" id="USR-cL-Ams"/>
                 <outlet property="view" destination="c22-O7-iKe" id="wEo-jU-Dfr"/>
