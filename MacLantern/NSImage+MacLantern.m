@@ -17,35 +17,36 @@
  * 51 Franklin Street, Fifth Floor,
  * Boston, MA  02110-1301, USA.
  */
-
-#import "MLVJobViewController.h"
-#import "MLVContentView.h"
 #import "NSImage+MacLantern.h"
-#import "NSColor+MacLantern.h"
 
-@interface MLVJobViewController ()
-@property (readonly) NSImage* iconImage;
-@end
+@implementation NSImage (MacLantern)
 
-@implementation MLVJobViewController
+- (NSImage *) imageWithColor:(NSColor *)aColor
+{
+    NSImage * aMaskImage = self;
 
-+ (instancetype) viewController {
-    return [[self alloc] initWithNibName:@"JobView" bundle:nil];
+    NSSize aSize = [aMaskImage size];
+    NSImage * aDestImage = [[NSImage alloc] initWithSize:[aMaskImage size]];
+    [aDestImage lockFocus];
+    [[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
+
+    /// draw here
+
+    [aColor set];
+    NSRect aRect = NSZeroRect;
+    aRect.size = aSize;
+    [[NSBezierPath bezierPathWithRect:aRect] fill];
+
+    // end draw
+
+
+    //[aMaskImage compositeToPoint:NSZeroPoint operation:NSCompositeDestinationAtop];
+
+    [aMaskImage drawInRect:aRect fromRect:NSZeroRect operation:NSCompositeDestinationAtop fraction:1.0 respectFlipped:YES hints:nil];
+
+    [aDestImage unlockFocus];
+    return aDestImage;
+    
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do view setup here.
-}
-
-#pragma mark -
-
-+ (NSSet*) keyPathsForValuesAffectingIconImage {
-    return [NSSet setWithObject:@"view.selected"];
-}
-
-- (NSImage*) iconImage {
-    NSColor* iconColor = (((MLVContentView*)self.view).selected) ? [NSColor whiteColor] : [NSColor mlv_controlColor];
-    return [[NSImage imageNamed:@"iconFile"] imageWithColor:iconColor];
-}
 @end

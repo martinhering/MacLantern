@@ -24,7 +24,9 @@
 
 @interface MLVJob : NSObject
 
-@property (copy) NSString* name;
-@property (copy) NSArray<MLVOutput*>* outputs;
+@property (nonatomic, strong) NSString* name;
+@property (nonatomic, strong) NSURL* url;
+@property (nonatomic, strong) NSArray<MLVOutput*>* outputs;
 
+- (void) readFileWithCompletion:(void (^)(BOOL success, NSError* error))completion;
 @end

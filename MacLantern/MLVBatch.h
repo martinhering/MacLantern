@@ -27,4 +27,5 @@
 @property (nonatomic, strong) NSString* name;
 @property (nonatomic, strong) NSArray<MLVJob*>* jobs;
 
+- (void) addJobWithURL:(NSURL*)url;
 @end

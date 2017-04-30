@@ -18,21 +18,8 @@
  * Boston, MA  02110-1301, USA.
  */
 
-#import "MLVJob.h"
+#import <Cocoa/Cocoa.h>
 
-@implementation MLVJob
+@interface MLVButton : NSButton
 
-- (void) setUrl:(NSURL *)url {
-    if (_url != url) {
-        _url = url;
-
-        self.name = [url.lastPathComponent stringByDeletingPathExtension];
-    }
-}
-
-- (void) readFileWithCompletion:(void (^)(BOOL success, NSError* error))completion
-{
-
-    return;
-}
 @end

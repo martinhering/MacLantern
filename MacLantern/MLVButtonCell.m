@@ -18,34 +18,35 @@
  * Boston, MA  02110-1301, USA.
  */
 
-#import "MLVJobViewController.h"
-#import "MLVContentView.h"
+#import "MLVButtonCell.h"
 #import "NSImage+MacLantern.h"
 #import "NSColor+MacLantern.h"
 
-@interface MLVJobViewController ()
-@property (readonly) NSImage* iconImage;
-@end
+@implementation MLVButtonCell
 
-@implementation MLVJobViewController
+- (NSColor*) color {
+    NSColor* normalColor = [NSColor mlv_controlColor];
+    NSColor* highlightColor = [NSColor whiteColor];
 
-+ (instancetype) viewController {
-    return [[self alloc] initWithNibName:@"JobView" bundle:nil];
+    NSCellStyleMask showsStateBy = self.showsStateBy;
+    return (self.highlighted || (showsStateBy != NSNoCellMask && self.state == NSOnState)) ? highlightColor : normalColor;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do view setup here.
+- (void) drawBezelWithFrame:(NSRect)frame inView:(NSView *)controlView
+{
+
 }
 
-#pragma mark -
+- (void) drawImage:(NSImage *)image withFrame:(NSRect)frame inView:(NSButton *)controlView
+{
+    image = [image imageWithColor:[self color]];
 
-+ (NSSet*) keyPathsForValuesAffectingIconImage {
-    return [NSSet setWithObject:@"view.selected"];
+    [image drawInRect:frame
+             fromRect:NSZeroRect
+            operation:NSCompositeSourceOver
+             fraction:(self.enabled) ? 1 : 0.5
+       respectFlipped:YES
+                hints:nil];
 }
 
-- (NSImage*) iconImage {
-    NSColor* iconColor = (((MLVContentView*)self.view).selected) ? [NSColor whiteColor] : [NSColor mlv_controlColor];
-    return [[NSImage imageNamed:@"iconFile"] imageWithColor:iconColor];
-}
 @end

@@ -17,22 +17,10 @@
  * 51 Franklin Street, Fifth Floor,
  * Boston, MA  02110-1301, USA.
  */
+#import <Cocoa/Cocoa.h>
 
-#import "MLVJob.h"
+@interface NSImage (MacLantern)
 
-@implementation MLVJob
+- (NSImage *) imageWithColor:(NSColor *)aColor;
 
-- (void) setUrl:(NSURL *)url {
-    if (_url != url) {
-        _url = url;
-
-        self.name = [url.lastPathComponent stringByDeletingPathExtension];
-    }
-}
-
-- (void) readFileWithCompletion:(void (^)(BOOL success, NSError* error))completion
-{
-
-    return;
-}
 @end

@@ -19,7 +19,7 @@
                     <rect key="frame" x="0.0" y="171" width="480" height="30"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aao-9V-SrD" customClass="MLVPrimaryLabel">
-                            <rect key="frame" x="8" y="8" width="33" height="14"/>
+                            <rect key="frame" x="26" y="8" width="33" height="14"/>
                             <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="fWL-u6-Whx">
                                 <font key="font" metaFont="smallSystem"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -29,11 +29,21 @@
                                 <binding destination="-2" name="value" keyPath="job.name" id="v23-Zj-k0e"/>
                             </connections>
                         </textField>
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rl1-1L-8rs">
+                            <rect key="frame" x="10" y="7" width="13" height="16"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="iconFile" id="kRv-Ts-2tR"/>
+                            <connections>
+                                <binding destination="-2" name="value" keyPath="iconImage" id="TVm-Xb-oNY"/>
+                            </connections>
+                        </imageView>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="rl1-1L-8rs" firstAttribute="centerY" secondItem="g9W-Ul-EMl" secondAttribute="centerY" id="2N6-hT-RBD"/>
                         <constraint firstItem="Aao-9V-SrD" firstAttribute="centerY" secondItem="g9W-Ul-EMl" secondAttribute="centerY" id="5FO-EQ-ZNM"/>
-                        <constraint firstItem="Aao-9V-SrD" firstAttribute="leading" secondItem="g9W-Ul-EMl" secondAttribute="leading" constant="10" id="E8y-aj-0ms"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Aao-9V-SrD" secondAttribute="trailing" constant="10" id="Pqn-EP-qvK"/>
+                        <constraint firstItem="Aao-9V-SrD" firstAttribute="leading" secondItem="rl1-1L-8rs" secondAttribute="trailing" constant="5" id="cgC-iD-71w"/>
                         <constraint firstAttribute="height" constant="30" id="diB-7m-ahw"/>
+                        <constraint firstItem="rl1-1L-8rs" firstAttribute="leading" secondItem="g9W-Ul-EMl" secondAttribute="leading" constant="10" id="o3V-dX-8cM"/>
                     </constraints>
                 </customView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="CJm-rK-Y68">
@@ -55,4 +65,7 @@
             <point key="canvasLocation" x="139" y="229.5"/>
         </customView>
     </objects>
+    <resources>
+        <image name="iconFile" width="13" height="16"/>
+    </resources>
 </document>

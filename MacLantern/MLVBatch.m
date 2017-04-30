@@ -20,6 +20,7 @@
 
 #import "MLVBatch.h"
 #import "MLVJob.h"
+#import "MLVTypes.h"
 
 @implementation MLVBatch
 
@@ -32,8 +33,56 @@
     for(MLVJob* job in self.jobs) {
         [jobNames addObject:job.name];
     }
-    return [jobNames componentsJoinedByString:@", "];
+    return (jobNames.count > 0) ? [jobNames componentsJoinedByString:@", "] : @"Untitled";
 }
 
+- (void) addJobWithURL:(NSURL*)url
+{
+    [self _addJobWithURL:url level:0];
+}
+
+- (void) _addJobWithURL:(NSURL*)url level:(NSInteger)level
+{
+    NSFileManager* fman = [NSFileManager defaultManager];
+
+    NSError* error;
+    NSDictionary<NSURLResourceKey, id> *urlResources = [url resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&error];
+    if (error) {
+        ErrLog(@"error getting URL resources: %@", error);
+        return;
+    }
+
+    if ([urlResources[NSURLIsDirectoryKey] boolValue]) {
+        if (level == 0) {
+            self.name = [url.lastPathComponent stringByDeletingPathExtension];
+        }
+        NSDirectoryEnumerator<NSURL*>* enumerator = [fman enumeratorAtURL:url
+                                               includingPropertiesForKeys:nil
+                                                                  options:NSDirectoryEnumerationSkipsSubdirectoryDescendants | NSDirectoryEnumerationSkipsPackageDescendants | NSDirectoryEnumerationSkipsHiddenFiles
+                                                             errorHandler:^BOOL(NSURL *url, NSError *error) {
+                                                                 return YES;
+                                                             }];
+        for (NSURL *fileURL in enumerator) {
+            [self _addJobWithURL:fileURL level:level+1];
+        }
+        return;
+    }
+
+    if ([url.pathExtension caseInsensitiveCompare:@"mlv"] != NSOrderedSame) {
+        return;
+    }
+
+     MLVJob* job = [[MLVJob alloc] init];
+     job.url = url;
+
+     [job readFileWithCompletion:^(BOOL success, NSError *error) {
+
+     }];
+
+     if (!self.jobs) {
+         self.jobs = @[];
+     }
+     [[self mutableArrayValueForKey:@"jobs"] addObject:job];
+}
 
 @end

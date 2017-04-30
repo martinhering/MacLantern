@@ -36,6 +36,9 @@
 		1B27FB001EB51C8300ECF32F /* JobView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B27FAFE1EB51C8300ECF32F /* JobView.xib */; };
 		1B27FB031EB5C7D000ECF32F /* NSObject+MacLantern.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FB021EB5C7D000ECF32F /* NSObject+MacLantern.m */; };
 		1B27FB061EB5D9AE00ECF32F /* MLVFlippedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FB051EB5D9AE00ECF32F /* MLVFlippedView.m */; };
+		1B27FB091EB6082F00ECF32F /* MLVButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FB081EB6082F00ECF32F /* MLVButtonCell.m */; };
+		1B27FB0D1EB608C200ECF32F /* NSImage+MacLantern.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FB0C1EB608C200ECF32F /* NSImage+MacLantern.m */; };
+		1B27FB101EB609FC00ECF32F /* MLVButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FB0F1EB609FC00ECF32F /* MLVButton.m */; };
 		1B88F54D1EB1CA6D00BE1163 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F54C1EB1CA6D00BE1163 /* AppDelegate.m */; };
 		1B88F5501EB1CA6D00BE1163 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F54F1EB1CA6D00BE1163 /* main.m */; };
 		1B88F5531EB1CA6D00BE1163 /* MLVMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F5521EB1CA6D00BE1163 /* MLVMainViewController.m */; };
@@ -129,6 +132,12 @@
 		1B27FB021EB5C7D000ECF32F /* NSObject+MacLantern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MacLantern.m"; sourceTree = "<group>"; };
 		1B27FB041EB5D9AE00ECF32F /* MLVFlippedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVFlippedView.h; sourceTree = "<group>"; };
 		1B27FB051EB5D9AE00ECF32F /* MLVFlippedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVFlippedView.m; sourceTree = "<group>"; };
+		1B27FB071EB6082F00ECF32F /* MLVButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVButtonCell.h; sourceTree = "<group>"; };
+		1B27FB081EB6082F00ECF32F /* MLVButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVButtonCell.m; sourceTree = "<group>"; };
+		1B27FB0B1EB608C200ECF32F /* NSImage+MacLantern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+MacLantern.h"; sourceTree = "<group>"; };
+		1B27FB0C1EB608C200ECF32F /* NSImage+MacLantern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+MacLantern.m"; sourceTree = "<group>"; };
+		1B27FB0E1EB609FC00ECF32F /* MLVButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVButton.h; sourceTree = "<group>"; };
+		1B27FB0F1EB609FC00ECF32F /* MLVButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVButton.m; sourceTree = "<group>"; };
 		1B88F5481EB1CA6D00BE1163 /* MacLantern.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacLantern.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B88F54B1EB1CA6D00BE1163 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1B88F54C1EB1CA6D00BE1163 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -201,6 +210,8 @@
 				1B27FACA1EB38AFD00ECF32F /* NSColor+MacLantern.m */,
 				1B27FB011EB5C7D000ECF32F /* NSObject+MacLantern.h */,
 				1B27FB021EB5C7D000ECF32F /* NSObject+MacLantern.m */,
+				1B27FB0B1EB608C200ECF32F /* NSImage+MacLantern.h */,
+				1B27FB0C1EB608C200ECF32F /* NSImage+MacLantern.m */,
 				1B27FACC1EB38C6400ECF32F /* MLVDividerView.h */,
 				1B27FACD1EB38C6400ECF32F /* MLVDividerView.m */,
 				1B27FAE51EB393DA00ECF32F /* MLVSecondaryLabel.h */,
@@ -211,6 +222,10 @@
 				1B27FAE91EB394CB00ECF32F /* MLVContentView.m */,
 				1B27FB041EB5D9AE00ECF32F /* MLVFlippedView.h */,
 				1B27FB051EB5D9AE00ECF32F /* MLVFlippedView.m */,
+				1B27FB071EB6082F00ECF32F /* MLVButtonCell.h */,
+				1B27FB081EB6082F00ECF32F /* MLVButtonCell.m */,
+				1B27FB0E1EB609FC00ECF32F /* MLVButton.h */,
+				1B27FB0F1EB609FC00ECF32F /* MLVButton.m */,
 			);
 			name = "UI Toolbox";
 			sourceTree = "<group>";
@@ -477,8 +492,10 @@
 				1B88F5991EB1D3DB00BE1163 /* lj92.c in Sources */,
 				1B27FAB11EB3852F00ECF32F /* MLVMainWindowController.m in Sources */,
 				1B27FAE11EB392DF00ECF32F /* MLVBatchesViewController.m in Sources */,
+				1B27FB091EB6082F00ECF32F /* MLVButtonCell.m in Sources */,
 				1B88F5531EB1CA6D00BE1163 /* MLVMainViewController.m in Sources */,
 				1B88F5501EB1CA6D00BE1163 /* main.m in Sources */,
+				1B27FB101EB609FC00ECF32F /* MLVButton.m in Sources */,
 				1B27FB061EB5D9AE00ECF32F /* MLVFlippedView.m in Sources */,
 				1B27FB031EB5C7D000ECF32F /* NSObject+MacLantern.m in Sources */,
 				1B27FADB1EB3910500ECF32F /* MLVOutput.m in Sources */,
@@ -490,6 +507,7 @@
 				1B27FAC81EB38A6C00ECF32F /* MLVSplitView.m in Sources */,
 				1B27FAF31EB5101000ECF32F /* MLVPrimaryLabel.m in Sources */,
 				1B88F58C1EB1CB9300BE1163 /* MLVPixelMap.m in Sources */,
+				1B27FB0D1EB608C200ECF32F /* NSImage+MacLantern.m in Sources */,
 				1B27FACE1EB38C6400ECF32F /* MLVDividerView.m in Sources */,
 				1B88F54D1EB1CA6D00BE1163 /* AppDelegate.m in Sources */,
 				1B88F5901EB1CB9300BE1163 /* MLVFile.m in Sources */,

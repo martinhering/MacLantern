@@ -18,21 +18,19 @@
  * Boston, MA  02110-1301, USA.
  */
 
-#import "MLVJob.h"
+#import "MLVButton.h"
 
-@implementation MLVJob
+@implementation MLVButton
 
-- (void) setUrl:(NSURL *)url {
-    if (_url != url) {
-        _url = url;
+- (void) awakeFromNib {
+    [super awakeFromNib];
 
-        self.name = [url.lastPathComponent stringByDeletingPathExtension];
-    }
+    ((NSButtonCell*)self.cell).highlightsBy = NSNoCellMask;
+    ((NSButtonCell*)self.cell).showsStateBy = NSNoCellMask;
 }
 
-- (void) readFileWithCompletion:(void (^)(BOOL success, NSError* error))completion
+- (void)drawFocusRingMask
 {
 
-    return;
 }
 @end

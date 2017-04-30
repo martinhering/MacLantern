@@ -160,9 +160,6 @@
                                                                                                   views:@{@"lastView" : lastViewController.view}]];
 
             [self.containerView addConstraints:batchViewContraints];
-//            NSSize fittingSize = self.containerView.fittingSize;
-//            NSSize contentSize = self.containerView.enclosingScrollView.contentSize;
-//            self.containerView.frame = NSMakeRect(0, 0, contentSize.width, fittingSize.height);
             self.batchViewContraints = batchViewContraints;
         }
     }

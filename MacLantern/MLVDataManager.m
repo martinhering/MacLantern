@@ -44,25 +44,7 @@
 {
     MLVBatch* batch = [[MLVBatch alloc] init];
 
-    MLVJob* job1 = [[MLVJob alloc] init];
-    job1.name = @"Job 1";
-
-    MLVJob* job2 = [[MLVJob alloc] init];
-    job2.name = @"Job 2";
-
-    batch.jobs = @[job1, job2];
-
-    MLVBatch* batch2 = [[MLVBatch alloc] init];
-
-    MLVJob* job3 = [[MLVJob alloc] init];
-    job3.name = @"Job 3";
-
-    MLVJob* job4 = [[MLVJob alloc] init];
-    job4.name = @"Job 4";
-
-    batch2.jobs = @[job3, job4];
-
-    self.batches = @[batch, batch2];
+    self.batches = @[batch];
 }
 
 @end

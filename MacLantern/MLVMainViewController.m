@@ -39,6 +39,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.view.appearance = [NSAppearance appearanceNamed:NSAppearanceNameAqua];
+
     self.batchesViewController = [MLVBatchesViewController viewController];
     [self.batchesHostView addSubview:self.batchesViewController.view];
     [self.batchesHostView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[subview]|"
