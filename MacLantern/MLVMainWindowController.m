@@ -20,17 +20,25 @@
 
 #import "MLVMainWindowController.h"
 #import "NSColor+MacLantern.h"
+#import "NSObject+MacLantern.h"
+#import "MLVTypes.h"
 
 @interface MLVMainWindowController ()
 @property (weak) IBOutlet NSToolbar* toolbar;
 @property (weak) IBOutlet NSToolbarItem* toolbarItem;
 @property (weak) IBOutlet NSView* titlebarHostView;
+
 @end
 
 @implementation MLVMainWindowController
 
 + (instancetype) windowController {
     return [[self alloc] initWithWindowNibName:@"MainWindow"];
+}
+
+- (void) dealloc {
+    // XXX: Yosemite bug?
+    self.contentViewController = nil;
 }
 
 - (void)windowDidLoad {
@@ -68,5 +76,8 @@
         [[NSUserDefaults standardUserDefaults] setObject:NSStringFromRect(self.window.frame) forKey:@"MainWindowFrame"];
     }
 }
+
+#pragma mark -
+
 
 @end

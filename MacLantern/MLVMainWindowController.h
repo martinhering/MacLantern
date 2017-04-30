@@ -24,4 +24,6 @@
 
 + (instancetype) windowController;
 
+@property (nonatomic, strong) NSArray* selectedObjects;
+
 @end

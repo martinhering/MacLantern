@@ -22,4 +22,6 @@
 
 @interface MLVContentView : NSView
 
+@property (nonatomic) BOOL selected;
+
 @end

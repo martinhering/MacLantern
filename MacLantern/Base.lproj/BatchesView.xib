@@ -7,6 +7,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MLVBatchesViewController">
             <connections>
+                <outlet property="arrayController" destination="DTm-VK-IRO" id="YbB-fP-qtD"/>
+                <outlet property="containerView" destination="Nko-OG-PT3" id="1og-KD-WxH"/>
+                <outlet property="scrollView" destination="UCK-FU-HQv" id="mID-1r-IpH"/>
                 <outlet property="view" destination="c22-O7-iKe" id="90H-Zo-vuN"/>
             </connections>
         </customObject>
@@ -15,47 +18,53 @@
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="c22-O7-iKe">
             <rect key="frame" x="0.0" y="0.0" width="785" height="494"/>
             <subviews>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="9RO-yl-lur">
-                    <rect key="frame" x="0.0" y="464" width="785" height="30"/>
-                    <subviews>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F5N-or-F06" customClass="MLVSecondaryLabel">
-                            <rect key="frame" x="18" y="8" width="50" height="14"/>
-                            <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Batches" id="15k-2f-gAy">
-                                <font key="font" metaFont="systemBold" size="11"/>
-                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                            </textFieldCell>
-                        </textField>
-                    </subviews>
-                    <constraints>
-                        <constraint firstItem="F5N-or-F06" firstAttribute="leading" secondItem="9RO-yl-lur" secondAttribute="leading" constant="20" id="K0Y-WG-VJM"/>
-                        <constraint firstItem="F5N-or-F06" firstAttribute="centerY" secondItem="9RO-yl-lur" secondAttribute="centerY" id="Wc0-C6-hzI"/>
-                        <constraint firstAttribute="height" constant="30" id="hrh-Cf-WgL"/>
-                    </constraints>
-                </customView>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="efz-AE-8ux" customClass="MLVDividerView">
-                    <rect key="frame" x="0.0" y="463" width="785" height="1"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="1" id="Ucm-58-TwC"/>
-                    </constraints>
-                </customView>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="7di-Wb-kTj" customClass="MLVContentView">
-                    <rect key="frame" x="0.0" y="0.0" width="785" height="463"/>
-                </customView>
+                <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCK-FU-HQv">
+                    <rect key="frame" x="5" y="5" width="775" height="484"/>
+                    <clipView key="contentView" id="HiK-qk-4x2">
+                        <rect key="frame" x="0.0" y="0.0" width="775" height="484"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nko-OG-PT3" customClass="MLVFlippedView">
+                                <rect key="frame" x="0.0" y="0.0" width="775" height="484"/>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Nko-OG-PT3" secondAttribute="trailing" id="CGE-JY-TN2"/>
+                            <constraint firstItem="Nko-OG-PT3" firstAttribute="leading" secondItem="HiK-qk-4x2" secondAttribute="leading" id="PtD-tE-rcN"/>
+                            <constraint firstItem="Nko-OG-PT3" firstAttribute="top" secondItem="HiK-qk-4x2" secondAttribute="top" id="xVY-to-Q2m"/>
+                        </constraints>
+                    </clipView>
+                    <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="BeG-c9-FUo">
+                        <rect key="frame" x="0.0" y="468" width="775" height="16"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="yTP-yl-at0">
+                        <rect key="frame" x="759" y="0.0" width="16" height="484"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
             </subviews>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="9RO-yl-lur" secondAttribute="trailing" id="1NE-D3-P8h"/>
-                <constraint firstItem="efz-AE-8ux" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="LHy-Uv-DXo"/>
-                <constraint firstItem="7di-Wb-kTj" firstAttribute="top" secondItem="efz-AE-8ux" secondAttribute="bottom" id="NTL-Hj-RXB"/>
-                <constraint firstAttribute="trailing" secondItem="efz-AE-8ux" secondAttribute="trailing" id="PN5-JE-SNr"/>
-                <constraint firstItem="efz-AE-8ux" firstAttribute="top" secondItem="9RO-yl-lur" secondAttribute="bottom" id="a32-e9-fjF"/>
-                <constraint firstItem="7di-Wb-kTj" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="bre-DJ-Dko"/>
-                <constraint firstItem="9RO-yl-lur" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="e4i-Xu-WtI"/>
-                <constraint firstAttribute="trailing" secondItem="7di-Wb-kTj" secondAttribute="trailing" id="fHY-Jb-K5u"/>
-                <constraint firstItem="9RO-yl-lur" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="kGn-N2-ZkK"/>
-                <constraint firstAttribute="bottom" secondItem="7di-Wb-kTj" secondAttribute="bottom" id="tXd-bZ-sFH"/>
+                <constraint firstItem="UCK-FU-HQv" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="5" id="5da-eT-ncE"/>
+                <constraint firstAttribute="bottom" secondItem="UCK-FU-HQv" secondAttribute="bottom" constant="5" id="8vP-lc-8eC"/>
+                <constraint firstItem="UCK-FU-HQv" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="5" id="dFY-Xt-iev"/>
+                <constraint firstAttribute="trailing" secondItem="UCK-FU-HQv" secondAttribute="trailing" constant="5" id="k0S-MH-NWt"/>
             </constraints>
             <point key="canvasLocation" x="181.5" y="156"/>
         </customView>
+        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" id="Jbe-zq-alq">
+            <rect key="frame" x="0.0" y="0.0" width="38" height="17"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="ypX-CL-DRO">
+                <font key="font" metaFont="system"/>
+                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+            </textFieldCell>
+        </textField>
+        <arrayController selectsInsertedObjects="NO" avoidsEmptySelection="NO" id="DTm-VK-IRO">
+            <connections>
+                <binding destination="-2" name="contentArray" keyPath="batches" id="tWq-0T-O5C"/>
+            </connections>
+        </arrayController>
     </objects>
 </document>

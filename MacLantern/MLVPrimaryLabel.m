@@ -18,13 +18,15 @@
  * Boston, MA  02110-1301, USA.
  */
 
-#import <Foundation/Foundation.h>
+#import "MLVPrimaryLabel.h"
+#import "NSColor+MacLantern.h"
 
-@class MLVOutput;
+@implementation MLVPrimaryLabel
 
-@interface MLVJob : NSObject
-
-@property (copy) NSString* name;
-@property (copy) NSArray<MLVOutput*>* outputs;
+- (void) awakeFromNib
+{
+    [super awakeFromNib];
+    self.textColor = [NSColor mlv_primaryColor];
+}
 
 @end

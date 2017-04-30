@@ -18,13 +18,21 @@
  * Boston, MA  02110-1301, USA.
  */
 
-#import <Foundation/Foundation.h>
+#import "MLVJobViewController.h"
 
-@class MLVOutput;
+@interface MLVJobViewController ()
 
-@interface MLVJob : NSObject
+@end
 
-@property (copy) NSString* name;
-@property (copy) NSArray<MLVOutput*>* outputs;
+@implementation MLVJobViewController
+
++ (instancetype) viewController {
+    return [[self alloc] initWithNibName:@"JobView" bundle:nil];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do view setup here.
+}
 
 @end

@@ -18,13 +18,14 @@
  * Boston, MA  02110-1301, USA.
  */
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
-@class MLVOutput;
+@class MLVJob;
 
-@interface MLVJob : NSObject
+@interface MLVJobViewController : NSViewController
 
-@property (copy) NSString* name;
-@property (copy) NSArray<MLVOutput*>* outputs;
++ (instancetype) viewController;
+
+@property (nonatomic, strong) MLVJob* job;
 
 @end

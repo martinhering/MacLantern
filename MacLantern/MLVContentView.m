@@ -23,11 +23,37 @@
 
 @implementation MLVContentView
 
+- (BOOL) acceptsFirstResponder {
+    return YES;
+}
+
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
+    
+    NSRect b = self.bounds;
+
+    if (self.selected && [self.window.firstResponder isKindOfClass:[NSView class]] && [self isDescendantOf:(NSView*)self.window.firstResponder]) {
+        [[NSColor mlv_selectionColor] set];
+    }
+    else if (self.selected && [self.window.firstResponder isKindOfClass:[NSView class]] && ![self isDescendantOf:(NSView*)self.window.firstResponder]) {
+        [[NSColor mlv_unfocusSelectionColor] set];
+    }
+    else {
+        [[NSColor colorWithCalibratedWhite:0.15 alpha:1.0] set];
+    }
+
+    [[NSBezierPath bezierPathWithRoundedRect:b xRadius:5 yRadius:5] fill];
 
     [[NSColor mlv_windowColor] set];
-    NSRectFill(dirtyRect);
+    NSRect insetInsetRect = NSMakeRect(NSMinX(b)+2, NSMinY(b)+2, NSWidth(b)-4, NSHeight(b)-2-30);
+    [[NSBezierPath bezierPathWithRoundedRect:insetInsetRect xRadius:4 yRadius:4] fill];
+}
+
+- (void) setSelected:(BOOL)selected {
+    if (_selected != selected) {
+        _selected = selected;
+        self.needsDisplay = YES;
+    }
 }
 
 @end

@@ -24,7 +24,7 @@
 
 @interface MLVBatch : NSObject
 
-@property (copy) NSString* name;
-@property (copy) NSArray<MLVJob*>* jobs;
+@property (nonatomic, strong) NSString* name;
+@property (nonatomic, strong) NSArray<MLVJob*>* jobs;
 
 @end

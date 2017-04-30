@@ -19,7 +19,21 @@
  */
 
 #import "MLVBatch.h"
+#import "MLVJob.h"
 
 @implementation MLVBatch
+
+- (NSString*) name {
+    if (_name) {
+        return _name;
+    }
+
+    NSMutableArray<NSString*>* jobNames = [[NSMutableArray alloc] init];
+    for(MLVJob* job in self.jobs) {
+        [jobNames addObject:job.name];
+    }
+    return [jobNames componentsJoinedByString:@", "];
+}
+
 
 @end

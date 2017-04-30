@@ -18,13 +18,8 @@
  * Boston, MA  02110-1301, USA.
  */
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
-@class MLVOutput;
-
-@interface MLVJob : NSObject
-
-@property (copy) NSString* name;
-@property (copy) NSArray<MLVOutput*>* outputs;
+@interface MLVPrimaryLabel : NSTextField
 
 @end

@@ -18,13 +18,15 @@
  * Boston, MA  02110-1301, USA.
  */
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
-@class MLVOutput;
+@class MLVBatch;
 
-@interface MLVJob : NSObject
+@interface MLVBatchViewController : NSViewController
 
-@property (copy) NSString* name;
-@property (copy) NSArray<MLVOutput*>* outputs;
++ (instancetype) viewController;
+
+@property (nonatomic, strong) MLVBatch* batch;
+
 
 @end
