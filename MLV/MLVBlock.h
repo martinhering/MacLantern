@@ -39,6 +39,7 @@ typedef NS_ENUM(UInt32, MLVBlockType) {
     kMLVBlockTypeMarker             = 'MARK',
     kMLVBlockTypeExposure           = 'EXPO',
     kMLVBlockTypeRawInfo            = 'RAWI',
+    kMLVBlockTypeRawCaptureInfo     = 'RAWC',
     kMLVBlockTypeWavInfo            = 'WAVI',
     kMLVBlockTypeNull               = 'NULL',
     kMLVBlockTypeBackup             = 'BKUP',
@@ -122,6 +123,9 @@ typedef NS_ENUM(UInt16, MLVFileAudioClass) {
 @property (readonly) UInt16 yRes;
 @property (readonly) UInt32 bitsPerPixel;
 @property (readonly) struct raw_info rawInfoStruct;
+@end
+
+@interface MLVRAWCaptureInfoBlock : MLVBlock
 @end
 
 @interface MLVWAVInfoBlock : MLVBlock

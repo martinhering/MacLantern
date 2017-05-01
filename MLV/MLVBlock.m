@@ -336,6 +336,34 @@
 
 #pragma mark -
 
+
+@implementation MLVRAWCaptureInfoBlock {
+    mlv_rawc_hdr_t _myBlock;
+}
+
+- (instancetype) initWithBlockBuffer:(void*)blockBuffer fileNum:(UInt16)fileNum filePosition:(UInt64)filePosition {
+    if ((self = [super initWithBlockBuffer:blockBuffer fileNum:fileNum filePosition:filePosition])) {
+        memcpy(&_myBlock, blockBuffer, sizeof(mlv_rawc_hdr_t));
+    }
+    return self;
+}
+
+- (NSData*) _blockData {
+    return [NSData dataWithBytes:&_myBlock length:sizeof(mlv_rawc_hdr_t)];
+}
+
+- (void) _setBlockData:(NSData*)blockData {
+    if (blockData) {
+        memcpy(&_myBlock, blockData.bytes, sizeof(mlv_rawc_hdr_t));
+    }
+    else {
+        memset(&_myBlock, 0, sizeof(mlv_rawc_hdr_t));
+    }
+}
+@end
+
+#pragma mark -
+
 @implementation MLVWAVInfoBlock {
     mlv_wavi_hdr_t _myBlock;
 }

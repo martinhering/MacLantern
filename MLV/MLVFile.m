@@ -49,6 +49,7 @@
     MLVWhiteBalanceBlock*       _wbalInfo;
     MLVWAVInfoBlock*            _waviInfo;
     MLVRAWInfoBlock*            _rawiInfo;
+    MLVRAWCaptureInfoBlock*     _rawcInfo;
     MLVElectronicLevelBlock*    _elvlInfo;
     MLVStyleBlock*              _stylInfo;
     MLVTimecodeBlock*           _rtciInfo;
@@ -104,6 +105,7 @@
         _wbalInfo = [aDecoder decodeObjectOfClass:[MLVWhiteBalanceBlock class] forKey:@"_wbalInfo"];
         _waviInfo = [aDecoder decodeObjectOfClass:[MLVWAVInfoBlock class] forKey:@"_waviInfo"];
         _rawiInfo = [aDecoder decodeObjectOfClass:[MLVRAWInfoBlock class] forKey:@"_rawiInfo"];
+        _rawcInfo = [aDecoder decodeObjectOfClass:[MLVRAWCaptureInfoBlock class] forKey:@"_rawcInfo"];
         _elvlInfo = [aDecoder decodeObjectOfClass:[MLVElectronicLevelBlock class] forKey:@"_elvlInfo"];
         _stylInfo = [aDecoder decodeObjectOfClass:[MLVStyleBlock class] forKey:@"_stylInfo"];
         _rtciInfo = [aDecoder decodeObjectOfClass:[MLVTimecodeBlock class] forKey:@"_rtciInfo"];
@@ -133,6 +135,9 @@
     }
     if (_rawiInfo) {
         [aCoder encodeObject:_rawiInfo forKey:@"_rawiInfo"];
+    }
+    if (_rawcInfo) {
+        [aCoder encodeObject:_rawiInfo forKey:@"_rawcInfo"];
     }
     if (_elvlInfo) {
         [aCoder encodeObject:_elvlInfo forKey:@"_elvlInfo"];
@@ -642,6 +647,21 @@ read_headers:
                 /* skip remaining data, if there is any */
                 fseeko(in_file, position + rawi_info.blockSize, SEEK_SET);
             }
+
+            else if(hdrBlock.type == kMLVBlockTypeRawCaptureInfo)
+            {
+                mlv_rawc_hdr_t rawc_info;
+                size_t hdr_size = MIN(sizeof(mlv_rawc_hdr_t), buf.blockSize);
+
+                if(fread(&rawc_info, hdr_size, 1, in_file) != 1)
+                {
+                    ErrLog(@"File ends in the middle of a block");
+                    return kMLVErrorCodeFile;
+                }
+
+                _rawcInfo = [[MLVRAWCaptureInfoBlock alloc] initWithBlockBuffer:&rawc_info fileNum:in_file_num filePosition:blockPosition];
+            }
+
             else if(hdrBlock.type == kMLVBlockTypeWavInfo)
             {
                 mlv_wavi_hdr_t block_hdr;
