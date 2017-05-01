@@ -20,18 +20,18 @@
             <subviews>
                 <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCK-FU-HQv">
                     <rect key="frame" x="5" y="5" width="775" height="484"/>
-                    <clipView key="contentView" id="HiK-qk-4x2">
+                    <clipView key="contentView" id="HiK-qk-4x2" customClass="MLVFlippedClipView">
                         <rect key="frame" x="0.0" y="0.0" width="775" height="484"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nko-OG-PT3" customClass="MLVFlippedView">
+                            <view placeholderIntrinsicWidth="775" placeholderIntrinsicHeight="484" translatesAutoresizingMaskIntoConstraints="NO" id="Nko-OG-PT3">
                                 <rect key="frame" x="0.0" y="0.0" width="775" height="484"/>
                             </view>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Nko-OG-PT3" secondAttribute="trailing" id="CGE-JY-TN2"/>
                             <constraint firstItem="Nko-OG-PT3" firstAttribute="leading" secondItem="HiK-qk-4x2" secondAttribute="leading" id="PtD-tE-rcN"/>
-                            <constraint firstItem="Nko-OG-PT3" firstAttribute="top" secondItem="HiK-qk-4x2" secondAttribute="top" id="xVY-to-Q2m"/>
+                            <constraint firstAttribute="bottom" secondItem="Nko-OG-PT3" secondAttribute="bottom" id="uSN-gN-GKn"/>
                         </constraints>
                     </clipView>
                     <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="BeG-c9-FUo">

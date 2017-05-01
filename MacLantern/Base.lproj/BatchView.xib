@@ -104,7 +104,7 @@
                 <constraint firstItem="05e-14-UCU" firstAttribute="centerX" secondItem="Lee-xS-x7Z" secondAttribute="centerX" id="hzy-gI-psh"/>
                 <constraint firstItem="05e-14-UCU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Lee-xS-x7Z" secondAttribute="leading" constant="20" id="pAF-qs-7Jg"/>
             </constraints>
-            <point key="canvasLocation" x="69.5" y="520"/>
+            <point key="canvasLocation" x="69.5" y="519.5"/>
         </customView>
     </objects>
     <resources>

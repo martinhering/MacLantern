@@ -7,6 +7,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MLVJobViewController">
             <connections>
+                <outlet property="containerView" destination="CJm-rK-Y68" id="0dX-d3-HIo"/>
+                <outlet property="readingFileProgressIndicator" destination="t9D-DP-rba" id="W0f-8d-FIj"/>
+                <outlet property="readingFileView" destination="XrY-Ev-9xX" id="xGh-Sv-ZDe"/>
                 <outlet property="view" destination="c22-O7-iKe" id="fKp-pV-7W9"/>
             </connections>
         </customObject>
@@ -47,22 +50,36 @@
                     </constraints>
                 </customView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="CJm-rK-Y68">
-                    <rect key="frame" x="0.0" y="0.0" width="480" height="171"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="171" id="Uzs-vj-Pbg"/>
-                    </constraints>
+                    <rect key="frame" x="4" y="2" width="472" height="165"/>
                 </customView>
             </subviews>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="CJm-rK-Y68" secondAttribute="trailing" id="2IR-Jg-YY5"/>
-                <constraint firstAttribute="bottom" secondItem="CJm-rK-Y68" secondAttribute="bottom" id="8Eo-3Z-YhQ"/>
+                <constraint firstAttribute="trailing" secondItem="CJm-rK-Y68" secondAttribute="trailing" constant="4" id="2IR-Jg-YY5"/>
+                <constraint firstAttribute="bottom" secondItem="CJm-rK-Y68" secondAttribute="bottom" constant="2" id="8Eo-3Z-YhQ"/>
                 <constraint firstItem="g9W-Ul-EMl" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="9WX-lF-Y6E"/>
                 <constraint firstItem="g9W-Ul-EMl" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="Ow8-DB-1Ic"/>
-                <constraint firstItem="CJm-rK-Y68" firstAttribute="top" secondItem="g9W-Ul-EMl" secondAttribute="bottom" id="Pj2-Aa-ooB"/>
+                <constraint firstItem="CJm-rK-Y68" firstAttribute="top" secondItem="g9W-Ul-EMl" secondAttribute="bottom" constant="4" id="Pj2-Aa-ooB"/>
                 <constraint firstAttribute="trailing" secondItem="g9W-Ul-EMl" secondAttribute="trailing" id="vPK-ET-fK0"/>
-                <constraint firstItem="CJm-rK-Y68" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="yVX-dV-zpC"/>
+                <constraint firstItem="CJm-rK-Y68" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="4" id="yVX-dV-zpC"/>
             </constraints>
             <point key="canvasLocation" x="139" y="229.5"/>
+        </customView>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="XrY-Ev-9xX">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="83"/>
+            <subviews>
+                <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="t9D-DP-rba">
+                    <rect key="frame" x="92" y="34" width="16" height="16"/>
+                </progressIndicator>
+            </subviews>
+            <constraints>
+                <constraint firstItem="t9D-DP-rba" firstAttribute="centerY" secondItem="XrY-Ev-9xX" secondAttribute="centerY" id="6eQ-QN-bEA"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="t9D-DP-rba" secondAttribute="trailing" constant="20" id="H70-bI-xt2"/>
+                <constraint firstItem="t9D-DP-rba" firstAttribute="top" relation="greaterThanOrEqual" secondItem="XrY-Ev-9xX" secondAttribute="top" constant="20" id="X6Y-lT-PXr"/>
+                <constraint firstItem="t9D-DP-rba" firstAttribute="centerX" secondItem="XrY-Ev-9xX" secondAttribute="centerX" id="edh-Ai-qg3"/>
+                <constraint firstItem="t9D-DP-rba" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="XrY-Ev-9xX" secondAttribute="leading" constant="20" id="oJo-Wd-Ub9"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="t9D-DP-rba" secondAttribute="bottom" constant="20" id="z6q-nB-zNz"/>
+            </constraints>
+            <point key="canvasLocation" x="127" y="485"/>
         </customView>
     </objects>
     <resources>

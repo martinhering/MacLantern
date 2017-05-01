@@ -17,9 +17,9 @@
  * 51 Franklin Street, Fifth Floor,
  * Boston, MA  02110-1301, USA.
  */
-#import "MLVFlippedView.h"
+#import "MLVFlippedClipView.h"
 
-@implementation MLVFlippedView
+@implementation MLVFlippedClipView
 
 - (BOOL)isFlipped {
     return YES;

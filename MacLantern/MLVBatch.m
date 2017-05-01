@@ -72,17 +72,21 @@
         return;
     }
 
-     MLVJob* job = [[MLVJob alloc] init];
-     job.url = url;
+    MLVJob* job = [[MLVJob alloc] init];
+    job.url = url;
 
-     [job readFileWithCompletion:^(BOOL success, NSError *error) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        BOOL result = [job readFileWithCompletion:^(BOOL success, NSError *error) {
 
-     }];
+        }];
 
-     if (!self.jobs) {
-         self.jobs = @[];
-     }
-     [[self mutableArrayValueForKey:@"jobs"] addObject:job];
+        if (result) {
+            if (!self.jobs) {
+                self.jobs = @[];
+            }
+            [[self mutableArrayValueForKey:@"jobs"] addObject:job];
+        }
+    });
 }
 
 @end

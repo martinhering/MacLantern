@@ -26,6 +26,10 @@
 
 + (MLVDataManager *)sharedManager;
 
+@property (readonly) NSOperationQueue* operationQueue;
+@property (readonly) NSOperationQueue* fileSystemQueue;
+
+
 @property (copy) NSArray<MLVBatch*>* batches;
 
 @end

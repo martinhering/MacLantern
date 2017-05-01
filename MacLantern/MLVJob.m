@@ -19,6 +19,12 @@
  */
 
 #import "MLVJob.h"
+#import "MLVFile.h"
+#import "MLVDataManager.h"
+
+@interface MLVJob ()
+@property (nonatomic, strong) MLVFile* file;
+@end
 
 @implementation MLVJob
 
@@ -30,9 +36,19 @@
     }
 }
 
-- (void) readFileWithCompletion:(void (^)(BOOL success, NSError* error))completion
+- (BOOL) readFileWithCompletion:(void (^)(BOOL success, NSError* error))completion
 {
+    self.readingFile = YES;
 
-    return;
+    [[MLVDataManager sharedManager].fileSystemQueue addOperationWithBlock:^{
+        MLVFile* file = [[MLVFile alloc] initWithURL:self.url];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.file = file;
+            self.readingFile = NO;
+        });
+    }];
+
+    return YES;
 }
 @end

@@ -20,6 +20,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface MLVFlippedView : NSView
+@interface MLVFlippedClipView : NSClipView
 
 @end

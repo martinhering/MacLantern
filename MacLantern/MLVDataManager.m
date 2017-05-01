@@ -22,6 +22,11 @@
 #import "MLVBatch.h"
 #import "MLVJob.h"
 
+@interface MLVDataManager ()
+@property (strong, readwrite) NSOperationQueue* operationQueue;
+@property (strong, readwrite) NSOperationQueue* fileSystemQueue;
+@end
+
 @implementation MLVDataManager
 
 + (MLVDataManager *)sharedManager
@@ -34,6 +39,11 @@
 
 - (instancetype) init {
     if ((self = [super init])) {
+
+        _operationQueue = [[NSOperationQueue alloc] init];
+        _fileSystemQueue = [[NSOperationQueue alloc] init];
+        _fileSystemQueue.maxConcurrentOperationCount = 1;
+        
         [self _restore];
     }
 

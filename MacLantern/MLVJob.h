@@ -28,5 +28,7 @@
 @property (nonatomic, strong) NSURL* url;
 @property (nonatomic, strong) NSArray<MLVOutput*>* outputs;
 
-- (void) readFileWithCompletion:(void (^)(BOOL success, NSError* error))completion;
+@property (nonatomic) BOOL readingFile;
+
+- (BOOL) readFileWithCompletion:(void (^)(BOOL success, NSError* error))completion;
 @end
