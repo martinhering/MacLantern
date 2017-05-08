@@ -29,7 +29,7 @@
 #import "MLVMainWindowController.h"
 #import "MLVContentView.h"
 
-@interface MLVBatchViewController ()
+@interface MLVBatchViewController () <MLVContentViewDelegate>
 @property (weak) IBOutlet NSView* containerView;
 @property (weak) IBOutlet NSArrayController* arrayController;
 @property (strong) IBOutlet NSView* placeholderView;
@@ -54,6 +54,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [self.view registerForDraggedTypes:@[(__bridge id)kUTTypeFileURL]];
 
     [self _updateJobsViewControllers];
     WEAK_SELF
@@ -253,5 +255,68 @@
             }
         }
     }];
+}
+
+#pragma mark -
+
+- (NSDragOperation) contentView:(MLVContentView *)contentView validateDrop:(id<NSDraggingInfo>)info
+{
+    info.animatesToDestination = NO;
+
+    NSPasteboard* draggingPasteboard = [info draggingPasteboard];
+    NSArray* types = [draggingPasteboard types];
+
+    if ([types containsObject:(__bridge id)kUTTypeFileURL]) {
+        __block BOOL dropOK = NO;
+        [info enumerateDraggingItemsWithOptions:0
+                                        forView:contentView
+                                        classes:@[[NSPasteboardItem class]]
+                                  searchOptions:@{}
+                                     usingBlock:^(NSDraggingItem* draggingItem, NSInteger idx, BOOL *stop) {
+
+                                         NSPasteboardItem* draggedItem = draggingItem.item;
+                                         NSString* urlString = [draggedItem stringForType:(__bridge id)kUTTypeFileURL];
+                                         NSURL* url = [NSURL URLWithString:urlString];
+
+                                         if ([url.pathExtension caseInsensitiveCompare:@"mlv"] == NSOrderedSame) {
+                                             dropOK = YES;
+                                         }
+                                     }];
+        
+        if (dropOK) {
+            return NSDragOperationGeneric;
+        }
+    }
+    return NSDragOperationNone;
+}
+
+- (BOOL) contentView:(MLVContentView *)contentView acceptDrop:(id<NSDraggingInfo>)info
+{
+    NSPasteboard* draggingPasteboard = [info draggingPasteboard];
+    NSArray* types = [draggingPasteboard types];
+
+    if ([types containsObject:(__bridge id)kUTTypeFileURL]) {
+        __block BOOL dropOK = NO;
+        [info enumerateDraggingItemsWithOptions:0
+                                        forView:contentView
+                                        classes:@[[NSPasteboardItem class]]
+                                  searchOptions:@{}
+                                     usingBlock:^(NSDraggingItem* draggingItem, NSInteger idx, BOOL *stop) {
+
+                                         NSPasteboardItem* draggedItem = draggingItem.item;
+                                         NSString* urlString = [draggedItem stringForType:(__bridge id)kUTTypeFileURL];
+                                         NSURL* url = [NSURL URLWithString:urlString];
+
+                                         if ([url.pathExtension caseInsensitiveCompare:@"mlv"] == NSOrderedSame) {
+                                             [self.batch addJobWithURL:url];
+                                             dropOK = YES;
+                                         }
+                                     }];
+
+        if (dropOK) {
+            return YES;
+        }
+    }
+    return NO;
 }
 @end

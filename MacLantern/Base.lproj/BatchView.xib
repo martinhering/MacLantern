@@ -62,6 +62,9 @@
                 <constraint firstAttribute="trailing" secondItem="g9W-Ul-EMl" secondAttribute="trailing" id="vPK-ET-fK0"/>
                 <constraint firstItem="CJm-rK-Y68" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="4" id="yVX-dV-zpC"/>
             </constraints>
+            <connections>
+                <outlet property="delegate" destination="-2" id="2RM-q4-Thu"/>
+            </connections>
             <point key="canvasLocation" x="139" y="229.5"/>
         </customView>
         <arrayController selectsInsertedObjects="NO" avoidsEmptySelection="NO" id="w9t-9Z-AIO">

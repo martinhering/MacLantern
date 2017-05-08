@@ -20,8 +20,18 @@
 
 #import <Cocoa/Cocoa.h>
 
+@protocol MLVContentViewDelegate;
+
 @interface MLVContentView : NSView
 
 @property (nonatomic) BOOL selected;
 
+@property (nonatomic, weak) IBOutlet id<MLVContentViewDelegate> delegate;
+@end
+
+
+@protocol MLVContentViewDelegate <NSObject>
+@optional
+- (NSDragOperation) contentView:(MLVContentView *)contentView validateDrop:(id<NSDraggingInfo>)info;
+- (BOOL) contentView:(MLVContentView *)contentView acceptDrop:(id<NSDraggingInfo>)info;
 @end

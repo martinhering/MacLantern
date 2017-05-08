@@ -21,7 +21,39 @@
 #import "MLVContentView.h"
 #import "NSColor+MacLantern.h"
 
-@implementation MLVContentView
+@interface MLVContentView ()
+@property (nonatomic) BOOL draggingInside;
+@end
+
+@implementation MLVContentView {
+    BOOL _delegateImplementsValidateDrop;
+    BOOL _delegateImplementsAcceptDrop;
+}
+
+- (void) setDelegate:(id<MLVContentViewDelegate>)delegate {
+    if (_delegate != delegate) {
+        _delegate = delegate;
+
+        _delegateImplementsValidateDrop = [self.delegate respondsToSelector:@selector(contentView:validateDrop:)];
+        _delegateImplementsAcceptDrop = [self.delegate respondsToSelector:@selector(contentView:acceptDrop:)];
+    }
+}
+
+- (void) setSelected:(BOOL)selected {
+    if (_selected != selected) {
+        _selected = selected;
+        self.needsDisplay = YES;
+    }
+}
+
+- (void) setDraggingInside:(BOOL)draggingInside {
+    if (_draggingInside != draggingInside) {
+        _draggingInside = draggingInside;
+        self.needsDisplay = YES;
+    }
+}
+
+#pragma mark -
 
 - (BOOL) acceptsFirstResponder {
     return YES;
@@ -32,7 +64,10 @@
     
     NSRect b = self.bounds;
 
-    if (self.selected && [self.window.firstResponder isKindOfClass:[NSView class]] && [self isDescendantOf:(NSView*)self.window.firstResponder]) {
+    if (self.draggingInside) {
+        [[NSColor colorWithCalibratedWhite:0.3 alpha:1.0] set];
+    }
+    else if (self.selected && [self.window.firstResponder isKindOfClass:[NSView class]] && [self isDescendantOf:(NSView*)self.window.firstResponder]) {
         [[NSColor mlv_selectionColor] set];
     }
     else if (self.selected && [self.window.firstResponder isKindOfClass:[NSView class]] && ![self isDescendantOf:(NSView*)self.window.firstResponder]) {
@@ -49,11 +84,61 @@
     [[NSBezierPath bezierPathWithRoundedRect:insetInsetRect xRadius:4 yRadius:4] fill];
 }
 
-- (void) setSelected:(BOOL)selected {
-    if (_selected != selected) {
-        _selected = selected;
-        self.needsDisplay = YES;
+#pragma mark -
+
+- (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)draggingInfo
+{
+    NSDragOperation dragOperation = NSDragOperationNone;
+
+    if (_delegateImplementsValidateDrop) {
+        dragOperation = [self.delegate contentView:self validateDrop:draggingInfo];
     }
+
+    if (dragOperation != NSDragOperationNone) {
+        self.draggingInside = YES;
+    }
+    return dragOperation;
+}
+
+- (NSDragOperation)draggingUpdated:(id<NSDraggingInfo>)draggingInfo
+{
+    NSDragOperation dragOperation = NSDragOperationNone;
+
+    if (_delegateImplementsValidateDrop) {
+        dragOperation = [self.delegate contentView:self validateDrop:draggingInfo];
+    }
+
+    return dragOperation;
+}
+
+- (void)draggingEnded:(id<NSDraggingInfo>)draggingInfo
+{
+    self.draggingInside = NO;
+}
+
+- (void)draggingExited:(id<NSDraggingInfo>)sender
+{
+    self.draggingInside = NO;
+}
+
+- (BOOL)prepareForDragOperation:(id<NSDraggingInfo>)sender
+{
+    NSDragOperation dragOperation = [self draggingEntered:sender];
+    return (dragOperation != NSDragOperationNone);
+}
+
+- (BOOL)performDragOperation:(id<NSDraggingInfo>)sender
+{
+    if (!_delegateImplementsAcceptDrop) {
+        return NO;
+    }
+
+
+    BOOL acceptDrop = [self.delegate contentView:self acceptDrop:sender];
+    if (acceptDrop) {
+        [self.window makeFirstResponder:self.superview];
+    }
+    return acceptDrop;
 }
 
 @end
