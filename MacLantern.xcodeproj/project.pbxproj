@@ -63,6 +63,7 @@
 		1B88F58F1EB1CB9300BE1163 /* MLVBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F5791EB1CB9300BE1163 /* MLVBlock.m */; };
 		1B88F5901EB1CB9300BE1163 /* MLVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F57B1EB1CB9300BE1163 /* MLVFile.m */; };
 		1B88F5991EB1D3DB00BE1163 /* lj92.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F5951EB1D3DB00BE1163 /* lj92.c */; };
+		1BA85CDB1EC0B6EE00B279B3 /* MLVDocumentIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 1BA85CDA1EC0B6EE00B279B3 /* MLVDocumentIcon.iconset */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -174,6 +175,7 @@
 		1B88F5911EB1CC0000BE1163 /* MLVTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLVTypes.h; sourceTree = "<group>"; };
 		1B88F5951EB1D3DB00BE1163 /* lj92.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lj92.c; sourceTree = "<group>"; };
 		1B88F5961EB1D3DB00BE1163 /* lj92.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lj92.h; sourceTree = "<group>"; };
+		1BA85CDA1EC0B6EE00B279B3 /* MLVDocumentIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = MLVDocumentIcon.iconset; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,6 +297,7 @@
 				1B27FAE21EB3934F00ECF32F /* BatchesView.xib */,
 				1B27FAF71EB5149200ECF32F /* BatchView.xib */,
 				1B27FAFE1EB51C8300ECF32F /* JobView.xib */,
+				1BA85CDA1EC0B6EE00B279B3 /* MLVDocumentIcon.iconset */,
 				1B88F5591EB1CA6D00BE1163 /* Info.plist */,
 				1B88F54E1EB1CA6D00BE1163 /* Supporting Files */,
 			);
@@ -437,6 +440,7 @@
 				1B88F5811EB1CB9300BE1163 /* 100d-1872x1060-blue.png in Resources */,
 				1B88F5861EB1CB9300BE1163 /* eosm-650d-700d-1808x728-fullframe-red.png in Resources */,
 				1B88F5821EB1CB9300BE1163 /* 100d-1872x1060-red.png in Resources */,
+				1BA85CDB1EC0B6EE00B279B3 /* MLVDocumentIcon.iconset in Resources */,
 				1B88F5551EB1CA6D00BE1163 /* Assets.xcassets in Resources */,
 				1B88F58A1EB1CB9300BE1163 /* eosm-650d-700d-2592x1108-zoom-red.png in Resources */,
 				1B88F5581EB1CA6D00BE1163 /* Main.storyboard in Resources */,
