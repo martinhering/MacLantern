@@ -44,27 +44,40 @@
 		1B88F5531EB1CA6D00BE1163 /* MLVMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F5521EB1CA6D00BE1163 /* MLVMainViewController.m */; };
 		1B88F5551EB1CA6D00BE1163 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5541EB1CA6D00BE1163 /* Assets.xcassets */; };
 		1B88F5581EB1CA6D00BE1163 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5561EB1CA6D00BE1163 /* Main.storyboard */; };
-		1B88F57D1EB1CB9300BE1163 /* 100d-1808x1190-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5611EB1CB9300BE1163 /* 100d-1808x1190-blue.png */; };
-		1B88F57E1EB1CB9300BE1163 /* 100d-1808x1190-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5621EB1CB9300BE1163 /* 100d-1808x1190-red.png */; };
-		1B88F57F1EB1CB9300BE1163 /* 100d-1808x728-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5631EB1CB9300BE1163 /* 100d-1808x728-blue.png */; };
-		1B88F5801EB1CB9300BE1163 /* 100d-1808x728-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5641EB1CB9300BE1163 /* 100d-1808x728-red.png */; };
-		1B88F5811EB1CB9300BE1163 /* 100d-1872x1060-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5651EB1CB9300BE1163 /* 100d-1872x1060-blue.png */; };
-		1B88F5821EB1CB9300BE1163 /* 100d-1872x1060-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5661EB1CB9300BE1163 /* 100d-1872x1060-red.png */; };
-		1B88F5831EB1CB9300BE1163 /* eosm-650d-700d-1808x1190-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5671EB1CB9300BE1163 /* eosm-650d-700d-1808x1190-blue.png */; };
-		1B88F5841EB1CB9300BE1163 /* eosm-650d-700d-1808x1190-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5681EB1CB9300BE1163 /* eosm-650d-700d-1808x1190-red.png */; };
-		1B88F5851EB1CB9300BE1163 /* eosm-650d-700d-1808x728-fullframe-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5691EB1CB9300BE1163 /* eosm-650d-700d-1808x728-fullframe-blue.png */; };
-		1B88F5861EB1CB9300BE1163 /* eosm-650d-700d-1808x728-fullframe-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F56A1EB1CB9300BE1163 /* eosm-650d-700d-1808x728-fullframe-red.png */; };
-		1B88F5871EB1CB9300BE1163 /* eosm-650d-700d-1872x1058-crop-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F56B1EB1CB9300BE1163 /* eosm-650d-700d-1872x1058-crop-blue.png */; };
-		1B88F5881EB1CB9300BE1163 /* eosm-650d-700d-1872x1058-crop-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F56C1EB1CB9300BE1163 /* eosm-650d-700d-1872x1058-crop-red.png */; };
-		1B88F5891EB1CB9300BE1163 /* eosm-650d-700d-2592x1108-zoom-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F56D1EB1CB9300BE1163 /* eosm-650d-700d-2592x1108-zoom-blue.png */; };
-		1B88F58A1EB1CB9300BE1163 /* eosm-650d-700d-2592x1108-zoom-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F56E1EB1CB9300BE1163 /* eosm-650d-700d-2592x1108-zoom-red.png */; };
-		1B88F58C1EB1CB9300BE1163 /* MLVPixelMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F5721EB1CB9300BE1163 /* MLVPixelMap.m */; };
-		1B88F58D1EB1CB9300BE1163 /* MLVRawImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F5741EB1CB9300BE1163 /* MLVRawImage.m */; };
-		1B88F58F1EB1CB9300BE1163 /* MLVBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F5791EB1CB9300BE1163 /* MLVBlock.m */; };
-		1B88F5901EB1CB9300BE1163 /* MLVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F57B1EB1CB9300BE1163 /* MLVFile.m */; };
-		1B88F5991EB1D3DB00BE1163 /* lj92.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F5951EB1D3DB00BE1163 /* lj92.c */; };
 		1BA85CDB1EC0B6EE00B279B3 /* MLVDocumentIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 1BA85CDA1EC0B6EE00B279B3 /* MLVDocumentIcon.iconset */; };
+		1BA85CED1EC436CB00B279B3 /* mlvprocess.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA85CEC1EC436CB00B279B3 /* mlvprocess.m */; };
+		1BA85CEF1EC436CB00B279B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA85CEE1EC436CB00B279B3 /* main.m */; };
+		1BA85CF31EC436CB00B279B3 /* mlvprocess.xpc in Embed XPC */ = {isa = PBXBuildFile; fileRef = 1BA85CE81EC436CB00B279B3 /* mlvprocess.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1BA85CF71EC436E600B279B3 /* 100d-1808x1190-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5611EB1CB9300BE1163 /* 100d-1808x1190-blue.png */; };
+		1BA85CF81EC436E600B279B3 /* 100d-1808x1190-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5621EB1CB9300BE1163 /* 100d-1808x1190-red.png */; };
+		1BA85CF91EC436E600B279B3 /* 100d-1808x728-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5631EB1CB9300BE1163 /* 100d-1808x728-blue.png */; };
+		1BA85CFA1EC436E600B279B3 /* 100d-1808x728-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5641EB1CB9300BE1163 /* 100d-1808x728-red.png */; };
+		1BA85CFB1EC436E600B279B3 /* 100d-1872x1060-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5651EB1CB9300BE1163 /* 100d-1872x1060-blue.png */; };
+		1BA85CFC1EC436E600B279B3 /* 100d-1872x1060-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5661EB1CB9300BE1163 /* 100d-1872x1060-red.png */; };
+		1BA85CFD1EC436E600B279B3 /* eosm-650d-700d-1808x1190-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5671EB1CB9300BE1163 /* eosm-650d-700d-1808x1190-blue.png */; };
+		1BA85CFE1EC436E600B279B3 /* eosm-650d-700d-1808x1190-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5681EB1CB9300BE1163 /* eosm-650d-700d-1808x1190-red.png */; };
+		1BA85CFF1EC436E600B279B3 /* eosm-650d-700d-1808x728-fullframe-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5691EB1CB9300BE1163 /* eosm-650d-700d-1808x728-fullframe-blue.png */; };
+		1BA85D001EC436E600B279B3 /* eosm-650d-700d-1808x728-fullframe-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F56A1EB1CB9300BE1163 /* eosm-650d-700d-1808x728-fullframe-red.png */; };
+		1BA85D011EC436E600B279B3 /* eosm-650d-700d-1872x1058-crop-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F56B1EB1CB9300BE1163 /* eosm-650d-700d-1872x1058-crop-blue.png */; };
+		1BA85D021EC436E600B279B3 /* eosm-650d-700d-1872x1058-crop-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F56C1EB1CB9300BE1163 /* eosm-650d-700d-1872x1058-crop-red.png */; };
+		1BA85D031EC436E600B279B3 /* eosm-650d-700d-2592x1108-zoom-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F56D1EB1CB9300BE1163 /* eosm-650d-700d-2592x1108-zoom-blue.png */; };
+		1BA85D041EC436E600B279B3 /* eosm-650d-700d-2592x1108-zoom-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F56E1EB1CB9300BE1163 /* eosm-650d-700d-2592x1108-zoom-red.png */; };
+		1BA85D051EC436EB00B279B3 /* MLVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F57B1EB1CB9300BE1163 /* MLVFile.m */; };
+		1BA85D061EC436EB00B279B3 /* MLVBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F5791EB1CB9300BE1163 /* MLVBlock.m */; };
+		1BA85D071EC436EB00B279B3 /* MLVPixelMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F5721EB1CB9300BE1163 /* MLVPixelMap.m */; };
+		1BA85D081EC436EB00B279B3 /* MLVRawImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F5741EB1CB9300BE1163 /* MLVRawImage.m */; };
+		1BA85D091EC4370C00B279B3 /* lj92.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F5951EB1D3DB00BE1163 /* lj92.c */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1BA85CF11EC436CB00B279B3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1B88F5401EB1CA6D00BE1163 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1BA85CE71EC436CB00B279B3;
+			remoteInfo = mlvprocess;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		1B27FAC01EB3873D00ECF32F /* Embed Frameworks */ = {
@@ -86,6 +99,7 @@
 			dstSubfolderSpec = 16;
 			files = (
 				1B27FAC21EB3876C00ECF32F /* com.andymatuschak.Sparkle.install-service.xpc in Embed XPC */,
+				1BA85CF31EC436CB00B279B3 /* mlvprocess.xpc in Embed XPC */,
 			);
 			name = "Embed XPC";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -176,6 +190,13 @@
 		1B88F5951EB1D3DB00BE1163 /* lj92.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lj92.c; sourceTree = "<group>"; };
 		1B88F5961EB1D3DB00BE1163 /* lj92.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lj92.h; sourceTree = "<group>"; };
 		1BA85CDA1EC0B6EE00B279B3 /* MLVDocumentIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = MLVDocumentIcon.iconset; sourceTree = "<group>"; };
+		1BA85CE81EC436CB00B279B3 /* mlvprocess.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = mlvprocess.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BA85CEB1EC436CB00B279B3 /* mlvprocess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mlvprocess.h; sourceTree = "<group>"; };
+		1BA85CEC1EC436CB00B279B3 /* mlvprocess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mlvprocess.m; sourceTree = "<group>"; };
+		1BA85CEE1EC436CB00B279B3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1BA85CF01EC436CB00B279B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1BA85D0B1EC43C9400B279B3 /* MLVProcessorProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLVProcessorProtocol.h; sourceTree = "<group>"; };
+		1BA85D0D1EC4403400B279B3 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +208,13 @@
 				1B27FABB1EB3873300ECF32F /* Sparkle.framework in Frameworks */,
 				1B27FABC1EB3873D00ECF32F /* HockeySDK.framework in Frameworks */,
 				1B27FABE1EB3873D00ECF32F /* Sparkle.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BA85CE51EC436CB00B279B3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,8 +291,10 @@
 		1B88F53F1EB1CA6D00BE1163 = {
 			isa = PBXGroup;
 			children = (
+				1BA85D0C1EC43D0200B279B3 /* XPC */,
 				1B88F55F1EB1CB9300BE1163 /* MLV */,
 				1B88F54A1EB1CA6D00BE1163 /* MacLantern */,
+				1BA85CE91EC436CB00B279B3 /* mlvprocess */,
 				1B27FAB51EB3873300ECF32F /* Frameworks */,
 				1B88F5491EB1CA6D00BE1163 /* Products */,
 			);
@@ -274,6 +304,7 @@
 			isa = PBXGroup;
 			children = (
 				1B88F5481EB1CA6D00BE1163 /* MacLantern.app */,
+				1BA85CE81EC436CB00B279B3 /* mlvprocess.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -308,6 +339,7 @@
 			isa = PBXGroup;
 			children = (
 				1B88F54F1EB1CA6D00BE1163 /* main.m */,
+				1BA85D0D1EC4403400B279B3 /* PrefixHeader.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -362,6 +394,25 @@
 			path = lj92;
 			sourceTree = SOURCE_ROOT;
 		};
+		1BA85CE91EC436CB00B279B3 /* mlvprocess */ = {
+			isa = PBXGroup;
+			children = (
+				1BA85D0B1EC43C9400B279B3 /* MLVProcessorProtocol.h */,
+				1BA85CEB1EC436CB00B279B3 /* mlvprocess.h */,
+				1BA85CEC1EC436CB00B279B3 /* mlvprocess.m */,
+				1BA85CEE1EC436CB00B279B3 /* main.m */,
+				1BA85CF01EC436CB00B279B3 /* Info.plist */,
+			);
+			path = mlvprocess;
+			sourceTree = "<group>";
+		};
+		1BA85D0C1EC43D0200B279B3 /* XPC */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = XPC;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -380,11 +431,29 @@
 			buildRules = (
 			);
 			dependencies = (
+				1BA85CF21EC436CB00B279B3 /* PBXTargetDependency */,
 			);
 			name = MacLantern;
 			productName = MacLantern;
 			productReference = 1B88F5481EB1CA6D00BE1163 /* MacLantern.app */;
 			productType = "com.apple.product-type.application";
+		};
+		1BA85CE71EC436CB00B279B3 /* mlvprocess */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1BA85CF61EC436CB00B279B3 /* Build configuration list for PBXNativeTarget "mlvprocess" */;
+			buildPhases = (
+				1BA85CE41EC436CB00B279B3 /* Sources */,
+				1BA85CE51EC436CB00B279B3 /* Frameworks */,
+				1BA85CE61EC436CB00B279B3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = mlvprocess;
+			productName = mlvprocess;
+			productReference = 1BA85CE81EC436CB00B279B3 /* mlvprocess.xpc */;
+			productType = "com.apple.product-type.xpc-service";
 		};
 /* End PBXNativeTarget section */
 
@@ -398,6 +467,10 @@
 					1B88F5471EB1CA6D00BE1163 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = J463EP3A58;
+						ProvisioningStyle = Manual;
+					};
+					1BA85CE71EC436CB00B279B3 = {
+						CreatedOnToolsVersion = 8.3.2;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -416,6 +489,7 @@
 			projectRoot = "";
 			targets = (
 				1B88F5471EB1CA6D00BE1163 /* MacLantern */,
+				1BA85CE71EC436CB00B279B3 /* mlvprocess */,
 			);
 		};
 /* End PBXProject section */
@@ -425,29 +499,36 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B88F5851EB1CB9300BE1163 /* eosm-650d-700d-1808x728-fullframe-blue.png in Resources */,
 				1B27FAAE1EB384AB00ECF32F /* MainView.xib in Resources */,
-				1B88F5831EB1CB9300BE1163 /* eosm-650d-700d-1808x1190-blue.png in Resources */,
-				1B88F5881EB1CB9300BE1163 /* eosm-650d-700d-1872x1058-crop-red.png in Resources */,
 				1B27FB001EB51C8300ECF32F /* JobView.xib in Resources */,
-				1B88F5801EB1CB9300BE1163 /* 100d-1808x728-red.png in Resources */,
-				1B88F57D1EB1CB9300BE1163 /* 100d-1808x1190-blue.png in Resources */,
-				1B88F57F1EB1CB9300BE1163 /* 100d-1808x728-blue.png in Resources */,
-				1B88F5871EB1CB9300BE1163 /* eosm-650d-700d-1872x1058-crop-blue.png in Resources */,
 				1B27FAB41EB3855D00ECF32F /* MainWindow.xib in Resources */,
 				1B27FAE41EB3934F00ECF32F /* BatchesView.xib in Resources */,
 				1B27FAB91EB3873300ECF32F /* com.andymatuschak.Sparkle.install-service.xpc in Resources */,
-				1B88F5811EB1CB9300BE1163 /* 100d-1872x1060-blue.png in Resources */,
-				1B88F5861EB1CB9300BE1163 /* eosm-650d-700d-1808x728-fullframe-red.png in Resources */,
-				1B88F5821EB1CB9300BE1163 /* 100d-1872x1060-red.png in Resources */,
 				1BA85CDB1EC0B6EE00B279B3 /* MLVDocumentIcon.iconset in Resources */,
 				1B88F5551EB1CA6D00BE1163 /* Assets.xcassets in Resources */,
-				1B88F58A1EB1CB9300BE1163 /* eosm-650d-700d-2592x1108-zoom-red.png in Resources */,
 				1B88F5581EB1CA6D00BE1163 /* Main.storyboard in Resources */,
-				1B88F5841EB1CB9300BE1163 /* eosm-650d-700d-1808x1190-red.png in Resources */,
-				1B88F57E1EB1CB9300BE1163 /* 100d-1808x1190-red.png in Resources */,
 				1B27FAF91EB5149200ECF32F /* BatchView.xib in Resources */,
-				1B88F5891EB1CB9300BE1163 /* eosm-650d-700d-2592x1108-zoom-blue.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BA85CE61EC436CB00B279B3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BA85D031EC436E600B279B3 /* eosm-650d-700d-2592x1108-zoom-blue.png in Resources */,
+				1BA85CFF1EC436E600B279B3 /* eosm-650d-700d-1808x728-fullframe-blue.png in Resources */,
+				1BA85CFE1EC436E600B279B3 /* eosm-650d-700d-1808x1190-red.png in Resources */,
+				1BA85D021EC436E600B279B3 /* eosm-650d-700d-1872x1058-crop-red.png in Resources */,
+				1BA85CFA1EC436E600B279B3 /* 100d-1808x728-red.png in Resources */,
+				1BA85D011EC436E600B279B3 /* eosm-650d-700d-1872x1058-crop-blue.png in Resources */,
+				1BA85CFD1EC436E600B279B3 /* eosm-650d-700d-1808x1190-blue.png in Resources */,
+				1BA85CF71EC436E600B279B3 /* 100d-1808x1190-blue.png in Resources */,
+				1BA85CFB1EC436E600B279B3 /* 100d-1872x1060-blue.png in Resources */,
+				1BA85CF91EC436E600B279B3 /* 100d-1808x728-blue.png in Resources */,
+				1BA85CFC1EC436E600B279B3 /* 100d-1872x1060-red.png in Resources */,
+				1BA85D041EC436E600B279B3 /* eosm-650d-700d-2592x1108-zoom-red.png in Resources */,
+				1BA85D001EC436E600B279B3 /* eosm-650d-700d-1808x728-fullframe-red.png in Resources */,
+				1BA85CF81EC436E600B279B3 /* 100d-1808x1190-red.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,7 +574,6 @@
 				1B27FAEA1EB394CB00ECF32F /* MLVContentView.m in Sources */,
 				1B27FAD21EB38F7B00ECF32F /* MLVDataManager.m in Sources */,
 				1B27FACB1EB38AFD00ECF32F /* NSColor+MacLantern.m in Sources */,
-				1B88F5991EB1D3DB00BE1163 /* lj92.c in Sources */,
 				1B27FAB11EB3852F00ECF32F /* MLVMainWindowController.m in Sources */,
 				1B27FAE11EB392DF00ECF32F /* MLVBatchesViewController.m in Sources */,
 				1B27FB091EB6082F00ECF32F /* MLVButtonCell.m in Sources */,
@@ -506,20 +586,38 @@
 				1B27FAF61EB5138800ECF32F /* MLVBatchViewController.m in Sources */,
 				1B27FAD81EB3907E00ECF32F /* MLVJob.m in Sources */,
 				1B27FAD51EB3904200ECF32F /* MLVBatch.m in Sources */,
-				1B88F58D1EB1CB9300BE1163 /* MLVRawImage.m in Sources */,
 				1B27FAE71EB393DA00ECF32F /* MLVSecondaryLabel.m in Sources */,
 				1B27FAC81EB38A6C00ECF32F /* MLVSplitView.m in Sources */,
 				1B27FAF31EB5101000ECF32F /* MLVPrimaryLabel.m in Sources */,
-				1B88F58C1EB1CB9300BE1163 /* MLVPixelMap.m in Sources */,
 				1B27FB0D1EB608C200ECF32F /* NSImage+MacLantern.m in Sources */,
 				1B27FACE1EB38C6400ECF32F /* MLVDividerView.m in Sources */,
 				1B88F54D1EB1CA6D00BE1163 /* AppDelegate.m in Sources */,
-				1B88F5901EB1CB9300BE1163 /* MLVFile.m in Sources */,
-				1B88F58F1EB1CB9300BE1163 /* MLVBlock.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BA85CE41EC436CB00B279B3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BA85CEF1EC436CB00B279B3 /* main.m in Sources */,
+				1BA85D051EC436EB00B279B3 /* MLVFile.m in Sources */,
+				1BA85D091EC4370C00B279B3 /* lj92.c in Sources */,
+				1BA85D071EC436EB00B279B3 /* MLVPixelMap.m in Sources */,
+				1BA85CED1EC436CB00B279B3 /* mlvprocess.m in Sources */,
+				1BA85D081EC436EB00B279B3 /* MLVRawImage.m in Sources */,
+				1BA85D061EC436EB00B279B3 /* MLVBlock.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1BA85CF21EC436CB00B279B3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1BA85CE71EC436CB00B279B3 /* mlvprocess */;
+			targetProxy = 1BA85CF11EC436CB00B279B3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1B27FAAC1EB384AB00ECF32F /* MainView.xib */ = {
@@ -673,6 +771,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = PrefixHeader.pch;
 				INFOPLIST_FILE = MacLantern/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -693,12 +793,46 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = PrefixHeader.pch;
 				INFOPLIST_FILE = MacLantern/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = org.martinhering.MacLantern;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Release;
+		};
+		1BA85CF41EC436CB00B279B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Developer ID Application: vemedio";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = PrefixHeader.pch;
+				INFOPLIST_FILE = mlvprocess/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = org.martinhering.mlvprocess;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		1BA85CF51EC436CB00B279B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Developer ID Application: vemedio";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = PrefixHeader.pch;
+				INFOPLIST_FILE = mlvprocess/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = org.martinhering.mlvprocess;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -719,6 +853,15 @@
 			buildConfigurations = (
 				1B88F55D1EB1CA6D00BE1163 /* Debug */,
 				1B88F55E1EB1CA6D00BE1163 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1BA85CF61EC436CB00B279B3 /* Build configuration list for PBXNativeTarget "mlvprocess" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1BA85CF41EC436CB00B279B3 /* Debug */,
+				1BA85CF51EC436CB00B279B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

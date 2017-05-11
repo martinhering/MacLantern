@@ -19,14 +19,21 @@
  */
 
 #import "MLVJob.h"
-#import "MLVFile.h"
 #import "MLVDataManager.h"
+#import "MLVProcessorProtocol.h"
 
 @interface MLVJob ()
-@property (nonatomic, strong) MLVFile* file;
+@property (nonatomic, strong) NSXPCConnection* xpcConnection;
+@property (nonatomic, strong) NSString* fileId;
+@property (readonly) id<MLVProcessorProtocol> remoteProxy;
 @end
 
 @implementation MLVJob
+
+- (void) dealloc {
+    NSAssert(!_xpcConnection, @"deallocation of MLVJob with prior invalidation");
+}
+
 
 - (void) setUrl:(NSURL *)url {
     if (_url != url) {
@@ -36,16 +43,58 @@
     }
 }
 
+
+- (id<MLVProcessorProtocol>) remoteProxy {
+    return [_xpcConnection remoteObjectProxy];
+}
+
 - (BOOL) readFileWithCompletion:(void (^)(BOOL success, NSError* error))completion
 {
+    NSParameterAssert(completion);
+
+    if (!_xpcConnection) {
+        _xpcConnection = [[NSXPCConnection alloc] initWithServiceName:@"org.martinhering.mlvprocess"];
+        _xpcConnection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:@protocol(MLVProcessorProtocol)];
+        [_xpcConnection resume];
+    }
+
     self.readingFile = YES;
-
-    [[MLVDataManager sharedManager].fileSystemQueue addOperationWithBlock:^{
-        MLVFile* file = [[MLVFile alloc] initWithURL:self.url];
-
+    [self.remoteProxy openFileWithURL:self.url withReply:^(NSString *fileId, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.file = file;
+            if (error) {
+                ErrLog(@"error opening file: %@", error);
+            }
+            else {
+                DebugLog(@"file open: %@", fileId);
+                self.fileId = fileId;
+            }
+
             self.readingFile = NO;
+            completion((error == nil), error);
+        });
+    }];
+
+    return YES;
+}
+
+- (BOOL) invalidateWithCompletion:(void (^)(BOOL success, NSError* error))completion
+{
+    NSParameterAssert(completion);
+    
+    if (!self.remoteProxy) {
+        return NO;
+    }
+
+    [self.remoteProxy closeFileWithId:self.fileId withReply:^(NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (error) {
+                ErrLog(@"error closing file: %@", error);
+            }
+            else {
+                self.fileId = nil;
+            }
+
+            completion((error == nil), error);
         });
     }];
 

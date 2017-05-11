@@ -18,18 +18,14 @@
  * Boston, MA  02110-1301, USA.
  */
 
-#import <Foundation/Foundation.h>
+#ifndef MLVProcessorProtocol_h
+#define MLVProcessorProtocol_h
 
-@class MLVOutput;
+@protocol MLVProcessorProtocol
 
-@interface MLVJob : NSObject
+- (void) openFileWithURL:(NSURL*)url withReply:(void (^)(NSString *fileId, NSError* error))reply;
+- (void) closeFileWithId:(NSString*)fileId withReply:(void (^)(NSError* error))reply;
 
-@property (nonatomic, strong) NSString* name;
-@property (nonatomic, strong) NSURL* url;
-@property (nonatomic, strong) NSArray<MLVOutput*>* outputs;
-
-@property (nonatomic) BOOL readingFile;
-
-- (BOOL) readFileWithCompletion:(void (^)(BOOL success, NSError* error))completion;
-- (BOOL) invalidateWithCompletion:(void (^)(BOOL success, NSError* error))completion;
 @end
+
+#endif /* MLVProcessorProtocol_h */

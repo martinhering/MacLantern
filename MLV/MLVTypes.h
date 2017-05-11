@@ -83,21 +83,5 @@ typedef NS_ENUM(UInt32, MLVCameraModel) {
     kMLVCameraModel100D     = 0x80000346
 };
 
-#define COERCE(x,lo,hi) MAX(MIN((x),(hi)),(lo))
-
-#define WEAK_SELF __weak typeof(self) weakSelf = self;
-#define STRONG_SELF typeof(self) self = weakSelf;
-
-#ifdef DEBUG
-#define DebugLog(format, args...) if (format != nil) NSLog(@"[%@:%d] %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:format, ##args])
-#define ErrLog(format, args...) if (format != nil) NSLog(@"[%@:%d] ***%@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:format, ##args])
-#else
-#define DebugLog(format, args...)
-#define DebugErrLog(format, args...)
-#define ErrLog(format, args...) if (format != nil) NSLog(@"[%@:%d] ***%@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:format, ##args])
-#endif
-
-#define NS_ERROR(x_code, x_description, x_args...) [NSError errorWithDomain:NSStringFromClass([self class]) code:x_code userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:x_description, ##x_args]}];
-
 
 #endif /* MLVTypes_h */

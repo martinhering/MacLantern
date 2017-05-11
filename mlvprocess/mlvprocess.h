@@ -18,18 +18,10 @@
  * Boston, MA  02110-1301, USA.
  */
 
-#import <Foundation/Foundation.h>
 
-@class MLVOutput;
+#import <Cocoa/Cocoa.h>
+#import "MLVProcessorProtocol.h"
 
-@interface MLVJob : NSObject
-
-@property (nonatomic, strong) NSString* name;
-@property (nonatomic, strong) NSURL* url;
-@property (nonatomic, strong) NSArray<MLVOutput*>* outputs;
-
-@property (nonatomic) BOOL readingFile;
-
-- (BOOL) readFileWithCompletion:(void (^)(BOOL success, NSError* error))completion;
-- (BOOL) invalidateWithCompletion:(void (^)(BOOL success, NSError* error))completion;
+// This object implements the protocol which we have defined. It provides the actual behavior for the service. It is 'exported' by the service to make it available to the process hosting the service over an NSXPCConnection.
+@interface mlvprocess : NSObject <MLVProcessorProtocol>
 @end
