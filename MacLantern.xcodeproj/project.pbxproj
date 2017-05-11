@@ -195,7 +195,7 @@
 		1BA85CEC1EC436CB00B279B3 /* mlvprocess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mlvprocess.m; sourceTree = "<group>"; };
 		1BA85CEE1EC436CB00B279B3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1BA85CF01EC436CB00B279B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1BA85D0B1EC43C9400B279B3 /* MLVProcessorProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLVProcessorProtocol.h; sourceTree = "<group>"; };
+		1BA85D0B1EC43C9400B279B3 /* MLVProcessorProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MLVProcessorProtocol.h; path = ../MLVProcessorProtocol.h; sourceTree = "<group>"; };
 		1BA85D0D1EC4403400B279B3 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -291,8 +291,6 @@
 		1B88F53F1EB1CA6D00BE1163 = {
 			isa = PBXGroup;
 			children = (
-				1BA85D0C1EC43D0200B279B3 /* XPC */,
-				1B88F55F1EB1CB9300BE1163 /* MLV */,
 				1B88F54A1EB1CA6D00BE1163 /* MacLantern */,
 				1BA85CE91EC436CB00B279B3 /* mlvprocess */,
 				1B27FAB51EB3873300ECF32F /* Frameworks */,
@@ -397,6 +395,7 @@
 		1BA85CE91EC436CB00B279B3 /* mlvprocess */ = {
 			isa = PBXGroup;
 			children = (
+				1B88F55F1EB1CB9300BE1163 /* MLV */,
 				1BA85D0B1EC43C9400B279B3 /* MLVProcessorProtocol.h */,
 				1BA85CEB1EC436CB00B279B3 /* mlvprocess.h */,
 				1BA85CEC1EC436CB00B279B3 /* mlvprocess.m */,
@@ -404,13 +403,6 @@
 				1BA85CF01EC436CB00B279B3 /* Info.plist */,
 			);
 			path = mlvprocess;
-			sourceTree = "<group>";
-		};
-		1BA85D0C1EC43D0200B279B3 /* XPC */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = XPC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
