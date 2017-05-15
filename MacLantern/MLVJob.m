@@ -59,7 +59,7 @@
     }
 
     self.readingFile = YES;
-    [self.remoteProxy openFileWithURL:self.url withReply:^(NSString *fileId, NSError *error) {
+    [self.remoteProxy openFileWithURL:self.url withReply:^(NSString *fileId, NSDictionary<NSString*, id> *attributes, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (error) {
                 ErrLog(@"error opening file: %@", error);

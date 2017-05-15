@@ -19,7 +19,7 @@
 
 @protocol MLVProcessorProtocol
 
-- (void) openFileWithURL:(NSURL*)url withReply:(void (^)(NSString *fileId, NSError* error))reply;
+- (void) openFileWithURL:(NSURL*)url withReply:(void (^)(NSString *fileId, NSDictionary<NSString*, id>* attributes, NSError* error))reply;
 - (void) closeFileWithId:(NSString*)fileId withReply:(void (^)(NSError* error))reply;
 
 @end

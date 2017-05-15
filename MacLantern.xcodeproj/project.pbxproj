@@ -67,6 +67,28 @@
 		1BA85D071EC436EB00B279B3 /* MLVPixelMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F5721EB1CB9300BE1163 /* MLVPixelMap.m */; };
 		1BA85D081EC436EB00B279B3 /* MLVRawImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F5741EB1CB9300BE1163 /* MLVRawImage.m */; };
 		1BA85D091EC4370C00B279B3 /* lj92.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F5951EB1D3DB00BE1163 /* lj92.c */; };
+		1BA85D231EC9771D00B279B3 /* MLVRawImage+DNG.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA85D221EC9771D00B279B3 /* MLVRawImage+DNG.m */; };
+		1BA85D2B1EC98E4100B279B3 /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA85D2A1EC98E4100B279B3 /* Tests.m */; };
+		1BA85D321EC98E5300B279B3 /* MLVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F57B1EB1CB9300BE1163 /* MLVFile.m */; };
+		1BA85D331EC98E5300B279B3 /* MLVBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F5791EB1CB9300BE1163 /* MLVBlock.m */; };
+		1BA85D341EC98E5300B279B3 /* MLVPixelMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F5721EB1CB9300BE1163 /* MLVPixelMap.m */; };
+		1BA85D351EC98E5300B279B3 /* MLVRawImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F5741EB1CB9300BE1163 /* MLVRawImage.m */; };
+		1BA85D361EC98E5300B279B3 /* MLVRawImage+DNG.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA85D221EC9771D00B279B3 /* MLVRawImage+DNG.m */; };
+		1BA85D371EC98E5900B279B3 /* 100d-1808x1190-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5611EB1CB9300BE1163 /* 100d-1808x1190-blue.png */; };
+		1BA85D381EC98E5900B279B3 /* 100d-1808x1190-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5621EB1CB9300BE1163 /* 100d-1808x1190-red.png */; };
+		1BA85D391EC98E5900B279B3 /* 100d-1808x728-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5631EB1CB9300BE1163 /* 100d-1808x728-blue.png */; };
+		1BA85D3A1EC98E5900B279B3 /* 100d-1808x728-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5641EB1CB9300BE1163 /* 100d-1808x728-red.png */; };
+		1BA85D3B1EC98E5900B279B3 /* 100d-1872x1060-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5651EB1CB9300BE1163 /* 100d-1872x1060-blue.png */; };
+		1BA85D3C1EC98E5900B279B3 /* 100d-1872x1060-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5661EB1CB9300BE1163 /* 100d-1872x1060-red.png */; };
+		1BA85D3D1EC98E5900B279B3 /* eosm-650d-700d-1808x1190-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5671EB1CB9300BE1163 /* eosm-650d-700d-1808x1190-blue.png */; };
+		1BA85D3E1EC98E5900B279B3 /* eosm-650d-700d-1808x1190-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5681EB1CB9300BE1163 /* eosm-650d-700d-1808x1190-red.png */; };
+		1BA85D3F1EC98E5900B279B3 /* eosm-650d-700d-1808x728-fullframe-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F5691EB1CB9300BE1163 /* eosm-650d-700d-1808x728-fullframe-blue.png */; };
+		1BA85D401EC98E5900B279B3 /* eosm-650d-700d-1808x728-fullframe-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F56A1EB1CB9300BE1163 /* eosm-650d-700d-1808x728-fullframe-red.png */; };
+		1BA85D411EC98E5900B279B3 /* eosm-650d-700d-1872x1058-crop-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F56B1EB1CB9300BE1163 /* eosm-650d-700d-1872x1058-crop-blue.png */; };
+		1BA85D421EC98E5900B279B3 /* eosm-650d-700d-1872x1058-crop-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F56C1EB1CB9300BE1163 /* eosm-650d-700d-1872x1058-crop-red.png */; };
+		1BA85D431EC98E5900B279B3 /* eosm-650d-700d-2592x1108-zoom-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F56D1EB1CB9300BE1163 /* eosm-650d-700d-2592x1108-zoom-blue.png */; };
+		1BA85D441EC98E5900B279B3 /* eosm-650d-700d-2592x1108-zoom-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B88F56E1EB1CB9300BE1163 /* eosm-650d-700d-2592x1108-zoom-red.png */; };
+		1BA85D451EC98E5D00B279B3 /* lj92.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B88F5951EB1D3DB00BE1163 /* lj92.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +98,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 1BA85CE71EC436CB00B279B3;
 			remoteInfo = mlvprocess;
+		};
+		1BA85D2D1EC98E4100B279B3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1B88F5401EB1CA6D00BE1163 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1B88F5471EB1CA6D00BE1163;
+			remoteInfo = MacLantern;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -196,7 +225,13 @@
 		1BA85CEE1EC436CB00B279B3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1BA85CF01EC436CB00B279B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BA85D0B1EC43C9400B279B3 /* MLVProcessorProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MLVProcessorProtocol.h; path = ../MLVProcessorProtocol.h; sourceTree = "<group>"; };
-		1BA85D0D1EC4403400B279B3 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		1BA85D0D1EC4403400B279B3 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PrefixHeader.pch; path = ../PrefixHeader.pch; sourceTree = "<group>"; };
+		1BA85D211EC9771D00B279B3 /* MLVRawImage+DNG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MLVRawImage+DNG.h"; sourceTree = "<group>"; };
+		1BA85D221EC9771D00B279B3 /* MLVRawImage+DNG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MLVRawImage+DNG.m"; sourceTree = "<group>"; };
+		1BA85D281EC98E4100B279B3 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BA85D2A1EC98E4100B279B3 /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
+		1BA85D2C1EC98E4100B279B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1BA85D471EC994E000B279B3 /* MLVRawImage+Inline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MLVRawImage+Inline.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +247,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		1BA85CE51EC436CB00B279B3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BA85D251EC98E4100B279B3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -293,6 +335,7 @@
 			children = (
 				1B88F54A1EB1CA6D00BE1163 /* MacLantern */,
 				1BA85CE91EC436CB00B279B3 /* mlvprocess */,
+				1BA85D291EC98E4100B279B3 /* Tests */,
 				1B27FAB51EB3873300ECF32F /* Frameworks */,
 				1B88F5491EB1CA6D00BE1163 /* Products */,
 			);
@@ -303,6 +346,7 @@
 			children = (
 				1B88F5481EB1CA6D00BE1163 /* MacLantern.app */,
 				1BA85CE81EC436CB00B279B3 /* mlvprocess.xpc */,
+				1BA85D281EC98E4100B279B3 /* Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -358,6 +402,9 @@
 				1B88F5721EB1CB9300BE1163 /* MLVPixelMap.m */,
 				1B88F5731EB1CB9300BE1163 /* MLVRawImage.h */,
 				1B88F5741EB1CB9300BE1163 /* MLVRawImage.m */,
+				1BA85D471EC994E000B279B3 /* MLVRawImage+Inline.h */,
+				1BA85D211EC9771D00B279B3 /* MLVRawImage+DNG.h */,
+				1BA85D221EC9771D00B279B3 /* MLVRawImage+DNG.m */,
 			);
 			path = MLV;
 			sourceTree = "<group>";
@@ -405,6 +452,15 @@
 			path = mlvprocess;
 			sourceTree = "<group>";
 		};
+		1BA85D291EC98E4100B279B3 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				1BA85D2A1EC98E4100B279B3 /* Tests.m */,
+				1BA85D2C1EC98E4100B279B3 /* Info.plist */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -447,6 +503,24 @@
 			productReference = 1BA85CE81EC436CB00B279B3 /* mlvprocess.xpc */;
 			productType = "com.apple.product-type.xpc-service";
 		};
+		1BA85D271EC98E4100B279B3 /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1BA85D2F1EC98E4100B279B3 /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				1BA85D241EC98E4100B279B3 /* Sources */,
+				1BA85D251EC98E4100B279B3 /* Frameworks */,
+				1BA85D261EC98E4100B279B3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1BA85D2E1EC98E4100B279B3 /* PBXTargetDependency */,
+			);
+			name = Tests;
+			productName = Tests;
+			productReference = 1BA85D281EC98E4100B279B3 /* Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -465,6 +539,11 @@
 						CreatedOnToolsVersion = 8.3.2;
 						ProvisioningStyle = Manual;
 					};
+					1BA85D271EC98E4100B279B3 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = J463EP3A58;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 1B88F5431EB1CA6D00BE1163 /* Build configuration list for PBXProject "MacLantern" */;
@@ -482,6 +561,7 @@
 			targets = (
 				1B88F5471EB1CA6D00BE1163 /* MacLantern */,
 				1BA85CE71EC436CB00B279B3 /* mlvprocess */,
+				1BA85D271EC98E4100B279B3 /* Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -521,6 +601,27 @@
 				1BA85D041EC436E600B279B3 /* eosm-650d-700d-2592x1108-zoom-red.png in Resources */,
 				1BA85D001EC436E600B279B3 /* eosm-650d-700d-1808x728-fullframe-red.png in Resources */,
 				1BA85CF81EC436E600B279B3 /* 100d-1808x1190-red.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BA85D261EC98E4100B279B3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BA85D431EC98E5900B279B3 /* eosm-650d-700d-2592x1108-zoom-blue.png in Resources */,
+				1BA85D3F1EC98E5900B279B3 /* eosm-650d-700d-1808x728-fullframe-blue.png in Resources */,
+				1BA85D3E1EC98E5900B279B3 /* eosm-650d-700d-1808x1190-red.png in Resources */,
+				1BA85D421EC98E5900B279B3 /* eosm-650d-700d-1872x1058-crop-red.png in Resources */,
+				1BA85D3A1EC98E5900B279B3 /* 100d-1808x728-red.png in Resources */,
+				1BA85D411EC98E5900B279B3 /* eosm-650d-700d-1872x1058-crop-blue.png in Resources */,
+				1BA85D3D1EC98E5900B279B3 /* eosm-650d-700d-1808x1190-blue.png in Resources */,
+				1BA85D371EC98E5900B279B3 /* 100d-1808x1190-blue.png in Resources */,
+				1BA85D3B1EC98E5900B279B3 /* 100d-1872x1060-blue.png in Resources */,
+				1BA85D391EC98E5900B279B3 /* 100d-1808x728-blue.png in Resources */,
+				1BA85D3C1EC98E5900B279B3 /* 100d-1872x1060-red.png in Resources */,
+				1BA85D441EC98E5900B279B3 /* eosm-650d-700d-2592x1108-zoom-red.png in Resources */,
+				1BA85D401EC98E5900B279B3 /* eosm-650d-700d-1808x728-fullframe-red.png in Resources */,
+				1BA85D381EC98E5900B279B3 /* 100d-1808x1190-red.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,7 +698,22 @@
 				1BA85D071EC436EB00B279B3 /* MLVPixelMap.m in Sources */,
 				1BA85CED1EC436CB00B279B3 /* mlvprocess.m in Sources */,
 				1BA85D081EC436EB00B279B3 /* MLVRawImage.m in Sources */,
+				1BA85D231EC9771D00B279B3 /* MLVRawImage+DNG.m in Sources */,
 				1BA85D061EC436EB00B279B3 /* MLVBlock.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BA85D241EC98E4100B279B3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BA85D331EC98E5300B279B3 /* MLVBlock.m in Sources */,
+				1BA85D351EC98E5300B279B3 /* MLVRawImage.m in Sources */,
+				1BA85D451EC98E5D00B279B3 /* lj92.c in Sources */,
+				1BA85D361EC98E5300B279B3 /* MLVRawImage+DNG.m in Sources */,
+				1BA85D2B1EC98E4100B279B3 /* Tests.m in Sources */,
+				1BA85D321EC98E5300B279B3 /* MLVFile.m in Sources */,
+				1BA85D341EC98E5300B279B3 /* MLVPixelMap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,6 +724,11 @@
 			isa = PBXTargetDependency;
 			target = 1BA85CE71EC436CB00B279B3 /* mlvprocess */;
 			targetProxy = 1BA85CF11EC436CB00B279B3 /* PBXContainerItemProxy */;
+		};
+		1BA85D2E1EC98E4100B279B3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1B88F5471EB1CA6D00BE1163 /* MacLantern */;
+			targetProxy = 1BA85D2D1EC98E4100B279B3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -828,6 +949,34 @@
 			};
 			name = Release;
 		};
+		1BA85D301EC98E4100B279B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = J463EP3A58;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = PrefixHeader.pch;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.martinhering.maclantern.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1BA85D311EC98E4100B279B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = J463EP3A58;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = PrefixHeader.pch;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.martinhering.maclantern.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -857,6 +1006,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		1BA85D2F1EC98E4100B279B3 /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1BA85D301EC98E4100B279B3 /* Debug */,
+				1BA85D311EC98E4100B279B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

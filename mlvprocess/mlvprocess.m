@@ -20,12 +20,13 @@
 
 #import "mlvprocess.h"
 #import "MLVFile.h"
+#import "MLVRawImage+DNG.h"
 
 @implementation mlvprocess {
     NSMutableDictionary<NSString*, MLVFile*>* _openFiles;
 }
 
-- (void) openFileWithURL:(NSURL*)url withReply:(void (^)(NSString *fileId, NSError* error))reply
+- (void) openFileWithURL:(NSURL*)url withReply:(void (^)(NSString *fileId, NSDictionary<NSString*, id>* attributes, NSError* error))reply
 {
     if (!_openFiles) {
         _openFiles = [[NSMutableDictionary alloc] init];
@@ -37,7 +38,8 @@
         _openFiles[url.path] = file;
     }
 
-    reply(url.path, nil);
+    NSMutableDictionary* attributes = [[NSMutableDictionary alloc] init];
+    reply(url.path, attributes, nil);
 }
 
 - (void) closeFileWithId:(NSString*)fileId withReply:(void (^)(NSError* error))reply
