@@ -20,10 +20,90 @@
 
 #import "mlvprocess.h"
 #import "MLVFile.h"
+#import "MLVBlock.h"
 #import "MLVRawImage+DNG.h"
+
+#define METADATA_VERSION 3
 
 @implementation mlvprocess {
     NSMutableDictionary<NSString*, MLVFile*>* _openFiles;
+}
+
+- (NSMutableDictionary<NSString*, id>*) _attributesWithFile:(MLVFile*)file
+{
+    NSMutableDictionary<NSString*, id>* attributes = [[NSMutableDictionary alloc] init];
+    attributes[kMLVAttributeKeyVideoBlocksCount] = @(file.videoBlocks.count);
+    attributes[kMLVAttributeKeyAudioBlocksCount] = @(file.audioBlocks.count);
+    attributes[kMLVAttributeKeyVersion] = @(METADATA_VERSION);
+    attributes[kMLVAttributeKeyDuration] = @(file.duration);
+    attributes[kMLVAttributeKeyFrameTime] = [NSString stringWithFormat:@"%lld/%ld", file.frameTime.value, (long)file.frameTime.timescale];
+
+    MLVCameraInfoBlock* idntInfo = file.idntInfo;
+    MLVLensBlock* lensInfo = file.lensInfo;
+    MLVExposureBlock* expoInfo = file.expoInfo;
+    MLVRAWInfoBlock* rawiInfo = file.rawiInfo;
+
+    attributes[kMLVAttributeKeyManufacturer] = @"Canon";
+
+    if (idntInfo.cameraName) {
+        attributes[kMLVAttributeKeyCamera] = idntInfo.cameraName;
+    }
+
+    if (lensInfo.lensName) {
+        attributes[kMLVAttributeKeyLens] = lensInfo.lensName;
+    }
+
+    attributes[kMLVAttributeKeyOriginalImageSize] = NSStringFromSize(NSMakeSize(rawiInfo.xRes, rawiInfo.yRes));
+    attributes[kMLVAttributeKeyBitsPerSample] = @(rawiInfo.bitsPerPixel);
+
+
+    if (expoInfo.isoValue > 0) {
+        attributes[kMLVAttributeKeyISO] = @(expoInfo.isoValue);
+    }
+
+    if (expoInfo.shutterValue > 0) {
+        attributes[kMLVAttributeKeyExposureTime] = @(expoInfo.shutterValue);
+    }
+
+    if (lensInfo.aperture > 0) {
+        attributes[kMLVAttributeKeyAperture] = @(lensInfo.aperture);
+    }
+
+    if (lensInfo.focalLength > 0) {
+        attributes[kMLVAttributeKeyFocalLength] = @(lensInfo.focalLength);
+    }
+
+    if (file.fileSize > 0) {
+        attributes[kMLVAttributeKeyFileSize] = @(file.fileSize);
+    }
+
+    if (file.waviInfo.sampleRate > 0) {
+        attributes[kMLVAttributeKeyAudioSampleRate] = @(file.waviInfo.sampleRate);
+    }
+
+    if (file.waviInfo.bitsPerSample > 0) {
+        attributes[kMLVAttributeKeyAudioBitsPerSample] = @(file.waviInfo.bitsPerSample);
+    }
+
+    if (file.waviInfo.channels > 0) {
+        attributes[kMLVAttributeKeyAudioChannels] = @(file.waviInfo.channels);
+    }
+
+    UInt16 videoClassFlags = (file.mainheader.videoClass & 0xe0);
+    switch (videoClassFlags) {
+        case kMLVFileVideoClassFlagLZMA:
+            attributes[kMLVAttributeKeyCompression] = @"LZMA";
+            break;
+        case kMLVFileVideoClassFlagDelta:
+            attributes[kMLVAttributeKeyCompression] = @"Delta";
+            break;
+        case kMLVFileVideoClassFlagLJ92:
+            attributes[kMLVAttributeKeyCompression] = @"Lossless JPEG";
+            break;
+        default:
+            break;
+    }
+    return attributes;
 }
 
 - (void) openFileWithURL:(NSURL*)url withReply:(void (^)(NSString *fileId, NSDictionary<NSString*, id>* attributes, NSError* error))reply
@@ -32,14 +112,15 @@
         _openFiles = [[NSMutableDictionary alloc] init];
     }
 
-    MLVFile* file = _openFiles[url.path];
+    NSString* fileId = [[NSUUID UUID] UUIDString];
+    MLVFile* file = _openFiles[fileId];
     if (!file) {
         file = [[MLVFile alloc] initWithURL:url];
-        _openFiles[url.path] = file;
+        _openFiles[fileId] = file;
     }
 
-    NSMutableDictionary* attributes = [[NSMutableDictionary alloc] init];
-    reply(url.path, attributes, nil);
+    NSMutableDictionary<NSString*, id>* attributes = [self _attributesWithFile:file];
+    reply(fileId, attributes, nil);
 }
 
 - (void) closeFileWithId:(NSString*)fileId withReply:(void (^)(NSError* error))reply
@@ -55,5 +136,34 @@
     reply(nil);
 }
 
+- (void) produceArchiveDataWithFileId:(NSString*)fileId withReply:(void (^)(NSData* archiveData, NSError* error))reply
+{
+    MLVFile* file = _openFiles[fileId];
+    if (!file) {
+        NSError* error = NS_ERROR(-1, @"file is not open: %@", fileId);
+        reply(nil, error);
+        return;
+    }
+
+    NSData* data = [NSKeyedArchiver archivedDataWithRootObject:file];
+    reply(data, nil);
+}
+
+- (void) openFileWithArchiveData:(NSData*)data withReply:(void (^)(NSString *fileId, NSDictionary<NSString*, id>* attributes, NSError* error))reply
+{
+    if (!_openFiles) {
+        _openFiles = [[NSMutableDictionary alloc] init];
+    }
+
+    NSString* fileId = [[NSUUID UUID] UUIDString];
+    MLVFile* file = _openFiles[fileId];
+    if (!file) {
+        file = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        _openFiles[fileId] = file;
+    }
+
+    NSMutableDictionary<NSString*, id>* attributes = [self _attributesWithFile:file];
+    reply(fileId, attributes, nil);
+}
 
 @end

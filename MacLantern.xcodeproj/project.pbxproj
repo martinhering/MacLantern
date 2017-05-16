@@ -543,6 +543,7 @@
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = J463EP3A58;
 						ProvisioningStyle = Automatic;
+						TestTargetID = 1B88F5471EB1CA6D00BE1163;
 					};
 				};
 			};
@@ -952,6 +953,7 @@
 		1BA85D301EC98E4100B279B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = J463EP3A58;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -960,12 +962,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.martinhering.maclantern.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MacLantern.app/Contents/MacOS/MacLantern";
 			};
 			name = Debug;
 		};
 		1BA85D311EC98E4100B279B3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = J463EP3A58;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -974,6 +978,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.martinhering.maclantern.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MacLantern.app/Contents/MacOS/MacLantern";
 			};
 			name = Release;
 		};
@@ -1014,6 +1019,7 @@
 				1BA85D311EC98E4100B279B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
