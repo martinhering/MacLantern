@@ -44,10 +44,9 @@
 
 @protocol MLVProcessorProtocol
 
-- (void) openFileWithURL:(NSURL*)url withReply:(void (^)(NSString *fileId, NSDictionary<NSString*, id>* attributes, NSError* error))reply;
+- (void) openFileWithURL:(NSURL*)url withReply:(void (^)(NSString *fileId, NSDictionary<NSString*, id>* attributes, NSData* archiveData, NSError* error))reply;
 - (void) closeFileWithId:(NSString*)fileId withReply:(void (^)(NSError* error))reply;
 
-- (void) produceArchiveDataWithFileId:(NSString*)fileId withReply:(void (^)(NSData* archiveData, NSError* error))reply;
 - (void) openFileWithArchiveData:(NSData*)data withReply:(void (^)(NSString *fileId, NSDictionary<NSString*, id>* attributes, NSError* error))reply;
 
 @end

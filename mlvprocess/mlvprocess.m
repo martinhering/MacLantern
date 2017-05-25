@@ -106,7 +106,7 @@
     return attributes;
 }
 
-- (void) openFileWithURL:(NSURL*)url withReply:(void (^)(NSString *fileId, NSDictionary<NSString*, id>* attributes, NSError* error))reply
+- (void) openFileWithURL:(NSURL*)url withReply:(void (^)(NSString *fileId, NSDictionary<NSString*, id>* attributes, NSData* archiveData, NSError* error))reply
 {
     if (!_openFiles) {
         _openFiles = [[NSMutableDictionary alloc] init];
@@ -120,7 +120,8 @@
     }
 
     NSMutableDictionary<NSString*, id>* attributes = [self _attributesWithFile:file];
-    reply(fileId, attributes, nil);
+    NSData* archiveData = [NSKeyedArchiver archivedDataWithRootObject:file];
+    reply(fileId, attributes, archiveData, nil);
 }
 
 - (void) closeFileWithId:(NSString*)fileId withReply:(void (^)(NSError* error))reply
@@ -134,19 +135,6 @@
 
     [_openFiles removeObjectForKey:fileId];
     reply(nil);
-}
-
-- (void) produceArchiveDataWithFileId:(NSString*)fileId withReply:(void (^)(NSData* archiveData, NSError* error))reply
-{
-    MLVFile* file = _openFiles[fileId];
-    if (!file) {
-        NSError* error = NS_ERROR(-1, @"file is not open: %@", fileId);
-        reply(nil, error);
-        return;
-    }
-
-    NSData* data = [NSKeyedArchiver archivedDataWithRootObject:file];
-    reply(data, nil);
 }
 
 - (void) openFileWithArchiveData:(NSData*)data withReply:(void (^)(NSString *fileId, NSDictionary<NSString*, id>* attributes, NSError* error))reply

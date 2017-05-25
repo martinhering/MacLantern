@@ -31,7 +31,7 @@
 @implementation MLVJob
 
 - (void) dealloc {
-    NSAssert(!_xpcConnection, @"deallocation of MLVJob with prior invalidation");
+    NSAssert(!_xpcConnection, @"deallocation of MLVJob without prior invalidation");
 }
 
 
