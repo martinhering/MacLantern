@@ -71,7 +71,7 @@ static inline void hxRunInMainLoop(void(^block)(BOOL *done)) {
 
 
         id remoteProxy = [xpcConnection remoteObjectProxy];
-        [remoteProxy openFileWithURL:url withReply:^(NSString *fileId, NSDictionary<NSString*, id> *attributes, NSError *error) {
+        [remoteProxy openFileWithURL:url withReply:^(NSString *fileId, NSDictionary<NSString*, id> *attributes, NSData *archiveData, NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"%@", attributes);
 
@@ -97,31 +97,51 @@ static inline void hxRunInMainLoop(void(^block)(BOOL *done)) {
         [xpcConnection resume];
 
         id remoteProxy = [xpcConnection remoteObjectProxy];
-        [remoteProxy openFileWithURL:url withReply:^(NSString *fileId, NSDictionary<NSString*, id> *fileAttributes, NSError *error) {
+        [remoteProxy openFileWithURL:url withReply:^(NSString *fileId, NSDictionary<NSString*, id> *fileAttributes, NSData *archiveData, NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-
-                [remoteProxy produceArchiveDataWithFileId:fileId withReply:^(NSData *archiveData, NSError *error) {
+                [remoteProxy closeFileWithId:fileId withReply:^(NSError *error) {
                     dispatch_async(dispatch_get_main_queue(), ^{
 
-                        [remoteProxy closeFileWithId:fileId withReply:^(NSError *error) {
+                        [remoteProxy openFileWithArchiveData:archiveData withReply:^(NSString *fileId, NSDictionary<NSString *,id> *archiveAttributes, NSError *error) {
                             dispatch_async(dispatch_get_main_queue(), ^{
 
-                                [remoteProxy openFileWithArchiveData:archiveData withReply:^(NSString *fileId, NSDictionary<NSString *,id> *archiveAttributes, NSError *error) {
+                                XCTAssertEqualObjects(fileAttributes, archiveAttributes);
+
+                                [remoteProxy closeFileWithId:fileId withReply:^(NSError *error) {
                                     dispatch_async(dispatch_get_main_queue(), ^{
-
-                                        XCTAssertEqualObjects(fileAttributes, archiveAttributes);
-
-                                        [remoteProxy closeFileWithId:fileId withReply:^(NSError *error) {
-                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                [xpcConnection invalidate];
-                                                *done = YES;
-                                            });
-                                        }];
+                                        [xpcConnection invalidate];
+                                        *done = YES;
                                     });
                                 }];
                             });
                         }];
                     });
+                }];
+            });
+        }];
+    });
+}
+
+- (void)testXPCReadingDataBlock
+{
+    NSURL* url = [NSURL fileURLWithPath:TEST_FILE_PATH];
+
+    hxRunInMainLoop(^(BOOL *done) {
+
+        NSXPCConnection* xpcConnection = [[NSXPCConnection alloc] initWithServiceName:@"org.martinhering.mlvprocess"];
+        xpcConnection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:@protocol(MLVProcessorProtocol)];
+        [xpcConnection resume];
+
+        id remoteProxy = [xpcConnection remoteObjectProxy];
+        [remoteProxy openFileWithURL:url withReply:^(NSString *fileId, NSDictionary<NSString*, id> *fileAttributes, NSData *archiveData, NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+
+                [remoteProxy readVideoFrameAtIndex:0 fileId:fileId options:0 withReply:^(NSData *dngData, NSData* highlightMapData, NSDictionary<NSString *,id> *avSettings, NSError *error) {
+
+                    NSLog(@"a");
+
+                    [xpcConnection invalidate];
+                    *done = YES;
                 }];
             });
         }];

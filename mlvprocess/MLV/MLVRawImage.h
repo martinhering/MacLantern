@@ -49,7 +49,7 @@ typedef NS_ENUM(NSInteger, MLVRawImageFocusPixelsType) {
 @property (readonly) void* rawBuffer;
 @property (readonly) BOOL compressed;
 
-@property (readonly) NSImage* highlightMap;
+@property (readonly) NSData* highlightMap;
 
 // improve performance by creating a dead pixel map
 @property (readonly) MLVPixelMap* deadPixelMap;

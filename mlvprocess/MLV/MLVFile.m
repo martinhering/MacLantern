@@ -722,7 +722,7 @@ abort:
 }
 
 
-- (NSDictionary*) audioSettings {
+- (NSDictionary<NSString*, id>*) audioSettings {
 
     if (!_waviInfo) {
         return nil;
@@ -740,7 +740,7 @@ abort:
     return audioSettings;
 }
 
-- (NSDictionary*) imageSettings {
+- (NSDictionary<NSString*, id>*) imageSettings {
     NSParameterAssert(_rawiInfo);
 
     NSMutableDictionary* imageSettings = [[NSMutableDictionary alloc] init];

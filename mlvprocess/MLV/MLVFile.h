@@ -49,8 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSArray<MLVVideoBlock*>* videoBlocks;
 @property (readonly) NSArray<MLVAudioBlock*>* audioBlocks;
 
-@property (readonly) NSDictionary* audioSettings;
-@property (readonly) NSDictionary* imageSettings;
+@property (readonly) NSDictionary<NSString*, id>* audioSettings;
+@property (readonly) NSDictionary<NSString*, id>* imageSettings;
 
 - (NSData*) readAudioDataBlock:(MLVAudioBlock*)block errorCode:(MLVErrorCode*)errorCode;
 - (MLVRawImage*) readVideoDataBlock:(MLVVideoBlock*)block errorCode:(MLVErrorCode*)errorCode;

@@ -24,6 +24,8 @@
 #import "MLVPixelMap.h"
 #import "lj92.h"
 
+#import <AppKit/NSImage.h>
+
 @implementation MLVRawImage {
     struct raw_info _rawInfo;
     void*           _rawBuffer;
@@ -89,6 +91,48 @@
         }
     }
 }
+
+#pragma mark -
+
+- (NSData*) highlightMap
+{
+    if (self.compressed) {
+        return nil;
+    }
+
+    size_t halfW = _rawInfo.width/2;
+    size_t halfH = _rawInfo.height/2;
+
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericGrayGamma2_2);
+    size_t bytesPerPixel = 1;
+
+    CGContextRef bitmapContext = CGBitmapContextCreate(nil, halfW, halfH, 8, halfW*bytesPerPixel, colorSpace, kCGImageAlphaNone);
+    CGColorSpaceRelease(colorSpace);
+    __block uint8_t* pixelPtr = CGBitmapContextGetData(bitmapContext);
+
+    [self _enumeratePixels:^(int32_t rx, int32_t ry, int32_t g1x, int32_t g1y, int32_t g2x, int32_t g2y, int32_t bx, int32_t by) {
+
+        int32_t r = GetRawPixel(&_rawInfo, _rawBuffer, rx, ry);
+        int32_t g1 = GetRawPixel(&_rawInfo, _rawBuffer, g1x, g1y);
+        int32_t g2 = GetRawPixel(&_rawInfo, _rawBuffer, g2x, g2y);
+        int32_t b = GetRawPixel(&_rawInfo, _rawBuffer, bx, by);
+
+        int32_t l =  MAX(MAX(MAX(r, g1), g2), b); //(r+g1+g2+b) >> 2;
+        l = RawTo8BitSRGB(l, 0, &_rawInfo);
+        l = COERCE((MAX(0, l-204)*5), 0, 255);
+
+        *pixelPtr = l;
+        pixelPtr++;
+    }];
+
+    CGImageRef imageRef = CGBitmapContextCreateImage(bitmapContext);
+    CGContextRelease(bitmapContext);
+
+    NSBitmapImageRep* bitmapRep = [[NSBitmapImageRep alloc] initWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    return [bitmapRep TIFFRepresentation];
+}
+
 
 #pragma mark - Repair Pixels
 

@@ -154,4 +154,62 @@
     reply(fileId, attributes, nil);
 }
 
+- (void) readVideoFrameAtIndex:(NSInteger)frameIndex fileId:(NSString*)fileId options:(MLVProcessorOptions)options withReply:(void (^)(NSData* dngData, NSData* highlightMap, NSDictionary<NSString*, id>* avSettings, NSError* error))reply
+{
+    MLVFile* file = _openFiles[fileId];
+    if (!file) {
+        NSError* error = NS_ERROR(-1, @"file is not open: %@", fileId);
+        reply(nil, nil, nil, error);
+        return;
+    }
+
+    NSArray<MLVVideoBlock*>* videoBlocks = file.videoBlocks;
+    if (frameIndex < 0 || frameIndex >= videoBlocks.count) {
+        NSError* error = NS_ERROR(-1, @"video frame index is invalid: %ld/%ld", frameIndex, videoBlocks.count);
+        reply(nil, nil, nil, error);
+        return;
+    }
+
+    MLVVideoBlock* videoBlock = videoBlocks[frameIndex];
+    MLVErrorCode errorCode = kMLVErrorCodeNone;
+    MLVRawImage* rawImage = [file readVideoDataBlock:videoBlock errorCode:&errorCode];
+
+    if (errorCode != kMLVErrorCodeNone) {
+        NSError* error = NS_ERROR(-1, @"error while reading video block: %ld", errorCode);
+        reply(nil, nil, nil, error);
+        return;
+    }
+
+    reply(rawImage.dngData, rawImage.highlightMap, file.imageSettings, nil);
+}
+
+- (void) readAudioFrameAtIndex:(NSInteger)frameIndex fileId:(NSString*)fileId options:(MLVProcessorOptions)options withReply:(void (^)(NSData* audioData, NSDictionary<NSString*, id>* avSettings, NSError* error))reply
+{
+    MLVFile* file = _openFiles[fileId];
+    if (!file) {
+        NSError* error = NS_ERROR(-1, @"file is not open: %@", fileId);
+        reply(nil, nil, error);
+        return;
+    }
+
+    NSArray<MLVAudioBlock*>* audioBlocks = file.audioBlocks;
+    if (frameIndex < 0 || frameIndex >= audioBlocks.count) {
+        NSError* error = NS_ERROR(-1, @"audio frame index is invalid: %ld/%ld", frameIndex, audioBlocks.count);
+        reply(nil, nil, error);
+        return;
+    }
+
+    MLVAudioBlock* audioBlock = audioBlocks[frameIndex];
+    MLVErrorCode errorCode = kMLVErrorCodeNone;
+    NSData* data = [file readAudioDataBlock:audioBlock errorCode:&errorCode];
+
+    if (errorCode != kMLVErrorCodeNone) {
+        NSError* error = NS_ERROR(-1, @"error while reading audio block: %ld", errorCode);
+        reply(nil, nil, error);
+        return;
+    }
+
+    reply(data, file.audioSettings, nil);
+}
+
 @end

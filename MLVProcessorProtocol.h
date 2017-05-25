@@ -42,6 +42,10 @@
 #define kMLVAttributeKeyVideoBlocksCount     @"Video Blocks Count"      // NSNumber
 #define kMLVAttributeKeyAudioBlocksCount     @"Audio Blocks Count"      // NSNumber
 
+typedef NS_ENUM(NSInteger, MLVProcessorOptions) {
+    kMLVProcessorOptionsNone = 0
+};
+
 @protocol MLVProcessorProtocol
 
 - (void) openFileWithURL:(NSURL*)url withReply:(void (^)(NSString *fileId, NSDictionary<NSString*, id>* attributes, NSData* archiveData, NSError* error))reply;
@@ -49,6 +53,8 @@
 
 - (void) openFileWithArchiveData:(NSData*)data withReply:(void (^)(NSString *fileId, NSDictionary<NSString*, id>* attributes, NSError* error))reply;
 
+- (void) readVideoFrameAtIndex:(NSInteger)frameIndex fileId:(NSString*)fileId options:(MLVProcessorOptions)options withReply:(void (^)(NSData* dngData, NSData* highlightMap, NSDictionary<NSString*, id>* avSettings, NSError* error))reply;
+- (void) readAudioFrameAtIndex:(NSInteger)frameIndex fileId:(NSString*)fileId options:(MLVProcessorOptions)options withReply:(void (^)(NSData* audioData, NSDictionary<NSString*, id>* avSettings, NSError* error))reply;
 @end
 
 #endif /* MLVProcessorProtocol_h */

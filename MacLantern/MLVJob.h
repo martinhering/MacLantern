@@ -1,4 +1,4 @@
-+/*
+/*
  * Copyright (C) 2017 Martin Hering
  *
  * This program is free software; you can redistribute it and/or
