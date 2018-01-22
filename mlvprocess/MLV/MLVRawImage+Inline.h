@@ -86,6 +86,11 @@ NS_INLINE int32_t GetRawPixel(const struct raw_info * raw_info, void* raw_buffer
             }
             return p->a;
         }
+        case 16: {
+            uint16_t* buf = (uint16_t*)raw_buffer;
+            uint16_t* buf_ptr = (buf + y * raw_info->width + x);
+            return (int32_t)(*buf_ptr);
+        }
 
         default:
             break;

@@ -514,7 +514,6 @@ NS_INLINE void reverse_bytes_order(int8_t* buf, int32_t count)
         return nil;
     }
 
-
     size_t data_size = headerSize + dng_th_width*dng_th_height*3 + rawInfo->frame_size;
     void* data_ptr = malloc(data_size);
     void* buf_ptr = data_ptr;

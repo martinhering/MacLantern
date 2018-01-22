@@ -11,7 +11,7 @@
 #import "MLVRawImage+DNG.h"
 #import "MLVProcessorProtocol.h"
 
-#define TEST_FILE_PATH @"/Volumes/Media SSD/MLV/Nederland/M22-1047.MLV"
+#define TEST_FILE_PATH @"/Volumes/Media\ 1/MLV/Test/4K/M05-1514-3k-lj92.MLV"
 
 @interface Tests : XCTestCase
 

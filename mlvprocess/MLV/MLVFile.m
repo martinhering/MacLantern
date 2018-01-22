@@ -848,8 +848,7 @@ abort:
             rawImage = decompressedRawImage;
             compressed = NO;
         }
-    }
-    
+    }    
     
     if (!compressed) {
         
@@ -941,9 +940,9 @@ abort:
     cameraMatrices.calibrationIlluminant1 = raw_info.calibration_illuminant1;
     memcpy(cameraMatrices.colorMatrix1, raw_info.color_matrix1, sizeof(int32_t)*18);
     
-    cameraMatrices.calibrationIlluminant1 = 0;
+    cameraMatrices.calibrationIlluminant2 = 0;
     if ([self.idntInfo copyStandardLightAColorMatrix:cameraMatrices.colorMatrix2]) {
-        cameraMatrices.calibrationIlluminant1 = 17;
+        cameraMatrices.calibrationIlluminant2 = 17;
     }
     rawImage.cameraMatrices = cameraMatrices;
     
