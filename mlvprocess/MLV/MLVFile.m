@@ -842,84 +842,13 @@ abort:
     BOOL compressed = ((videoClass & kMLVFileVideoClassFlagLJ92) > 0);
     
     MLVRawImage* rawImage = [[MLVRawImage alloc] initWithInfo:raw_info buffer:raw_buffer compressed:compressed];
-    if (compressed) {
+    if (rawImage.compressed) {
         MLVRawImage* decompressedRawImage = [rawImage rawImageByDecompressingBuffer];
         if (decompressedRawImage) {
             rawImage = decompressedRawImage;
-            compressed = NO;
         }
     }    
-    
-    if (!compressed) {
-        
-        MLVRawImageFocusPixelsType type = kMLVRawImageFocusPixelsTypeNone;
-        
-        NSInteger rawBufWidth = 0;
-        NSInteger rawBufHeight = 0;
-        NSInteger rawBufWidthZoomRecording = 0;
-        
-        switch (_idntInfo.cameraModel) {
-            case kMLVCameraModelEOSM:
-                type = kMLVRawImageFocusPixelsTypeEOSM;
-                
-                rawBufWidth = (block.cropPosX > 0) ? 80 + raw_info.width + (block.cropPosX-80)*2 : raw_info.width;
-                rawBufHeight = (block.cropPosY > 0) ? 10 + raw_info.height + (block.cropPosY-10)*2 : raw_info.height;
-                rawBufWidthZoomRecording = (block.cropPosX > 0) ? 128 + raw_info.width + (block.cropPosX)*2 : raw_info.width;
-                break;
-                
-            case kMLVCameraModel650D:
-                type = kMLVRawImageFocusPixelsType650D;
-                
-                rawBufWidth = (block.cropPosX > 0) ? 64 + raw_info.width + (block.cropPosX-64)*2 : raw_info.width;
-                rawBufHeight = (block.cropPosY > 0) ? 26 + raw_info.height + (block.cropPosY-26)*2 : raw_info.height;
-                break;
-                
-            case kMLVCameraModel700D:
-                type = kMLVRawImageFocusPixelsType700D;
-                
-                rawBufWidth = (block.cropPosX > 0) ? 64 + raw_info.width + (block.cropPosX-64)*2 : raw_info.width;
-                rawBufHeight = (block.cropPosY > 0) ? 26 + raw_info.height + (block.cropPosY-26)*2 : raw_info.height;
-                break;
-                
-            case kMLVCameraModel100D:
-                type = kMLVRawImageFocusPixelsType100D;
-                
-                rawBufWidth = (block.cropPosX > 0) ? 64 + raw_info.width + (block.cropPosX-64)*2 : raw_info.width;
-                rawBufHeight = (block.cropPosY > 0) ? 26 + raw_info.height + (block.cropPosY-26)*2 : raw_info.height;
-                
-            default:
-                break;
-        }
-        
-        
-        if (rawBufWidth == 1808) {
-            if (rawBufHeight > 1000) {
-                type |= kMLVRawImageFocusPixelsType1808x1190;
-            } else {
-                type |= kMLVRawImageFocusPixelsType1808x728;
-            }
-        }
-        else if (rawBufWidth == 1872) {
-            type |= kMLVRawImageFocusPixelsType1872x1060;
-        }
-        else if (rawBufWidth == 2592 || rawBufWidthZoomRecording == 2592) {
-            type |= kMLVRawImageFocusPixelsType2592x1108;
-        }
-        
-        
-        if (type > kMLVRawImageFocusPixelsTypeNone) {
-            [rawImage fixFocusPixelsWithType:type withCropX:block.cropPosX: block.cropPosY];
-        }
-        
-        if (raw_info.bits_per_pixel < 14) {
-            MLVRawImage* newRawImage = [rawImage rawImageByChangingBitsPerPixel:14];
-            if (newRawImage) {
-                rawImage = newRawImage;
-            }
-        }
-    }
-    
-    
+
     
     CMTime fps = _mainheader.sourceFps;
     
@@ -935,7 +864,7 @@ abort:
     rawImage.whiteBalance = _wbalInfo.wbValues;
     rawImage.date = [_rtciInfo dateWithTimeInterval:block.time];
     
-#warning needs to be tested
+    
     MLVCameraMatrices cameraMatrices;
     cameraMatrices.calibrationIlluminant1 = raw_info.calibration_illuminant1;
     memcpy(cameraMatrices.colorMatrix1, raw_info.color_matrix1, sizeof(int32_t)*18);

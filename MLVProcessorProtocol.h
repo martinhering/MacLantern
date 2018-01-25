@@ -43,7 +43,11 @@
 #define kMLVAttributeKeyAudioBlocksCount     @"Audio Blocks Count"      // NSNumber
 
 typedef NS_ENUM(NSInteger, MLVProcessorOptions) {
-    kMLVProcessorOptionsNone = 0
+    kMLVProcessorOptionsNone = 0,
+    kMLVProcessorOptionsFixFocusPixels,
+    kMLVProcessorOptionsFixDeadPixels,
+    kMLVProcessorOptionsFixVerticalBanding,
+    kMLVProcessorOptionsConvertTo14Bit,
 };
 
 @protocol MLVProcessorProtocol

@@ -527,7 +527,22 @@
     }
 
     MLVRawImage* rawImage = [[MLVRawImage alloc] initWithInfo:new_raw_info buffer:new_raw_buffer compressed:NO];
+    [self _copyMetadataToRawImage:rawImage];
     return rawImage;
+}
+
+- (void) _copyMetadataToRawImage:(MLVRawImage*)rawImage {
+    rawImage.camName = self.camName;
+    rawImage.camSerial = self.camSerial;
+    rawImage.lensModel = self.lensModel;
+    rawImage.date = self.date;
+    rawImage.iso = self.iso;
+    rawImage.focalLength = self.focalLength;
+    rawImage.aperture = self.aperture;
+    rawImage.shutter = self.shutter;
+    rawImage.frameRate = self.frameRate;
+    rawImage.whiteBalance = self.whiteBalance;
+    rawImage.cameraMatrices = self.cameraMatrices;
 }
 
 #pragma mark - Decomression
