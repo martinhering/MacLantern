@@ -182,7 +182,7 @@
 
     MLVVideoBlock* videoBlock = videoBlocks[frameIndex];
     MLVErrorCode errorCode = kMLVErrorCodeNone;
-    MLVRawImage* rawImage = [file readVideoDataBlock:videoBlock errorCode:&errorCode];
+    __block MLVRawImage* rawImage = [file readVideoDataBlock:videoBlock errorCode:&errorCode];
 
     if (errorCode != kMLVErrorCodeNone) {
         NSError* error = NS_ERROR(-1, @"error while reading video block: %ld", errorCode);
@@ -190,89 +190,92 @@
         return;
     }
     
-    if (!rawImage.compressed) {
-        if (options & kMLVProcessorOptionsFixFocusPixels) {
-            MLVRawImageFocusPixelsType type = kMLVRawImageFocusPixelsTypeNone;
-            struct raw_info* rawInfo = rawImage.rawInfo;
-            
-            NSInteger rawBufWidth = 0;
-            NSInteger rawBufHeight = 0;
-            NSInteger rawBufWidthZoomRecording = 0;
-            
-            switch (file.idntInfo.cameraModel) {
-                case kMLVCameraModelEOSM:
-                    type = kMLVRawImageFocusPixelsTypeEOSM;
-                    
-                    rawBufWidth = (videoBlock.cropPosX > 0) ? 80 + rawInfo->width + (videoBlock.cropPosX-80)*2 : rawInfo->width;
-                    rawBufHeight = (videoBlock.cropPosY > 0) ? 10 + rawInfo->height + (videoBlock.cropPosY-10)*2 : rawInfo->height;
-                    rawBufWidthZoomRecording = (videoBlock.cropPosX > 0) ? 128 + rawInfo->width + (videoBlock.cropPosX)*2 : rawInfo->width;
-                    break;
-                    
-                case kMLVCameraModel650D:
-                    type = kMLVRawImageFocusPixelsType650D;
-                    
-                    rawBufWidth = (videoBlock.cropPosX > 0) ? 64 + rawInfo->width + (videoBlock.cropPosX-64)*2 : rawInfo->width;
-                    rawBufHeight = (videoBlock.cropPosY > 0) ? 26 + rawInfo->height + (videoBlock.cropPosY-26)*2 : rawInfo->height;
-                    break;
-                    
-                case kMLVCameraModel700D:
-                    type = kMLVRawImageFocusPixelsType700D;
-                    
-                    rawBufWidth = (videoBlock.cropPosX > 0) ? 64 + rawInfo->width + (videoBlock.cropPosX-64)*2 : rawInfo->width;
-                    rawBufHeight = (videoBlock.cropPosY > 0) ? 26 + rawInfo->height + (videoBlock.cropPosY-26)*2 : rawInfo->height;
-                    break;
-                    
-                case kMLVCameraModel100D:
-                    type = kMLVRawImageFocusPixelsType100D;
-                    
-                    rawBufWidth = (videoBlock.cropPosX > 0) ? 64 + rawInfo->width + (videoBlock.cropPosX-64)*2 : rawInfo->width;
-                    rawBufHeight = (videoBlock.cropPosY > 0) ? 26 + rawInfo->height + (videoBlock.cropPosY-26)*2 : rawInfo->height;
-                    
-                default:
-                    break;
-            }
-            
-            if (rawBufWidth == 1808) {
-                if (rawBufHeight > 1000) {
-                    type |= kMLVRawImageFocusPixelsType1808x1190;
-                } else {
-                    type |= kMLVRawImageFocusPixelsType1808x728;
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        if (!rawImage.compressed) {
+            if (options & kMLVProcessorOptionsFixFocusPixels) {
+                MLVRawImageFocusPixelsType type = kMLVRawImageFocusPixelsTypeNone;
+                struct raw_info* rawInfo = rawImage.rawInfo;
+                
+                NSInteger rawBufWidth = 0;
+                NSInteger rawBufHeight = 0;
+                NSInteger rawBufWidthZoomRecording = 0;
+                
+                switch (file.idntInfo.cameraModel) {
+                    case kMLVCameraModelEOSM:
+                        type = kMLVRawImageFocusPixelsTypeEOSM;
+                        
+                        rawBufWidth = (videoBlock.cropPosX > 0) ? 80 + rawInfo->width + (videoBlock.cropPosX-80)*2 : rawInfo->width;
+                        rawBufHeight = (videoBlock.cropPosY > 0) ? 10 + rawInfo->height + (videoBlock.cropPosY-10)*2 : rawInfo->height;
+                        rawBufWidthZoomRecording = (videoBlock.cropPosX > 0) ? 128 + rawInfo->width + (videoBlock.cropPosX)*2 : rawInfo->width;
+                        break;
+                        
+                    case kMLVCameraModel650D:
+                        type = kMLVRawImageFocusPixelsType650D;
+                        
+                        rawBufWidth = (videoBlock.cropPosX > 0) ? 64 + rawInfo->width + (videoBlock.cropPosX-64)*2 : rawInfo->width;
+                        rawBufHeight = (videoBlock.cropPosY > 0) ? 26 + rawInfo->height + (videoBlock.cropPosY-26)*2 : rawInfo->height;
+                        break;
+                        
+                    case kMLVCameraModel700D:
+                        type = kMLVRawImageFocusPixelsType700D;
+                        
+                        rawBufWidth = (videoBlock.cropPosX > 0) ? 64 + rawInfo->width + (videoBlock.cropPosX-64)*2 : rawInfo->width;
+                        rawBufHeight = (videoBlock.cropPosY > 0) ? 26 + rawInfo->height + (videoBlock.cropPosY-26)*2 : rawInfo->height;
+                        break;
+                        
+                    case kMLVCameraModel100D:
+                        type = kMLVRawImageFocusPixelsType100D;
+                        
+                        rawBufWidth = (videoBlock.cropPosX > 0) ? 64 + rawInfo->width + (videoBlock.cropPosX-64)*2 : rawInfo->width;
+                        rawBufHeight = (videoBlock.cropPosY > 0) ? 26 + rawInfo->height + (videoBlock.cropPosY-26)*2 : rawInfo->height;
+                        
+                    default:
+                        break;
+                }
+                
+                if (rawBufWidth == 1808) {
+                    if (rawBufHeight > 1000) {
+                        type |= kMLVRawImageFocusPixelsType1808x1190;
+                    } else {
+                        type |= kMLVRawImageFocusPixelsType1808x728;
+                    }
+                }
+                else if (rawBufWidth == 1872) {
+                    type |= kMLVRawImageFocusPixelsType1872x1060;
+                }
+                else if (rawBufWidth == 2592 || rawBufWidthZoomRecording == 2592) {
+                    type |= kMLVRawImageFocusPixelsType2592x1108;
+                }
+                
+                if (type > kMLVRawImageFocusPixelsTypeNone) {
+                    [rawImage fixFocusPixelsWithType:type withCropX:videoBlock.cropPosX: videoBlock.cropPosY];
                 }
             }
-            else if (rawBufWidth == 1872) {
-                type |= kMLVRawImageFocusPixelsType1872x1060;
-            }
-            else if (rawBufWidth == 2592 || rawBufWidthZoomRecording == 2592) {
-                type |= kMLVRawImageFocusPixelsType2592x1108;
+            
+            if (options & kMLVProcessorOptionsFixDeadPixels) {
+                [rawImage fixDeadPixelsBasedOnPixelMap:nil];
             }
             
-            if (type > kMLVRawImageFocusPixelsTypeNone) {
-                [rawImage fixFocusPixelsWithType:type withCropX:videoBlock.cropPosX: videoBlock.cropPosY];
+            if (options & kMLVProcessorOptionsFixVerticalBanding) {
+                NSData* verticalBandingData = _verticalBandingData[fileId];
+                if (!verticalBandingData) {
+                    verticalBandingData = [rawImage findVerticalBandingCoefficients];
+                    _verticalBandingData[fileId] = verticalBandingData;
+                }
+                [rawImage fixVerticalBandingWithCoefficients:verticalBandingData];
+            }
+            
+            if (options & kMLVProcessorOptionsConvertTo14Bit && file.rawiInfo.bitsPerPixel < 14) {
+                MLVRawImage* newRawImage = [rawImage rawImageByChangingBitsPerPixel:14];
+                if (newRawImage) {
+                    rawImage = newRawImage;
+                }
             }
         }
-        
-        if (options & kMLVProcessorOptionsFixDeadPixels) {
-            [rawImage fixDeadPixelsBasedOnPixelMap:nil];
-        }
-        
-        if (options & kMLVProcessorOptionsFixVerticalBanding) {
-            NSData* verticalBandingData = _verticalBandingData[fileId];
-            if (!verticalBandingData) {
-                verticalBandingData = [rawImage findVerticalBandingCoefficients];
-                _verticalBandingData[fileId] = verticalBandingData;
-            }
-            [rawImage fixVerticalBandingWithCoefficients:verticalBandingData];
-        }
-        
-        if (options & kMLVProcessorOptionsConvertTo14Bit && file.rawiInfo.bitsPerPixel < 14) {
-            MLVRawImage* newRawImage = [rawImage rawImageByChangingBitsPerPixel:14];
-            if (newRawImage) {
-                rawImage = newRawImage;
-            }
-        }
-    }
 
-    reply(rawImage.dngData, rawImage.highlightMap, file.imageSettings, nil);
+        reply(rawImage.dngData, nil, file.imageSettings, nil);
+    });
 }
 
 - (void) readAudioFrameAtIndex:(NSInteger)frameIndex fileId:(NSString*)fileId options:(MLVProcessorOptions)options withReply:(void (^)(NSData* audioData, NSDictionary<NSString*, id>* avSettings, NSError* error))reply
