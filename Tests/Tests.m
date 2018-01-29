@@ -11,7 +11,7 @@
 #import "MLVRawImage+DNG.h"
 #import "MLVProcessorProtocol.h"
 
-#define TEST_FILE_PATH @"/Volumes/Media\ 1/MLV/Test/4K/M05-1514-3k-lj92.MLV"
+#define TEST_FILE_PATH @"/Users/hering/Desktop/M22-1234.MLV"
 
 @interface Tests : XCTestCase
 
@@ -136,16 +136,22 @@ static inline void hxRunInMainLoop(void(^block)(BOOL *done)) {
         [remoteProxy openFileWithURL:url withReply:^(NSString *fileId, NSDictionary<NSString*, id> *fileAttributes, NSData *archiveData, NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
 
-                [remoteProxy readVideoFrameAtIndex:0 fileId:fileId options:0 withReply:^(NSData *dngData, NSData* highlightMapData, NSDictionary<NSString *,id> *avSettings, NSError *error) {
+                for(NSInteger i=0 ; i<100; i++) {
+                    [remoteProxy readVideoFrameAtIndex:i fileId:fileId options:0 withReply:^(NSData *dngData, NSData* highlightMapData, NSDictionary<NSString *,id> *avSettings, NSError *error) {
 
-                    NSLog(@"a");
+                        NSLog(@"a");
 
-                    [xpcConnection invalidate];
-                    *done = YES;
-                }];
+                        if (i==100-1) {
+                            [xpcConnection invalidate];
+                            *done = YES;
+                        }
+                    }];
+                }
             });
         }];
     });
+    
+    NSLog(@"a");
 }
 
 @end

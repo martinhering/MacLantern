@@ -221,11 +221,11 @@
         return NULL;
     }
 
-    DebugLog(@"File %s opened\n", filename);
-
     struct stat st;
     stat(filename, &st);
     _fileSize += st.st_size;
+    
+    DebugLog(@"File %s opened\n", filename);
 
     (*entries)++;
     while(seq_number < 99)
@@ -253,6 +253,10 @@
         files[*entries] = fopen(filename, "rb");
         if(files[*entries])
         {
+            struct stat st;
+            stat(filename, &st);
+            _fileSize += st.st_size;
+            
             DebugLog(@"File %s opened\n", filename);
             (*entries)++;
         }

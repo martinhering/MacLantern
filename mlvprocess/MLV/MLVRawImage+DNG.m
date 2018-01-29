@@ -496,7 +496,7 @@ NS_INLINE void reverse_bytes_order(int8_t* buf, int32_t count)
     return thumbnailBuf;
 }
 
-
+#warning make thumbnail rendering optional
 - (NSData*) dngData
 {
     struct raw_info* rawInfo = self.rawInfo;

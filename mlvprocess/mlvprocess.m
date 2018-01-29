@@ -273,8 +273,13 @@
                 }
             }
         }
+        
+        NSData* highlightsMap = nil;
+        if (options & kMLVProcessorOptionsCreateHighlightsMap) {
+            highlightsMap = rawImage.highlightMap;
+        }
 
-        reply(rawImage.dngData, nil, file.imageSettings, nil);
+        reply(rawImage.dngData, highlightsMap, file.imageSettings, nil);
     });
 }
 
