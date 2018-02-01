@@ -496,8 +496,8 @@ read_headers:
                     free(buf);
                 }
 
-                MLVInfoBlock* block = [[MLVInfoBlock alloc] initWithBlockBuffer:&block_hdr fileNum:in_file_num filePosition:blockPosition stringValue:stringValue];
-                DebugLog(@"info");
+//                MLVInfoBlock* block = [[MLVInfoBlock alloc] initWithBlockBuffer:&block_hdr fileNum:in_file_num filePosition:blockPosition stringValue:stringValue];
+//                DebugLog(@"info");
             }
             else if(hdrBlock.type == kMLVBlockTypeElectronicLevel)
             {
@@ -592,8 +592,9 @@ read_headers:
                     return kMLVErrorCodeFile;
                 }
 
-                MLVMarkerBlock* block = [[MLVMarkerBlock alloc] initWithBlockBuffer:&block_hdr fileNum:in_file_num filePosition:blockPosition];
-                DebugLog(@"marker: %d", block_hdr.type);
+#warning add marker support
+//                MLVMarkerBlock* block = [[MLVMarkerBlock alloc] initWithBlockBuffer:&block_hdr fileNum:in_file_num filePosition:blockPosition];
+//                DebugLog(@"marker: %d", block_hdr.type);
 
                 /* skip remaining data, if there is any */
                 fseeko(in_file, position + block_hdr.blockSize, SEEK_SET);

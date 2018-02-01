@@ -13,9 +13,7 @@
 		1B27FAB91EB3873300ECF32F /* com.andymatuschak.Sparkle.install-service.xpc in Resources */ = {isa = PBXBuildFile; fileRef = 1B27FAB61EB3873300ECF32F /* com.andymatuschak.Sparkle.install-service.xpc */; };
 		1B27FABA1EB3873300ECF32F /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B27FAB71EB3873300ECF32F /* HockeySDK.framework */; };
 		1B27FABB1EB3873300ECF32F /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B27FAB81EB3873300ECF32F /* Sparkle.framework */; };
-		1B27FABC1EB3873D00ECF32F /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B27FAB71EB3873300ECF32F /* HockeySDK.framework */; };
 		1B27FABD1EB3873D00ECF32F /* HockeySDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B27FAB71EB3873300ECF32F /* HockeySDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1B27FABE1EB3873D00ECF32F /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B27FAB81EB3873300ECF32F /* Sparkle.framework */; };
 		1B27FABF1EB3873D00ECF32F /* Sparkle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B27FAB81EB3873300ECF32F /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1B27FAC21EB3876C00ECF32F /* com.andymatuschak.Sparkle.install-service.xpc in Embed XPC */ = {isa = PBXBuildFile; fileRef = 1B27FAB61EB3873300ECF32F /* com.andymatuschak.Sparkle.install-service.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1B27FAC81EB38A6C00ECF32F /* MLVSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B27FAC71EB38A6C00ECF32F /* MLVSplitView.m */; };
@@ -241,8 +239,6 @@
 			files = (
 				1B27FABA1EB3873300ECF32F /* HockeySDK.framework in Frameworks */,
 				1B27FABB1EB3873300ECF32F /* Sparkle.framework in Frameworks */,
-				1B27FABC1EB3873D00ECF32F /* HockeySDK.framework in Frameworks */,
-				1B27FABE1EB3873D00ECF32F /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,7 +523,7 @@
 		1B88F5401EB1CA6D00BE1163 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Martin Hering";
 				TargetAttributes = {
 					1B88F5471EB1CA6D00BE1163 = {
@@ -795,7 +791,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -803,7 +801,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -843,7 +845,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -851,7 +855,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

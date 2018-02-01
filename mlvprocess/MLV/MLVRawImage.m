@@ -312,7 +312,7 @@
     register int32_t black = _rawInfo.black_level;
     register int32_t cutoff_black = 1 << MAX(0, (_rawInfo.bits_per_pixel-9));
     
-    void (^addHistogramValue)() = ^void(int32_t* histogram[8], int32_t num[8], int32_t offset, int32_t p1, int32_t p2, int32_t weight) {
+    void (^addHistogramValue)(int32_t*[8], int32_t[8], int32_t, int32_t, int32_t, int32_t) = ^void(int32_t* histogram[8], int32_t num[8], int32_t offset, int32_t p1, int32_t p2, int32_t weight) {
         if (MIN(p1,p2) < cutoff_black)
             return; /* too noisy */
         
