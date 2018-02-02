@@ -183,13 +183,22 @@
             *stop = YES;
         }
     }];
-    [file.audioBlocks enumerateObjectsUsingBlock:^(MLVAudioBlock *obj, NSUInteger idx, BOOL *stop) {
-        NSTimeInterval blockTime = obj.time;
-        if (blockTime-firstTime >= time) {
-            audioBlockIndex = idx;
-            *stop = YES;
+    if (videoBlockIndex == NSNotFound) {
+        videoBlockIndex = file.videoBlocks.count - 1;
+    }
+    
+    if (file.audioBlocks.count > 0) {
+        [file.audioBlocks enumerateObjectsUsingBlock:^(MLVAudioBlock *obj, NSUInteger idx, BOOL *stop) {
+            NSTimeInterval blockTime = obj.time;
+            if (blockTime-firstTime >= time) {
+                audioBlockIndex = idx;
+                *stop = YES;
+            }
+        }];
+        if (audioBlockIndex == NSNotFound) {
+            audioBlockIndex = file.audioBlocks.count - 1;
         }
-    }];
+    }
 
     reply(videoBlockIndex, audioBlockIndex, nil);
 }

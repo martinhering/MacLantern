@@ -163,9 +163,11 @@ static inline void hxRunInMainLoop(void(^block)(BOOL *done)) {
 - (void)testProgressReadingIndexReporting
 {
     NSURL* url = [NSURL fileURLWithPath:TEST_FILE_PATH];
-    (void)[[MLVFile alloc] initWithURL:url reportProgress:^(float progress) {
+    MLVFile* file = [[MLVFile alloc] initWithURL:url reportProgress:^(float progress) {
         NSLog(@"progress %f", progress);
     }];
+    
+    NSLog(@"%@", file.url);
 }
 
 - (void)testXPCReadingBlockIndexes
