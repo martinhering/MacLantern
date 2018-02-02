@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MLVFile : NSObject <NSSecureCoding>
 
-- (instancetype) initWithURL:(NSURL*)URL;
+- (instancetype) initWithURL:(NSURL*)URL reportProgress:(nullable void (^)(float progress))progressBlock;
 - (void) changeURL:(NSURL*)url;
 
 @property (readonly, getter=isMissing) BOOL missing;  // file is missing

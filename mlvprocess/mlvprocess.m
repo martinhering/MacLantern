@@ -27,6 +27,7 @@
 
 @implementation mlvprocess {
     NSMutableDictionary<NSString*, MLVFile*>* _openFiles;
+    NSMutableDictionary<NSURL*, NSNumber*>* _readProgress;
     NSMutableDictionary<NSString*, NSData*>* _verticalBandingData;
     NSMutableDictionary<NSString*, MLVPixelMap*>* _deadPixelMaps;
 }
@@ -114,6 +115,10 @@
         _openFiles = [[NSMutableDictionary alloc] init];
     }
     
+    if (!_readProgress) {
+        _readProgress = [[NSMutableDictionary alloc] init];
+    }
+    
     if (!_verticalBandingData) {
         _verticalBandingData = [[NSMutableDictionary alloc] init];
     }
@@ -122,28 +127,53 @@
         _deadPixelMaps = [[NSMutableDictionary alloc] init];
     }
 
-    NSString* fileId = [[NSUUID UUID] UUIDString];
-    MLVFile* file = _openFiles[fileId];
-    if (!file) {
-        file = [[MLVFile alloc] initWithURL:url];
-        _openFiles[fileId] = file;
-    }
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSString* fileId = [[NSUUID UUID] UUIDString];
+        MLVFile* file;
+        @synchronized(_openFiles) {
+            file = _openFiles[fileId];
+        }
+        if (!file) {
+            file = [[MLVFile alloc] initWithURL:url reportProgress:^(float progress) {
+                @synchronized(_openFiles) {
+                    _readProgress[url] = @(progress);
+                }
+            }];
+            @synchronized(_openFiles) {
+                _openFiles[fileId] = file;
+            }
+        }
 
-    NSMutableDictionary<NSString*, id>* attributes = [self _attributesWithFile:file];
-    NSData* archiveData = [NSKeyedArchiver archivedDataWithRootObject:file];
-    reply(fileId, attributes, archiveData, nil);
+        NSMutableDictionary<NSString*, id>* attributes = [self _attributesWithFile:file];
+        NSData* archiveData = [NSKeyedArchiver archivedDataWithRootObject:file];
+        reply(fileId, attributes, archiveData, nil);
+    });
+}
+
+- (void) requestReadProgressForFileWithURL:(NSURL*)url withReply:(void (^)(float progress))reply {
+    NSNumber* progress;
+    @synchronized(_openFiles) {
+        progress = _readProgress[url];
+    }
+    
+    reply(progress.doubleValue);
 }
 
 - (void) closeFileWithId:(NSString*)fileId withReply:(void (^)(NSError* error))reply
 {
-    MLVFile* file = _openFiles[fileId];
+    MLVFile* file;
+    @synchronized(_openFiles) {
+        file = _openFiles[fileId];
+    }
     if (!file) {
         NSError* error = NS_ERROR(-1, @"file is not open: %@", fileId);
         reply(error);
         return;
     }
-
-    [_openFiles removeObjectForKey:fileId];
+    
+    @synchronized(_openFiles) {
+        [_openFiles removeObjectForKey:fileId];
+    }
     reply(nil);
 }
 
@@ -153,20 +183,30 @@
         _openFiles = [[NSMutableDictionary alloc] init];
     }
 
-    NSString* fileId = [[NSUUID UUID] UUIDString];
-    MLVFile* file = _openFiles[fileId];
-    if (!file) {
-        file = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-        _openFiles[fileId] = file;
-    }
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSString* fileId = [[NSUUID UUID] UUIDString];
+        MLVFile* file;
+        @synchronized(_openFiles) {
+            file = _openFiles[fileId];
+        }
+        if (!file) {
+            file = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            @synchronized(_openFiles) {
+                _openFiles[fileId] = file;
+            }
+        }
 
-    NSMutableDictionary<NSString*, id>* attributes = [self _attributesWithFile:file];
-    reply(fileId, attributes, nil);
+        NSMutableDictionary<NSString*, id>* attributes = [self _attributesWithFile:file];
+        reply(fileId, attributes, nil);
+    });
 }
 
 - (void) readVideoFrameAtIndex:(NSInteger)frameIndex fileId:(NSString*)fileId options:(MLVProcessorOptions)options withReply:(void (^)(NSData* dngData, NSData* highlightMap, NSDictionary<NSString*, id>* avSettings, NSError* error))reply
 {
-    MLVFile* file = _openFiles[fileId];
+    MLVFile* file;
+    @synchronized(_openFiles) {
+        file = _openFiles[fileId];
+    }
     if (!file) {
         NSError* error = NS_ERROR(-1, @"file is not open: %@", fileId);
         reply(nil, nil, nil, error);
@@ -285,7 +325,10 @@
 
 - (void) readAudioFrameAtIndex:(NSInteger)frameIndex fileId:(NSString*)fileId options:(MLVProcessorOptions)options withReply:(void (^)(NSData* audioData, NSDictionary<NSString*, id>* avSettings, NSError* error))reply
 {
-    MLVFile* file = _openFiles[fileId];
+    MLVFile* file;
+    @synchronized(_openFiles) {
+        file = _openFiles[fileId];
+    }
     if (!file) {
         NSError* error = NS_ERROR(-1, @"file is not open: %@", fileId);
         reply(nil, nil, error);
@@ -299,17 +342,19 @@
         return;
     }
 
-    MLVAudioBlock* audioBlock = audioBlocks[frameIndex];
-    MLVErrorCode errorCode = kMLVErrorCodeNone;
-    NSData* data = [file readAudioDataBlock:audioBlock errorCode:&errorCode];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        MLVAudioBlock* audioBlock = audioBlocks[frameIndex];
+        MLVErrorCode errorCode = kMLVErrorCodeNone;
+        NSData* data = [file readAudioDataBlock:audioBlock errorCode:&errorCode];
 
-    if (errorCode != kMLVErrorCodeNone) {
-        NSError* error = NS_ERROR(-1, @"error while reading audio block: %ld", errorCode);
-        reply(nil, nil, error);
-        return;
-    }
+        if (errorCode != kMLVErrorCodeNone) {
+            NSError* error = NS_ERROR(-1, @"error while reading audio block: %ld", errorCode);
+            reply(nil, nil, error);
+            return;
+        }
 
-    reply(data, file.audioSettings, nil);
+        reply(data, file.audioSettings, nil);
+    });
 }
 
 @end

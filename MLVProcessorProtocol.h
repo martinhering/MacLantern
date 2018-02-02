@@ -54,6 +54,7 @@ typedef NS_ENUM(NSInteger, MLVProcessorOptions) {
 @protocol MLVProcessorProtocol
 
 - (void) openFileWithURL:(NSURL*)url withReply:(void (^)(NSString *fileId, NSDictionary<NSString*, id>* attributes, NSData* archiveData, NSError* error))reply;
+- (void) requestReadProgressForFileWithURL:(NSURL*)url withReply:(void (^)(float progress))reply;
 - (void) closeFileWithId:(NSString*)fileId withReply:(void (^)(NSError* error))reply;
 
 - (void) openFileWithArchiveData:(NSData*)data withReply:(void (^)(NSString *fileId, NSDictionary<NSString*, id>* attributes, NSError* error))reply;

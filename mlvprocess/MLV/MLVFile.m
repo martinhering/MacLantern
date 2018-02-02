@@ -64,7 +64,7 @@
     NSInteger                   _version;
 }
 
-- (instancetype) initWithURL:(NSURL*)URL
+- (instancetype) initWithURL:(NSURL*)URL reportProgress:(nullable void (^)(float progress))progressBlock
 {
     if ((self = [super init])) {
         _version = MLV_FILE_VERSION;
@@ -75,7 +75,11 @@
             return nil;
         }
         
-        [self readBlockInfos];
+        [self readBlockInfosAndReportProgress:^(float progress){
+            if (progressBlock) {
+                progressBlock(progress);
+            }
+        }];
     }
 
     return self;
@@ -273,12 +277,10 @@
 
 - (MLVErrorCode) _open
 {
-
     NSFileManager* fman = [[NSFileManager alloc] init];
 
     /* option */
     const char* input_filename = [fman fileSystemRepresentationWithPath:self.url.path];
-
 
     /* open files */
     @synchronized (self) {
@@ -288,8 +290,7 @@
         in_files = [self _load:input_filename numberOfChunks:&in_file_count];
     }
 
-    if(!in_files || !in_file_count)
-    {
+    if(!in_files || !in_file_count) {
         DebugLog(@"Failed to open file '%s'\n", input_filename);
         return kMLVErrorCodeFile;
     }
@@ -312,7 +313,7 @@
     }
 }
 
-- (MLVErrorCode) readBlockInfos
+- (MLVErrorCode) readBlockInfosAndReportProgress:(void (^)(float progress))progressBlock
 {
     NSMutableArray<MLVVideoBlock*>* videoBlocks = [[NSMutableArray alloc] init];
     NSMutableArray<MLVAudioBlock*>* audioBlocks = [[NSMutableArray alloc] init];
@@ -323,7 +324,8 @@
 
     int in_file_num = 0;
     FILE *in_file = in_files[in_file_num];
-
+    uint64_t readSize = 0;
+    float _lastProgress = 0;
 
     DebugLog(@"Processing...\n");
     uint64_t position_previous = 0;
@@ -357,6 +359,14 @@ read_headers:
 
             goto read_headers;
         }
+        
+        readSize += buf.blockSize;
+        float progress = (float)readSize/(float)_fileSize;
+        if (progress > _lastProgress + 0.01) {
+            progressBlock(progress);
+            _lastProgress = progress;
+        }
+        
 
         /* jump back to the beginning of the block just read */
         fseeko(in_file, position, SEEK_SET);

@@ -59,20 +59,21 @@
     }
 
     self.readingFile = YES;
-    [self.remoteProxy openFileWithURL:self.url withReply:^(NSString *fileId, NSDictionary<NSString*, id> *attributes, NSData* archiveData,NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (error) {
-                ErrLog(@"error opening file: %@", error);
-            }
-            else {
-                DebugLog(@"file open: %@", fileId);
-                self.fileId = fileId;
-            }
+    [self.remoteProxy openFileWithURL:self.url
+                            withReply:^(NSString *fileId, NSDictionary<NSString*, id> *attributes, NSData* archiveData,NSError *error) {
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    if (error) {
+                                        ErrLog(@"error opening file: %@", error);
+                                    }
+                                    else {
+                                        DebugLog(@"file open: %@", fileId);
+                                        self.fileId = fileId;
+                                    }
 
-            self.readingFile = NO;
-            completion((error == nil), error);
-        });
-    }];
+                                    self.readingFile = NO;
+                                    completion((error == nil), error);
+                                });
+                            }];
 
     return YES;
 }

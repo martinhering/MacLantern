@@ -11,7 +11,7 @@
 #import "MLVRawImage+DNG.h"
 #import "MLVProcessorProtocol.h"
 
-#define TEST_FILE_PATH @"/Users/hering/Desktop/M22-1234.MLV"
+#define TEST_FILE_PATH @"/Volumes/Media 1/MLV/Nederland/M22-1236.MLV"
 
 @interface Tests : XCTestCase
 
@@ -50,7 +50,7 @@ static inline void hxRunInMainLoop(void(^block)(BOOL *done)) {
 - (void)testConvertingDNG {
 
     NSURL* url = [NSURL fileURLWithPath:TEST_FILE_PATH];
-    MLVFile* file = [[MLVFile alloc] initWithURL:url];
+    MLVFile* file = [[MLVFile alloc] initWithURL:url reportProgress:NULL];
 
     MLVErrorCode errCode;
     MLVRawImage* rawImage = [file readVideoDataBlock:file.videoBlocks[0] errorCode:&errCode];
@@ -58,7 +58,7 @@ static inline void hxRunInMainLoop(void(^block)(BOOL *done)) {
     NSData* dngData = rawImage.dngData;
     [dngData writeToFile:@"/Users/hering/Desktop/test.dng" atomically:YES];
 }
-
+/*
 - (void)testXPCProcessAttributes
 {
     NSURL* url = [NSURL fileURLWithPath:TEST_FILE_PATH];
@@ -121,11 +121,12 @@ static inline void hxRunInMainLoop(void(^block)(BOOL *done)) {
         }];
     });
 }
-
+*/
 - (void)testXPCReadingDataBlock
 {
     NSURL* url = [NSURL fileURLWithPath:TEST_FILE_PATH];
-
+    __block NSTimer* timer;
+    
     hxRunInMainLoop(^(BOOL *done) {
 
         NSXPCConnection* xpcConnection = [[NSXPCConnection alloc] initWithServiceName:@"org.martinhering.mlvprocess"];
@@ -133,25 +134,38 @@ static inline void hxRunInMainLoop(void(^block)(BOOL *done)) {
         [xpcConnection resume];
 
         id remoteProxy = [xpcConnection remoteObjectProxy];
-        [remoteProxy openFileWithURL:url withReply:^(NSString *fileId, NSDictionary<NSString*, id> *fileAttributes, NSData *archiveData, NSError *error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
+        [remoteProxy openFileWithURL:url
+                           withReply:^(NSString *fileId, NSDictionary<NSString*, id> *fileAttributes, NSData *archiveData, NSError *error) {
+                               dispatch_async(dispatch_get_main_queue(), ^{
 
-                for(NSInteger i=0 ; i<100; i++) {
-                    [remoteProxy readVideoFrameAtIndex:i fileId:fileId options:0 withReply:^(NSData *dngData, NSData* highlightMapData, NSDictionary<NSString *,id> *avSettings, NSError *error) {
+                                    for(NSInteger i=0 ; i<100; i++) {
+                                        [remoteProxy readVideoFrameAtIndex:i fileId:fileId options:0 withReply:^(NSData *dngData, NSData* highlightMapData, NSDictionary<NSString *,id> *avSettings, NSError *error) {
 
-                        NSLog(@"a");
+                                            NSLog(@"a");
 
-                        if (i==100-1) {
-                            [xpcConnection invalidate];
-                            *done = YES;
-                        }
-                    }];
-                }
-            });
+                                            if (i==100-1) {
+                                                [xpcConnection invalidate];
+                                                *done = YES;
+                                            }
+                                        }];
+                                    }
+                                });
+                            }];
+        
+        timer = [NSTimer scheduledTimerWithTimeInterval:0.5 repeats:YES block:^(NSTimer *timer) {
+            [remoteProxy requestReadProgressForFileWithURL:url withReply:^(float progress) {
+                NSLog(@"progress: %f", progress);
+            }];
         }];
     });
-    
-    NSLog(@"a");
+}
+
+- (void)testProgressReadingIndexReporting
+{
+    NSURL* url = [NSURL fileURLWithPath:@"/Volumes/Media 1/MLV/Nederland/M22-1236.MLV"];
+    MLVFile* file = [[MLVFile alloc] initWithURL:url reportProgress:^(float progress) {
+        NSLog(@"progress %f", progress);
+    }];
 }
 
 @end
