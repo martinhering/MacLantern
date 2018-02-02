@@ -159,6 +159,41 @@
     reply(progress.doubleValue);
 }
 
+- (void) requestBlockIndexesAtTime:(NSTimeInterval)time forFileWithId:(NSString*)fileId withReply:(void (^)(NSUInteger videoBlockIndex, NSUInteger audioBlockIndex, NSError* error))reply
+{
+    MLVFile* file;
+    @synchronized(_openFiles) {
+        file = _openFiles[fileId];
+    }
+    
+    if (!file) {
+        NSError* error = NS_ERROR(-1, @"file is not open: %@", fileId);
+        reply(NSNotFound, NSNotFound, error);
+        return;
+    }
+    
+    __block NSUInteger videoBlockIndex = NSNotFound;
+    __block NSUInteger audioBlockIndex = NSNotFound;
+    
+    NSTimeInterval firstTime = file.firstTime;
+    [file.videoBlocks enumerateObjectsUsingBlock:^(MLVVideoBlock *obj, NSUInteger idx, BOOL *stop) {
+        NSTimeInterval blockTime = obj.time;
+        if (blockTime-firstTime >= time) {
+            videoBlockIndex = idx;
+            *stop = YES;
+        }
+    }];
+    [file.audioBlocks enumerateObjectsUsingBlock:^(MLVAudioBlock *obj, NSUInteger idx, BOOL *stop) {
+        NSTimeInterval blockTime = obj.time;
+        if (blockTime-firstTime >= time) {
+            audioBlockIndex = idx;
+            *stop = YES;
+        }
+    }];
+
+    reply(videoBlockIndex, audioBlockIndex, nil);
+}
+
 - (void) closeFileWithId:(NSString*)fileId withReply:(void (^)(NSError* error))reply
 {
     MLVFile* file;

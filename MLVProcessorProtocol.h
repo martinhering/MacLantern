@@ -55,12 +55,15 @@ typedef NS_ENUM(NSInteger, MLVProcessorOptions) {
 
 - (void) openFileWithURL:(NSURL*)url withReply:(void (^)(NSString *fileId, NSDictionary<NSString*, id>* attributes, NSData* archiveData, NSError* error))reply;
 - (void) requestReadProgressForFileWithURL:(NSURL*)url withReply:(void (^)(float progress))reply;
-- (void) closeFileWithId:(NSString*)fileId withReply:(void (^)(NSError* error))reply;
 
 - (void) openFileWithArchiveData:(NSData*)data withReply:(void (^)(NSString *fileId, NSDictionary<NSString*, id>* attributes, NSError* error))reply;
 
+- (void) requestBlockIndexesAtTime:(NSTimeInterval)time forFileWithId:(NSString*)fileId withReply:(void (^)(NSUInteger videoBlockIndex, NSUInteger audioBlockIndex, NSError* error))reply;
+
 - (void) readVideoFrameAtIndex:(NSInteger)frameIndex fileId:(NSString*)fileId options:(MLVProcessorOptions)options withReply:(void (^)(NSData* dngData, NSData* highlightMap, NSDictionary<NSString*, id>* avSettings, NSError* error))reply;
 - (void) readAudioFrameAtIndex:(NSInteger)frameIndex fileId:(NSString*)fileId options:(MLVProcessorOptions)options withReply:(void (^)(NSData* audioData, NSDictionary<NSString*, id>* avSettings, NSError* error))reply;
+
+- (void) closeFileWithId:(NSString*)fileId withReply:(void (^)(NSError* error))reply;
 @end
 
 #endif /* MLVProcessorProtocol_h */

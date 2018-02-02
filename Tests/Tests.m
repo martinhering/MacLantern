@@ -11,7 +11,7 @@
 #import "MLVRawImage+DNG.h"
 #import "MLVProcessorProtocol.h"
 
-#define TEST_FILE_PATH @"/Volumes/Media 1/MLV/Nederland/M22-1236.MLV"
+#define TEST_FILE_PATH @"/Volumes/Media 1/MLV/Gran Canaria 20170105/M05-1425.MLV"
 
 @interface Tests : XCTestCase
 
@@ -162,10 +162,44 @@ static inline void hxRunInMainLoop(void(^block)(BOOL *done)) {
 
 - (void)testProgressReadingIndexReporting
 {
-    NSURL* url = [NSURL fileURLWithPath:@"/Volumes/Media 1/MLV/Nederland/M22-1236.MLV"];
-    MLVFile* file = [[MLVFile alloc] initWithURL:url reportProgress:^(float progress) {
+    NSURL* url = [NSURL fileURLWithPath:TEST_FILE_PATH];
+    (void)[[MLVFile alloc] initWithURL:url reportProgress:^(float progress) {
         NSLog(@"progress %f", progress);
     }];
+}
+
+- (void)testXPCReadingBlockIndexes
+{
+    NSURL* url = [NSURL fileURLWithPath:TEST_FILE_PATH];
+    
+    hxRunInMainLoop(^(BOOL *done) {
+        
+        NSXPCConnection* xpcConnection = [[NSXPCConnection alloc] initWithServiceName:@"org.martinhering.mlvprocess"];
+        xpcConnection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:@protocol(MLVProcessorProtocol)];
+        [xpcConnection resume];
+        
+        id remoteProxy = [xpcConnection remoteObjectProxy];
+        [remoteProxy openFileWithURL:url
+                           withReply:^(NSString *fileId, NSDictionary<NSString*, id> *fileAttributes, NSData *archiveData, NSError *error) {
+                               dispatch_async(dispatch_get_main_queue(), ^{
+
+                                   [remoteProxy requestBlockIndexesAtTime:2.0 forFileWithId:fileId withReply:^(NSUInteger videoBlockIndex, NSUInteger audioBlockIndex, NSError *error) {
+                                       
+                                       NSLog(@"a");
+                                       
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                       
+                                           [remoteProxy closeFileWithId:fileId withReply:^(NSError *error) {
+                                               dispatch_async(dispatch_get_main_queue(), ^{
+                                                   [xpcConnection invalidate];
+                                                   *done = YES;
+                                               });
+                                           }];
+                                       });
+                                   }];
+                               });
+                           }];
+    });
 }
 
 @end
