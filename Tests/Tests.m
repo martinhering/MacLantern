@@ -11,7 +11,7 @@
 #import "MLVRawImage+DNG.h"
 #import "MLVProcessorProtocol.h"
 
-#define TEST_FILE_PATH @"/Volumes/Media 1/MLV/Gran Canaria 20170105/M05-1425.MLV"
+#define TEST_FILE_PATH @"/Volumes/Media 1/MLV/Test/700D/700D_crop_rec.MLV"
 
 @interface Tests : XCTestCase
 

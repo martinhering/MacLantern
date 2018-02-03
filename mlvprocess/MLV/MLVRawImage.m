@@ -43,6 +43,10 @@
         _rawInfo = rawInfo;
         _rawBuffer = rawBuffer;
         _compressed = compressed;
+        
+        _rawInfo.exposure_bias[0] = 0xa;
+        _rawInfo.exposure_bias[1] = 0xa;
+        memset(_verticalBandingCoeffs, 0, sizeof(double)*8);
     }
     return self;
 }

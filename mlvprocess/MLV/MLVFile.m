@@ -879,7 +879,7 @@ abort:
     rawImage.whiteBalance = _wbalInfo.wbValues;
     rawImage.date = [_rtciInfo dateWithTimeInterval:block.time];
     
-    
+
     MLVCameraMatrices cameraMatrices;
     cameraMatrices.calibrationIlluminant1 = raw_info.calibration_illuminant1;
     memcpy(cameraMatrices.colorMatrix1, raw_info.color_matrix1, sizeof(int32_t)*18);
