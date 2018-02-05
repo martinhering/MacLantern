@@ -395,6 +395,10 @@
         }
     }
     
+    for(int32_t i=0; i<8; i++) {
+        free(histogram[i]);
+    }
+    
     if (_verticalBandingCorrectionNeeded == 1) {
         return [NSData dataWithBytes:_verticalBandingCoeffs length:(sizeof(double)*8)];
     }
