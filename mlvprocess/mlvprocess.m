@@ -30,6 +30,15 @@
     NSMutableDictionary<NSURL*, NSNumber*>* _readProgress;
     NSMutableDictionary<NSString*, NSData*>* _verticalBandingData;
     NSMutableDictionary<NSString*, MLVPixelMap*>* _deadPixelMaps;
+    
+    dispatch_queue_t _readQueue;
+}
+
+- (instancetype) init {
+    if ((self = [super init])) {
+        _readQueue = dispatch_queue_create("org.mlvprocess.fileRead", DISPATCH_QUEUE_SERIAL);
+    }
+    return self;
 }
 
 - (NSMutableDictionary<NSString*, id>*) _attributesWithFile:(MLVFile*)file
@@ -126,8 +135,8 @@
     if (!_deadPixelMaps) {
         _deadPixelMaps = [[NSMutableDictionary alloc] init];
     }
-
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+    
+    dispatch_async(_readQueue, ^{
         NSString* fileId = [[NSUUID UUID] UUIDString];
         MLVFile* file;
         @synchronized(_openFiles) {
@@ -146,7 +155,9 @@
 
         NSMutableDictionary<NSString*, id>* attributes = [self _attributesWithFile:file];
         NSData* archiveData = [NSKeyedArchiver archivedDataWithRootObject:file];
-        reply(fileId, attributes, archiveData, nil);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            reply(fileId, attributes, archiveData, nil);
+        });
     });
 }
 
@@ -227,7 +238,7 @@
         _openFiles = [[NSMutableDictionary alloc] init];
     }
 
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+    dispatch_async(_readQueue, ^{
         NSString* fileId = [[NSUUID UUID] UUIDString];
         MLVFile* file;
         @synchronized(_openFiles) {
@@ -241,7 +252,9 @@
         }
 
         NSMutableDictionary<NSString*, id>* attributes = [self _attributesWithFile:file];
-        reply(fileId, attributes, nil);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            reply(fileId, attributes, nil);
+        });
     });
 }
 
@@ -264,106 +277,112 @@
         return;
     }
 
-    MLVVideoBlock* videoBlock = videoBlocks[frameIndex];
-    MLVErrorCode errorCode = kMLVErrorCodeNone;
-    __block MLVRawImage* rawImage = [file readVideoDataBlock:videoBlock errorCode:&errorCode];
-
-    if (errorCode != kMLVErrorCodeNone) {
-        NSError* error = NS_ERROR(-1, @"error while reading video block: %ld", errorCode);
-        reply(nil, nil, nil, error);
-        return;
-    }
-    
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+    dispatch_async(_readQueue, ^{
         @autoreleasepool {
-            if (!rawImage.compressed) {
-                if (options & kMLVProcessorOptionsFixFocusPixels) {
-                    MLVRawImageFocusPixelsType type = kMLVRawImageFocusPixelsTypeNone;
-                    struct raw_info* rawInfo = rawImage.rawInfo;
-                    
-                    NSInteger rawBufWidth = 0;
-                    NSInteger rawBufHeight = 0;
-                    NSInteger rawBufWidthZoomRecording = 0;
-                    
-                    switch (file.idntInfo.cameraModel) {
-                        case kMLVCameraModelEOSM:
-                            type = kMLVRawImageFocusPixelsTypeEOSM;
-                            
-                            rawBufWidth = (videoBlock.cropPosX > 0) ? 80 + rawInfo->width + (videoBlock.cropPosX-80)*2 : rawInfo->width;
-                            rawBufHeight = (videoBlock.cropPosY > 0) ? 10 + rawInfo->height + (videoBlock.cropPosY-10)*2 : rawInfo->height;
-                            rawBufWidthZoomRecording = (videoBlock.cropPosX > 0) ? 128 + rawInfo->width + (videoBlock.cropPosX)*2 : rawInfo->width;
-                            break;
-                            
-                        case kMLVCameraModel650D:
-                            type = kMLVRawImageFocusPixelsType650D;
-                            
-                            rawBufWidth = (videoBlock.cropPosX > 0) ? 64 + rawInfo->width + (videoBlock.cropPosX-64)*2 : rawInfo->width;
-                            rawBufHeight = (videoBlock.cropPosY > 0) ? 26 + rawInfo->height + (videoBlock.cropPosY-26)*2 : rawInfo->height;
-                            break;
-                            
-                        case kMLVCameraModel700D:
-                            type = kMLVRawImageFocusPixelsType700D;
-                            
-                            rawBufWidth = (videoBlock.cropPosX > 0) ? 64 + rawInfo->width + (videoBlock.cropPosX-64)*2 : rawInfo->width;
-                            rawBufHeight = (videoBlock.cropPosY > 0) ? 26 + rawInfo->height + (videoBlock.cropPosY-26)*2 : rawInfo->height;
-                            break;
-                            
-                        case kMLVCameraModel100D:
-                            type = kMLVRawImageFocusPixelsType100D;
-                            
-                            rawBufWidth = (videoBlock.cropPosX > 0) ? 64 + rawInfo->width + (videoBlock.cropPosX-64)*2 : rawInfo->width;
-                            rawBufHeight = (videoBlock.cropPosY > 0) ? 26 + rawInfo->height + (videoBlock.cropPosY-26)*2 : rawInfo->height;
-                            
-                        default:
-                            break;
-                    }
-                    
-                    if (rawBufWidth == 1808) {
-                        if (rawBufHeight > 1000) {
-                            type |= kMLVRawImageFocusPixelsType1808x1190;
-                        } else {
-                            type |= kMLVRawImageFocusPixelsType1808x728;
+            MLVVideoBlock* videoBlock = videoBlocks[frameIndex];
+            MLVErrorCode errorCode = kMLVErrorCodeNone;
+            __block MLVRawImage* rawImage = [file readVideoDataBlock:videoBlock errorCode:&errorCode];
+
+            if (errorCode != kMLVErrorCodeNone) {
+                NSError* error = NS_ERROR(-1, @"error while reading video block: %ld", errorCode);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    reply(nil, nil, nil, error);
+                });
+                return;
+            }
+    
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                if (!rawImage.compressed) {
+                    if (options & kMLVProcessorOptionsFixFocusPixels) {
+                        MLVRawImageFocusPixelsType type = kMLVRawImageFocusPixelsTypeNone;
+                        struct raw_info* rawInfo = rawImage.rawInfo;
+                        
+                        NSInteger rawBufWidth = 0;
+                        NSInteger rawBufHeight = 0;
+                        NSInteger rawBufWidthZoomRecording = 0;
+                        
+                        switch (file.idntInfo.cameraModel) {
+                            case kMLVCameraModelEOSM:
+                                type = kMLVRawImageFocusPixelsTypeEOSM;
+                                
+                                rawBufWidth = (videoBlock.cropPosX > 0) ? 80 + rawInfo->width + (videoBlock.cropPosX-80)*2 : rawInfo->width;
+                                rawBufHeight = (videoBlock.cropPosY > 0) ? 10 + rawInfo->height + (videoBlock.cropPosY-10)*2 : rawInfo->height;
+                                rawBufWidthZoomRecording = (videoBlock.cropPosX > 0) ? 128 + rawInfo->width + (videoBlock.cropPosX)*2 : rawInfo->width;
+                                break;
+                                
+                            case kMLVCameraModel650D:
+                                type = kMLVRawImageFocusPixelsType650D;
+                                
+                                rawBufWidth = (videoBlock.cropPosX > 0) ? 64 + rawInfo->width + (videoBlock.cropPosX-64)*2 : rawInfo->width;
+                                rawBufHeight = (videoBlock.cropPosY > 0) ? 26 + rawInfo->height + (videoBlock.cropPosY-26)*2 : rawInfo->height;
+                                break;
+                                
+                            case kMLVCameraModel700D:
+                                type = kMLVRawImageFocusPixelsType700D;
+                                
+                                rawBufWidth = (videoBlock.cropPosX > 0) ? 64 + rawInfo->width + (videoBlock.cropPosX-64)*2 : rawInfo->width;
+                                rawBufHeight = (videoBlock.cropPosY > 0) ? 26 + rawInfo->height + (videoBlock.cropPosY-26)*2 : rawInfo->height;
+                                break;
+                                
+                            case kMLVCameraModel100D:
+                                type = kMLVRawImageFocusPixelsType100D;
+                                
+                                rawBufWidth = (videoBlock.cropPosX > 0) ? 64 + rawInfo->width + (videoBlock.cropPosX-64)*2 : rawInfo->width;
+                                rawBufHeight = (videoBlock.cropPosY > 0) ? 26 + rawInfo->height + (videoBlock.cropPosY-26)*2 : rawInfo->height;
+                                
+                            default:
+                                break;
+                        }
+                        
+                        if (rawBufWidth == 1808) {
+                            if (rawBufHeight > 1000) {
+                                type |= kMLVRawImageFocusPixelsType1808x1190;
+                            } else {
+                                type |= kMLVRawImageFocusPixelsType1808x728;
+                            }
+                        }
+                        else if (rawBufWidth == 1872) {
+                            type |= kMLVRawImageFocusPixelsType1872x1060;
+                        }
+                        else if (rawBufWidth == 2592 || rawBufWidthZoomRecording == 2592) {
+                            type |= kMLVRawImageFocusPixelsType2592x1108;
+                        }
+                        
+                        if (type > kMLVRawImageFocusPixelsTypeNone) {
+                            [rawImage fixFocusPixelsWithType:type withCropX:videoBlock.cropPosX: videoBlock.cropPosY];
                         }
                     }
-                    else if (rawBufWidth == 1872) {
-                        type |= kMLVRawImageFocusPixelsType1872x1060;
-                    }
-                    else if (rawBufWidth == 2592 || rawBufWidthZoomRecording == 2592) {
-                        type |= kMLVRawImageFocusPixelsType2592x1108;
+                    
+                    if (options & kMLVProcessorOptionsFixDeadPixels) {
+                        [rawImage fixDeadPixelsBasedOnPixelMap:nil];
                     }
                     
-                    if (type > kMLVRawImageFocusPixelsTypeNone) {
-                        [rawImage fixFocusPixelsWithType:type withCropX:videoBlock.cropPosX: videoBlock.cropPosY];
+                    if (options & kMLVProcessorOptionsFixVerticalBanding) {
+                        NSData* verticalBandingData = _verticalBandingData[fileId];
+                        if (!verticalBandingData) {
+                            verticalBandingData = [rawImage findVerticalBandingCoefficients];
+                            _verticalBandingData[fileId] = verticalBandingData;
+                        }
+                        [rawImage fixVerticalBandingWithCoefficients:verticalBandingData];
+                    }
+                    
+                    if (options & kMLVProcessorOptionsConvertTo14Bit && file.rawiInfo.bitsPerPixel < 14) {
+                        MLVRawImage* newRawImage = [rawImage rawImageByChangingBitsPerPixel:14];
+                        if (newRawImage) {
+                            rawImage = newRawImage;
+                        }
                     }
                 }
                 
-                if (options & kMLVProcessorOptionsFixDeadPixels) {
-                    [rawImage fixDeadPixelsBasedOnPixelMap:nil];
+                NSData* highlightsMap = nil;
+                if (options & kMLVProcessorOptionsCreateHighlightsMap) {
+                    highlightsMap = rawImage.highlightMap;
                 }
                 
-                if (options & kMLVProcessorOptionsFixVerticalBanding) {
-                    NSData* verticalBandingData = _verticalBandingData[fileId];
-                    if (!verticalBandingData) {
-                        verticalBandingData = [rawImage findVerticalBandingCoefficients];
-                        _verticalBandingData[fileId] = verticalBandingData;
-                    }
-                    [rawImage fixVerticalBandingWithCoefficients:verticalBandingData];
-                }
-                
-                if (options & kMLVProcessorOptionsConvertTo14Bit && file.rawiInfo.bitsPerPixel < 14) {
-                    MLVRawImage* newRawImage = [rawImage rawImageByChangingBitsPerPixel:14];
-                    if (newRawImage) {
-                        rawImage = newRawImage;
-                    }
-                }
-            }
-            
-            NSData* highlightsMap = nil;
-            if (options & kMLVProcessorOptionsCreateHighlightsMap) {
-                highlightsMap = rawImage.highlightMap;
-            }
-
-            reply(rawImage.dngData, highlightsMap, file.imageSettings, nil);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    reply(rawImage.dngData, highlightsMap, file.imageSettings, nil);
+                });
+            });
         }
     });
 }
@@ -379,7 +398,7 @@
         reply(nil, nil, error);
         return;
     }
-
+    
     NSArray<MLVAudioBlock*>* audioBlocks = file.audioBlocks;
     if (frameIndex < 0 || frameIndex >= audioBlocks.count) {
         NSError* error = NS_ERROR(-1, @"audio frame index is invalid: %ld/%ld", frameIndex, audioBlocks.count);
@@ -387,18 +406,25 @@
         return;
     }
 
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        MLVAudioBlock* audioBlock = audioBlocks[frameIndex];
-        MLVErrorCode errorCode = kMLVErrorCodeNone;
-        NSData* data = [file readAudioDataBlock:audioBlock errorCode:&errorCode];
+    dispatch_async(_readQueue, ^{
+        @autoreleasepool {
 
-        if (errorCode != kMLVErrorCodeNone) {
-            NSError* error = NS_ERROR(-1, @"error while reading audio block: %ld", errorCode);
-            reply(nil, nil, error);
-            return;
+            MLVAudioBlock* audioBlock = audioBlocks[frameIndex];
+            MLVErrorCode errorCode = kMLVErrorCodeNone;
+            NSData* data = [file readAudioDataBlock:audioBlock errorCode:&errorCode];
+
+            if (errorCode != kMLVErrorCodeNone) {
+                NSError* error = NS_ERROR(-1, @"error while reading audio block: %ld", errorCode);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    reply(nil, nil, error);
+                });
+                return;
+            }
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                reply(data, file.audioSettings, nil);
+            });
         }
-
-        reply(data, file.audioSettings, nil);
     });
 }
 
