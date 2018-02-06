@@ -49,6 +49,7 @@ typedef NS_ENUM(NSInteger, MLVProcessorOptions) {
     kMLVProcessorOptionsFixVerticalBanding  = 1 << 2,
     kMLVProcessorOptionsConvertTo14Bit      = 1 << 3,
     kMLVProcessorOptionsCreateHighlightsMap = 1 << 4,
+    kMLVProcessorOptionsOmitDngThumbnail    = 1 << 5
 };
 
 @protocol MLVProcessorProtocol

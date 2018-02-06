@@ -461,14 +461,14 @@ NS_INLINE void reverse_bytes_order(int8_t* buf, int32_t count)
     }
 }
 
-- (void*) _createThumbnail
+- (void*) _createThumbnailImage:(BOOL)createThumbnail
 {
     void* thumbnailBuf = malloc(dng_th_width*dng_th_height*3);
     if (!thumbnailBuf) {
         return NULL;
     }
 
-    if (!self.compressed) {
+    if (!self.compressed && createThumbnail) {
         register int32_t i, j, x, y, yadj, xadj;
         register char *buf = thumbnailBuf;
 
@@ -496,8 +496,11 @@ NS_INLINE void reverse_bytes_order(int8_t* buf, int32_t count)
     return thumbnailBuf;
 }
 
-#warning make thumbnail rendering optional
-- (NSData*) dngData
+- (NSData*) dngData {
+    return [self dngDataIncludingThumbnail:YES];
+}
+
+- (NSData*) dngDataIncludingThumbnail:(BOOL)includingThumbnail
 {
     struct raw_info* rawInfo = self.rawInfo;
     void* rawBuffer = self.rawBuffer;
@@ -508,7 +511,7 @@ NS_INLINE void reverse_bytes_order(int8_t* buf, int32_t count)
         return nil;
     }
 
-    void* thumbnailBuf = [self _createThumbnail];
+    void* thumbnailBuf = [self _createThumbnailImage:YES];
     if (!thumbnailBuf) {
         free(headerBuf);
         return nil;

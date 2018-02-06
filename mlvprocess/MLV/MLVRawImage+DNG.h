@@ -27,5 +27,5 @@
 @interface MLVRawImage (DNG)
 
 @property (readonly) NSData* dngData;
-
+- (NSData*) dngDataIncludingThumbnail:(BOOL)includingThumbnail;
 @end

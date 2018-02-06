@@ -380,7 +380,8 @@
                 }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    reply(rawImage.dngData, highlightsMap, file.imageSettings, nil);
+                    NSData* data = [rawImage dngDataIncludingThumbnail:!(options & kMLVProcessorOptionsOmitDngThumbnail)];
+                    reply(data, highlightsMap, file.imageSettings, nil);
                 });
             });
         }
